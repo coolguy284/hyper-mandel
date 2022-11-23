@@ -1,4 +1,4 @@
-#define VERSION L"v0.0.2a"
+#define VERSION L"v0.0.3-alpha"
 
 #include <Windows.h>
 
