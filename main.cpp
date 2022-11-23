@@ -1,7 +1,7 @@
 #include <Windows.h>
 
 static WCHAR szWindowClass[] = L"DesktopApp"; // window "class" (will find out later)
-static WCHAR szTitle[] = L"HyperMandel v0.0.0a"; // window title
+static WCHAR szTitle[] = L"HyperMandel v0.0.1a"; // window title
 
 LRESULT CALLBACK WndProc(
 	_In_ HWND hWnd,
@@ -56,7 +56,7 @@ int WINAPI WinMain(
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = hInstance;
 	wcex.hIcon = LoadIcon(wcex.hInstance, IDI_APPLICATION);
-	wcex.hCursor = LoadCursor(NULL, IDC_HAND); // sets cursor to hand when over window; goofy, can undo later
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = szWindowClass;
@@ -81,7 +81,7 @@ int WINAPI WinMain(
 		WS_EX_OVERLAPPEDWINDOW,
 		szWindowClass,
 		szTitle,
-		WS_OVERLAPPEDWINDOW & ~WS_MINIMIZEBOX, // for testing purposes remove the minimize :-)
+		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		500, 500,
 		NULL,
