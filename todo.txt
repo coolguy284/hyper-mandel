@@ -37,3 +37,4 @@ slider to set different performance settings, low being not live rendered, only 
 default precision mode is auto, where it does float for weak zoom, double for stronger zoom, extended for even more zoom if processor supports extended, and then some sort of fixed precision or bigdecimal or maybe gmpy or glfc quads then octs, etc.
   somehow optimize it so it stays mostly performant at higher precisions
 dll version that can be used by other programs to generate mandelbrot, the programs can request many images at once and set optimization parameters and they will be fulfilled eventually
+ability to render to file, with customizable resolution

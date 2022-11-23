@@ -1,7 +1,9 @@
+#define VERSION L"v0.0.2a"
+
 #include <Windows.h>
 
 static WCHAR szWindowClass[] = L"DesktopApp"; // window "class" (will find out later)
-static WCHAR szTitle[] = L"HyperMandel v0.0.1a"; // window title
+static WCHAR szTitle[] = L"HyperMandel " VERSION; // window title
 
 LRESULT CALLBACK WndProc(
 	_In_ HWND hWnd,
@@ -13,7 +15,7 @@ LRESULT CALLBACK WndProc(
 
 	PAINTSTRUCT ps;
 	HDC hdc;
-	WCHAR initialMessage[] = L"HyperMandel test message.";
+	WCHAR initialMessage[] = L"HyperMandel version " VERSION L".";
 
 	switch (message) {
 	case WM_PAINT:
@@ -83,7 +85,7 @@ int WINAPI WinMain(
 		szTitle,
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		500, 500,
+		840, 480,
 		NULL,
 		NULL,
 		hInstance,
