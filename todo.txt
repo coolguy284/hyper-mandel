@@ -1,0 +1,39 @@
+remove main cpp, add gitignore, commit, then re add main cpp
+
+written in c++
+left is mandelbrot, right is gui elements
+right can be collapsed with arrow on left of the right that will collapse it
+f11 to windowed fullscreen
+options to change exponent in mandelbrot (with complex number support and ability to change it live), uses tiny c compiler to recompile the code for any parameter change to be more optimized
+option to choose algorythm, option to test all algorythms and pick the fastest, if chosen it will show FPS after each algorythm
+option 1 naive c++ mandelbrot algo
+option 2 XMM or YMM register (vector operations) c++ algo with masking
+option 3 gpu compute or regular shader algo
+option 4 naive c++ mandelbrot algo with heavy optimization on filling in areas in big sweeps once it has been encircled with black
+further options that have heavy algorythm optimizations with YMM registers and gpu support
+this should obviously be fast enough that it can easily render in realtime with panning, zooming, etc.
+julia set support
+support for many iterated fractals
+support for pasting in a custom equation and having it compiled and run
+potential subpixel rendering and upscaling
+iteration count can be set or set to auto
+color scheme can be chosen, rainbow, blue, red, green, etc., custom color scheme option as well
+all custom settings should be stored in an .ini file with same name as mandelbrot exe
+ability to alter aspect ratio of mandelbrot, listed as custom x and y scaling factor, and custom rotation
+try emscriptening for the web, but with lack of vector operations there will be less performance
+threads should be configurable option independent of choice of algorythm
+should be able to independently toggle on optimizations like the fill in outline region of black with black inside
+option to color inside of mandel with iterations taken to repeat
+scale, rot, skew, (or translate for whatever reason) or even custom transform matrix for mandel
+log mandel minimap in right or not minimap and is standard view mode instead
+f11 fullscreen support
+ability to view julia set of current region of mandel as minimap or just switch views to julia mode
+controller support (and try to get lights to stop flashing on it)
+toggleable normalization
+mousewheel to zoom, ctrl mousewheel to rotate
+below 10fps it wont render whole frame at once, instead if dragged to new translation then will fill in pixels slowly in direction of translation and live update in a way that doesnt slow down gui
+  similar handling of scaling or other transformation alteration
+slider to set different performance settings, low being not live rendered, only rendered once interaction stopped, high being live rendered; possible sub sliders for resolution, render shift quality when shifting rendered output before a not live render
+default precision mode is auto, where it does float for weak zoom, double for stronger zoom, extended for even more zoom if processor supports extended, and then some sort of fixed precision or bigdecimal or maybe gmpy or glfc quads then octs, etc.
+  somehow optimize it so it stays mostly performant at higher precisions
+dll version that can be used by other programs to generate mandelbrot, the programs can request many images at once and set optimization parameters and they will be fulfilled eventually
