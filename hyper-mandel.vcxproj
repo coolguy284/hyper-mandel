@@ -28,12 +28,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
+    <ClInclude Include="src\calculate.h" />
+    <ClInclude Include="src\render.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\hyper-mandel.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\calculate.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\render.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

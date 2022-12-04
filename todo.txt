@@ -1,4 +1,5 @@
-remove main cpp, add gitignore, commit, then re add main cpp
+fix jitter when resizing from left and from top
+check return values of all the functions in bitblt render mode and open error popup if necessary
 
 written in c++
 left is mandelbrot, right is gui elements
@@ -6,11 +7,11 @@ right can be collapsed with arrow on left of the right that will collapse it
 f11 to windowed fullscreen
 options to change exponent in mandelbrot (with complex number support and ability to change it live), uses tiny c compiler to recompile the code for any parameter change to be more optimized
 option to choose algorythm, option to test all algorythms and pick the fastest, if chosen it will show FPS after each algorythm
-option 1 naive c++ mandelbrot algo
-option 2 XMM or YMM register (vector operations) c++ algo with masking
-option 3 gpu compute or regular shader algo
-option 4 naive c++ mandelbrot algo with heavy optimization on filling in areas in big sweeps once it has been encircled with black
-further options that have heavy algorythm optimizations with YMM registers and gpu support
+  option 1 naive c++ mandelbrot algo
+  option 2 XMM or YMM register (vector operations) c++ algo with masking
+  option 3 gpu compute or regular shader algo
+  option 4 naive c++ mandelbrot algo with heavy optimization on filling in areas in big sweeps once it has been encircled with black
+  further options that have heavy algorythm optimizations with YMM registers and gpu support
 this should obviously be fast enough that it can easily render in realtime with panning, zooming, etc.
 julia set support
 support for many iterated fractals
@@ -19,6 +20,7 @@ potential subpixel rendering and upscaling
 iteration count can be set or set to auto
 color scheme can be chosen, rainbow, blue, red, green, etc., custom color scheme option as well
 all custom settings should be stored in an .ini file with same name as mandelbrot exe
+  option to store all preferences in documents instead (with customizable path, name, file extension) and only store path to ini in the main ini file; this is if documents is synced to a cloud storage
 ability to alter aspect ratio of mandelbrot, listed as custom x and y scaling factor, and custom rotation
 try emscriptening for the web, but with lack of vector operations there will be less performance
 threads should be configurable option independent of choice of algorythm
@@ -34,7 +36,42 @@ mousewheel to zoom, ctrl mousewheel to rotate
 below 10fps it wont render whole frame at once, instead if dragged to new translation then will fill in pixels slowly in direction of translation and live update in a way that doesnt slow down gui
   similar handling of scaling or other transformation alteration
 slider to set different performance settings, low being not live rendered, only rendered once interaction stopped, high being live rendered; possible sub sliders for resolution, render shift quality when shifting rendered output before a not live render
+  this slider sets various fine settings behind the scenes
+  one of them is border percent, how much bigger the canvas is than the visible area (for instant scrolling if another setting is also set but even if not then for not instant forgetfulness if scroll quickly to one side and then back)
+  another is border autorendered percent which is percent of border percent that is autorendered in the background (for instant scrolling)
+  another setting for supersampling or subsampling (supersampling good for zooming in seamlessly ish and subsampling good for very high intensity areas of the mandelbrot set where more pixelated images will render noticeably faster)
+    supersampling is one of the pixel rendering options (how to render each pixel), others being
+      use top left, top right, bottom left, bottom right, center, rest of 9 possible points, custom (with 2 floats), all 9 averaged, 4 centerpoints averaged, custom (with top left coord, amount to step in each direction, and amount of steps in each direction), circle sampling (with option for number of points on circle)
+  option to set to render every frame (with optional frame cap) or only render when image updated (moved, rotated)
+  menus motion smooth or snap
 default precision mode is auto, where it does float for weak zoom, double for stronger zoom, extended for even more zoom if processor supports extended, and then some sort of fixed precision or bigdecimal or maybe gmpy or glfc quads then octs, etc.
   somehow optimize it so it stays mostly performant at higher precisions
 dll version that can be used by other programs to generate mandelbrot, the programs can request many images at once and set optimization parameters and they will be fulfilled eventually
 ability to render to file, with customizable resolution
+  ability to render huge images directly to file so not taking up more ram than is available
+should be iteration scaling option, that makes it so it takes 10 iterations or X iterations to change to next color in pallete or more, for very high iteration count increasing areas
+  or maybe iteration scaling is set based on standard deviation of image
+option to show path of particular pixel, or to do it for many pixels at once in a grid pattern and show how the grid shape evolves and expands
+histogram of iteration counts pull uppable and also histogram based iteration coloring mode
+external and / or internal distance estimation coloring method
+can mix and match coloring methods for inside and outside or even have 2 coloring methods for outside or for inside, and blend them somehow
+when rendering every frame, show FPS and its inverse (frame time), and also percentage of time that is spent calculating and rendering and idle from that frame time
+add dll compile mode for library features
+library features
+  2d array of iteration counts or decimal iteration counts; customizble exit radius and customizable decimal calculation radius (the radius to do the normalization calculation; which should be the same as exit radius)
+    negative values for internal iteration counts if set to calculate that
+    2 flags, one for do internal count and other for do external count (which might as well be on due to nature of algorythm)
+  2d array of exterior or interior distance estimation; also 2 flags one for external and one for internal
+  different functions for different optimized modes, or different arguments on the same function
+  iteration count limit is argument
+  possibly expand arguments to include exponent, julia mode
+  make a simple function that fills array with each step in the path for a single value of c and a given starting z
+  function that gets iteration count with pixel rendering option taken into account
+different render modes
+  fillrect
+  bitblt
+  vulkan or smth
+
+keep in mind:
+put comments on all uses of system colors stating what the color actually is
+comment things when necessary
