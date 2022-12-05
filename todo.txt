@@ -1,7 +1,11 @@
+
+
+split main.cpp
 fix jitter when resizing from left and from top
 check return values of all the functions in bitblt render mode and open error popup if necessary
+add basic ui, enable basic draggability of mandelbrot box
 
-written in c++
+much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements
 right can be collapsed with arrow on left of the right that will collapse it
 f11 to windowed fullscreen
@@ -67,10 +71,6 @@ library features
   possibly expand arguments to include exponent, julia mode
   make a simple function that fills array with each step in the path for a single value of c and a given starting z
   function that gets iteration count with pixel rendering option taken into account
-different render modes
-  fillrect
-  bitblt
-  vulkan or smth
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is

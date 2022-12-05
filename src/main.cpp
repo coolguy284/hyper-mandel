@@ -1,10 +1,17 @@
-#define VERSION L"v0.1.0-alpha"
+#define VERSION L"v0.1.1-alpha"
 
 // until something useful is placed in the ui box, set to 0 instead of 200
 #define UI_WIDTH 0
 
+// magic number for width or height of window's dropshadow
+#define WINDOW_DROPSHADOW_SIZE 20
+
 // magic number for height of title bar
-#define TITLEBAR_HEIGHT 43
+#define TITLEBAR_HEIGHT 23
+
+// consolidated magic numbers
+#define WINDOW_EXTRA_WIDTH WINDOW_DROPSHADOW_SIZE
+#define WINDOW_EXTRA_HEIGHT (TITLEBAR_HEIGHT + WINDOW_DROPSHADOW_SIZE)
 
 #define RENDER_MODE 2
 #define RENDER_MODE_FILLRECT 0
@@ -55,8 +62,10 @@ LRESULT CALLBACK WndProc(
 
 		WIDHEIGHT windowSize;
 
-		windowSize.width = winRect.right - winRect.left;
-		windowSize.height = max(winRect.bottom - winRect.top - TITLEBAR_HEIGHT, 0); // title bar doesn't count
+		windowSize.width = max(winRect.right - winRect.left - WINDOW_EXTRA_WIDTH, 0); // dropshadow doesn't count
+		windowSize.height = max(winRect.bottom - winRect.top - WINDOW_EXTRA_HEIGHT, 0); // title bar and dropshadow doesn't count
+
+#ifdef _DEBUG
 
 		std::wostringstream paintDebugOutputStream;
 
@@ -69,6 +78,8 @@ LRESULT CALLBACK WndProc(
 		std::wstring paintDebugOutput = paintDebugOutputStream.str();
 
 		OutputDebugString(paintDebugOutput.c_str());
+
+#endif
 
 		WIDHEIGHT renderSize;
 		renderSize.width = max(windowSize.width - UI_WIDTH, 0); // UI_WIDTH less because removing right side for UI
@@ -227,10 +238,16 @@ LRESULT CALLBACK WndProc(
 
 								if (basePixelIndex < hBitmapInfo.bmiHeader.biSizeImage) {
 									// apparently basePixelIndex could go over somehow, not for colorRefArr like the others but lpPixels instead
-									COLORREF color = colorRefArr[x + (renderSize.height - y - 1) * renderSize.width];
-									lpPixels[basePixelIndex + 2] = GetRValue(color);
-									lpPixels[basePixelIndex + 1] = GetGValue(color);
-									lpPixels[basePixelIndex] = GetBValue(color);
+
+									// capping colorRefIndex just in case
+									unsigned int colorRefIndex = x + (renderSize.height - y - 1) * renderSize.width;
+
+									if (colorRefIndex < mandelArrayLength) {
+										COLORREF color = colorRefArr[colorRefIndex];
+										lpPixels[basePixelIndex + 2] = GetRValue(color);
+										lpPixels[basePixelIndex + 1] = GetGValue(color);
+										lpPixels[basePixelIndex] = GetBValue(color);
+									}
 								}
 							}
 						}
@@ -343,7 +360,7 @@ int WINAPI WinMain(
 		szTitle,
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		854 + UI_WIDTH, 480 + TITLEBAR_HEIGHT,
+		854 + UI_WIDTH + WINDOW_EXTRA_WIDTH, 480 + WINDOW_EXTRA_HEIGHT,
 		NULL,
 		NULL,
 		hInstance,
