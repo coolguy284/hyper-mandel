@@ -28,16 +28,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\resource.h" />
-    <ClInclude Include="src\calculate.h" />
-    <ClInclude Include="src\render.h" />
+    <ClInclude Include="src\consts.h" />
+    <ClInclude Include="src\mandel\calculate.h" />
+    <ClInclude Include="src\mandel\render.h" />
+    <ClInclude Include="src\structs.h" />
+    <ClInclude Include="src\wnd_proc.h" />
+    <ClInclude Include="src\wnd_proc_paint_mandel.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\hyper-mandel.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\calculate.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\render.cpp" />
+    <ClCompile Include="src\mandel\calculate.cpp" />
+    <ClCompile Include="src\mandel\render.cpp" />
+    <ClCompile Include="src\wnd_proc.cpp" />
+    <ClCompile Include="src\wnd_proc_paint_mandel.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
