@@ -21,6 +21,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 		);
 
 		COLORREF* colorRefArr = new COLORREF[mandelArrayLength];
+		bool colorRefArrNotFreed = true;
 
 		mandel::render::convert_iterctarr_to_colorarr(iterCountArr, colorRefArr, mandelArrayLength);
 
@@ -54,6 +55,9 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 					}
 				}
 			}
+					
+			delete[] colorRefArr;
+			colorRefArrNotFreed = false;
 			break;
 		}
 
@@ -81,6 +85,9 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 					}
 				}
 			}
+					
+			delete[] colorRefArr;
+			colorRefArrNotFreed = false;
 
 			// rendering bitmap to screen
 
@@ -119,67 +126,74 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 					L"Call to GetDIBits to load bitmap header data failed",
 					L"HyperMandel",
 					NULL);
-				break;
-			}
+			} else {
+				BYTE* lpPixels = new BYTE[hBitmapInfo.bmiHeader.biSizeImage];
+				hBitmapInfo.bmiHeader.biBitCount = 32;
+				hBitmapInfo.bmiHeader.biCompression = BI_RGB;
+				hBitmapInfo.bmiHeader.biHeight = abs(hBitmapInfo.bmiHeader.biHeight);
 
-			BYTE* lpPixels = new BYTE[hBitmapInfo.bmiHeader.biSizeImage];
-			hBitmapInfo.bmiHeader.biBitCount = 32;
-			hBitmapInfo.bmiHeader.biCompression = BI_RGB;
-			hBitmapInfo.bmiHeader.biHeight = abs(hBitmapInfo.bmiHeader.biHeight);
+				bool setDIBitsSuccess = false;
 
-			if (hBitmapInfo.bmiHeader.biSizeImage > 0) {
-				// getting pixel data unnecessary because it will be fully reset anyway
+				if (hBitmapInfo.bmiHeader.biSizeImage > 0) {
+					// getting pixel data unnecessary because it will be fully reset anyway
 
-				/*if (GetDIBits(hdcMem, hBitmap, 0, hBitmapInfo.bmiHeader.biHeight, lpPixels, &hBitmapInfo, DIB_RGB_COLORS) == 0) {
-					MessageBox(NULL,
-						L"Call to GetDIBits to load bitmap data failed",
-						L"HyperMandel",
-						NULL);
-					break;
-				}*/
+					/*if (GetDIBits(hdcMem, hBitmap, 0, hBitmapInfo.bmiHeader.biHeight, lpPixels, &hBitmapInfo, DIB_RGB_COLORS) == 0) {
+						MessageBox(NULL,
+							L"Call to GetDIBits to load bitmap data failed",
+							L"HyperMandel",
+							NULL);
+						break;
+					}*/
 
-				// setting pixels
+					// setting pixels
 
-				for (unsigned int y = 0; y < renderSize.height; y++) {
-					for (unsigned int x = 0; x < renderSize.width; x++) {
-						unsigned int basePixelIndex = x * 4 + y * renderSize.width * 4;
+					for (unsigned int y = 0; y < renderSize.height; y++) {
+						for (unsigned int x = 0; x < renderSize.width; x++) {
+							unsigned int basePixelIndex = x * 4 + y * renderSize.width * 4;
 
-						if (basePixelIndex < hBitmapInfo.bmiHeader.biSizeImage) {
-							// apparently basePixelIndex could go over somehow, not for colorRefArr like the others but lpPixels instead
+							if (basePixelIndex < hBitmapInfo.bmiHeader.biSizeImage) {
+								// apparently basePixelIndex could go over somehow, not for colorRefArr like the others but lpPixels instead
 
-							// capping colorRefIndex just in case
-							unsigned int colorRefIndex = x + (renderSize.height - y - 1) * renderSize.width;
+								// capping colorRefIndex just in case
+								unsigned int colorRefIndex = x + (renderSize.height - y - 1) * renderSize.width;
 
-							if (colorRefIndex < mandelArrayLength) {
-								COLORREF color = colorRefArr[colorRefIndex];
-								lpPixels[basePixelIndex + 2] = GetRValue(color);
-								lpPixels[basePixelIndex + 1] = GetGValue(color);
-								lpPixels[basePixelIndex] = GetBValue(color);
+								if (colorRefIndex < mandelArrayLength) {
+									COLORREF color = colorRefArr[colorRefIndex];
+									lpPixels[basePixelIndex + 2] = GetRValue(color);
+									lpPixels[basePixelIndex + 1] = GetGValue(color);
+									lpPixels[basePixelIndex] = GetBValue(color);
+								}
 							}
 						}
 					}
+					
+					delete[] colorRefArr;
+					colorRefArrNotFreed = false;
+
+					// copying edited pixel data back to bitmap
+
+					if (SetDIBits(hdcMem, hBitmap, 0, hBitmapInfo.bmiHeader.biHeight, lpPixels, &hBitmapInfo, DIB_RGB_COLORS) == 0) {
+						MessageBox(NULL,
+							L"Call to SetDIBits failed",
+							L"HyperMandel",
+							NULL);
+					} else {
+						setDIBitsSuccess = true;
+					}
 				}
 
-				// copying edited pixel data back to bitmap
+				// free variables
 
-				if (SetDIBits(hdcMem, hBitmap, 0, hBitmapInfo.bmiHeader.biHeight, lpPixels, &hBitmapInfo, DIB_RGB_COLORS) == 0) {
-					MessageBox(NULL,
-						L"Call to SetDIBits failed",
-						L"HyperMandel",
-						NULL);
-					break;
+				delete[] lpPixels;
+
+				// rendering bitmap to screen
+
+				if (setDIBitsSuccess) {
+					BITMAP bitmap;
+					GetObject(hBitmap, sizeof(bitmap), &bitmap);
+					BitBlt(*hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 				}
 			}
-
-			// free variables
-
-			delete[] lpPixels;
-
-			// rendering bitmap to screen
-
-			BITMAP bitmap;
-			GetObject(hBitmap, sizeof(bitmap), &bitmap);
-			BitBlt(*hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 
 			// cleaning up
 
@@ -190,8 +204,10 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 		}
 		}
 
-		// free variables
+		// free variables if necessary
 
-		delete[] colorRefArr;
+		if (colorRefArrNotFreed) {
+			delete[] colorRefArr;
+		}
 	}
 }
