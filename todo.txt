@@ -1,4 +1,3 @@
-add debug exes to releases
 split main.cpp
 put mandel library cpp files in folder (hopefully if through vs it will rename includes) but still include them seperately, rename render
 use actual enum instead of define
