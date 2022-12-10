@@ -1,5 +1,3 @@
-use actual enum instead of define
-
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
 check return values of all the functions in bitblt render mode and open error popup if necessary
