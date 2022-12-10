@@ -1,9 +1,16 @@
-
-
+add debug exes to releases
 split main.cpp
+put mandel library cpp files in folder (hopefully if through vs it will rename includes) but still include them seperately, rename render
+use actual enum instead of define
+
+store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
 check return values of all the functions in bitblt render mode and open error popup if necessary
 add basic ui, enable basic draggability of mandelbrot box
+  ui panel should be resizable and collapsable
+add julia set render mode
+move rendering and blitting to separate thread
+add option to calculate func for escape radius
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements
@@ -20,11 +27,13 @@ this should obviously be fast enough that it can easily render in realtime with 
 julia set support
 support for many iterated fractals
 support for pasting in a custom equation and having it compiled and run
-potential subpixel rendering and upscaling
 iteration count can be set or set to auto
 color scheme can be chosen, rainbow, blue, red, green, etc., custom color scheme option as well
 all custom settings should be stored in an .ini file with same name as mandelbrot exe
   option to store all preferences in documents instead (with customizable path, name, file extension) and only store path to ini in the main ini file; this is if documents is synced to a cloud storage
+  save window pos and size to ini
+  able to save interesting locations that optionally have settings attached to ini
+  saves current render settings, pos, rot, etc, and fractal choice and params
 ability to alter aspect ratio of mandelbrot, listed as custom x and y scaling factor, and custom rotation
 try emscriptening for the web, but with lack of vector operations there will be less performance
 threads should be configurable option independent of choice of algorythm
@@ -48,6 +57,7 @@ slider to set different performance settings, low being not live rendered, only 
       use top left, top right, bottom left, bottom right, center, rest of 9 possible points, custom (with 2 floats), all 9 averaged, 4 centerpoints averaged, custom (with top left coord, amount to step in each direction, and amount of steps in each direction), circle sampling (with option for number of points on circle)
   option to set to render every frame (with optional frame cap) or only render when image updated (moved, rotated)
   menus motion smooth or snap
+  render incrementally if it is going slow (as in show 2x downscaled before showing normal output, or 4x then 2x then normal, or even higher; also show it scanning in vertically or even horizontally for later stages)
 default precision mode is auto, where it does float for weak zoom, double for stronger zoom, extended for even more zoom if processor supports extended, and then some sort of fixed precision or bigdecimal or maybe gmpy or glfc quads then octs, etc.
   somehow optimize it so it stays mostly performant at higher precisions
 dll version that can be used by other programs to generate mandelbrot, the programs can request many images at once and set optimization parameters and they will be fulfilled eventually
@@ -68,9 +78,34 @@ library features
   2d array of exterior or interior distance estimation; also 2 flags one for external and one for internal
   different functions for different optimized modes, or different arguments on the same function
   iteration count limit is argument
-  possibly expand arguments to include exponent, julia mode
+  possibly expand arguments to include exponent, julia mode; change mandelbrot starting z
   make a simple function that fills array with each step in the path for a single value of c and a given starting z
   function that gets iteration count with pixel rendering option taken into account
+burning ship fractal, other iterative fractals
+3d fractals support with 3d viewer and slice viewer
+4d fractal support and more d
+1d and 0d fractals if there are any
+  one 1d is cantor dust
+include other types of fractals not just formula per pixel ones
+  like koch snowflake and 2d cantor dust
+  or cantor set with finite level (at that point its not even a fractal)
+great britain fractal for fun
+animation sequence rendering able to change every parameter smoothly or not smoothly, linearly or with easing; render as sequence of image files with option to set effort value and quality (only for lossy algos) or as video file with optional ability to customize codec
+  ability to add customizable information about current coordinates and or zoom; ability to choose location of information on rendered video with presets or custom x and y and choice of centering around coordinates, and/or to increase size of rendered output so text doesn't obscure anything; also ability to choose precision of information or if information will dynamically increase in precision
+  render progress indicator in frames out of total frames and for x and y of the current frame or maybe even iteration count if it's being super slow
+double finger or multi finger (it averages the inputs) touchscreen support for zoom, rot, and others (3 finger could do skew)
+can lock any parameter (most likely lock skew by default because that seems annoying), for example can lock rot if 2 finger zoom on phone accidentally rot; could also lock zoom, or even x or y or both
+android version of program
+ui to adjust skew shows 2 colored vectors at center of screen (the i and j basis vectors) and can drag them to adjust skew or only rotate them or only scale them by clicking in special areas; put a circle around vectors and at one point on circle is 2 arrows thing pointing back and forth along circle, that is the special object to rotate; special objects change mouse to grabber; special object to zoom could be object perpendicular to that object that can be held in towards center of circle to slowly zoom in and vice versa, resets when let go
+complete recording mode where all inputs are saved to file, just to see how that goes
+  also playback of recording file
+option to silence volume up and down inputs and use them instead to rotate mandelbrot set, vol down is counterclockwise
+  pressing down on volume button (which is a mute) will either reset rotation, or switch scrolling into zoom mode instead
+  wasd keys and arrow keys for movement
+  optional mouse lock to center of screen and hide, and mouse movement instantly moves mandelbrot set
+visiting saved location should zoom out, pan, zoom in, and do necessary rotations and skews and other setting changes; if change from mandelbrot to julia or something, then fade when fully zoomed out
+  optionally transition rotation to 0deg when fully zoomed out
+render progress indicator (like in animation sequence todo) for normal rendering as well
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is
