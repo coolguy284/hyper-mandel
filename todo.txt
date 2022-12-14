@@ -6,6 +6,8 @@ add basic ui, enable basic draggability of mandelbrot box
 add julia set render mode
 move rendering and blitting to separate thread
 add option to calculate func for escape radius
+use std::unique_ptr or smth to ensure deletion (its okay to have GC overhead because it is 2 objects total per frame lmao)
+lossless png optimization of icon png
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements
@@ -101,6 +103,8 @@ option to silence volume up and down inputs and use them instead to rotate mande
 visiting saved location should zoom out, pan, zoom in, and do necessary rotations and skews and other setting changes; if change from mandelbrot to julia or something, then fade when fully zoomed out
   optionally transition rotation to 0deg when fully zoomed out
 render progress indicator (like in animation sequence todo) for normal rendering as well
+add option to render iterative fractal with image file as output space not simple iteration count; possibly mix the two concepts
+command line arguments like "render --zx=0 --zy=0 --object=mandelbrot --threads 8 --resolution=1920x1080 -o filename.png"
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is
