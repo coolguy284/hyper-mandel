@@ -1,6 +1,6 @@
 #pragma once
 
-#define VERSION L"v0.1.3-alpha"
+#define VERSION L"v0.1.4-alpha"
 
 // until something useful is placed in the ui box, set to 0 instead of 200
 #define UI_WIDTH 0

@@ -6,7 +6,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 	if (mandelArrayLength > 0) {
 		// calculate mandelbrot set and coloring
 
-		int* iterCountArr = new int[mandelArrayLength];
+		std::unique_ptr<int[]> iterCountArr = std::make_unique<int[]>(mandelArrayLength);
 
 		long minDimension = min(renderSize.width, renderSize.height);
 
@@ -17,15 +17,12 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 			-4.0f / minDimension,
 			renderSize.width,
 			renderSize.height,
-			iterCountArr
+			iterCountArr.get()
 		);
 
-		COLORREF* colorRefArr = new COLORREF[mandelArrayLength];
-		bool colorRefArrNotFreed = true;
+		std::unique_ptr<COLORREF[]> colorRefArr = std::make_unique<COLORREF[]>(mandelArrayLength);
 
-		mandel::render::convert_iterctarr_to_colorarr(iterCountArr, colorRefArr, mandelArrayLength);
-
-		delete[] iterCountArr;
+		mandel::render::convert_iterctarr_to_colorarr(iterCountArr.get(), colorRefArr.get(), mandelArrayLength);
 
 		// different render mode options
 
@@ -55,9 +52,6 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 					}
 				}
 			}
-					
-			delete[] colorRefArr;
-			colorRefArrNotFreed = false;
 			break;
 		}
 
@@ -85,9 +79,6 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 					}
 				}
 			}
-					
-			delete[] colorRefArr;
-			colorRefArrNotFreed = false;
 
 			// rendering bitmap to screen
 
@@ -127,7 +118,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 					L"HyperMandel",
 					NULL);
 			} else {
-				BYTE* lpPixels = new BYTE[hBitmapInfo.bmiHeader.biSizeImage];
+				std::unique_ptr<BYTE[]> lpPixels = std::make_unique<BYTE[]>(hBitmapInfo.bmiHeader.biSizeImage);
 				hBitmapInfo.bmiHeader.biBitCount = 32;
 				hBitmapInfo.bmiHeader.biCompression = BI_RGB;
 				hBitmapInfo.bmiHeader.biHeight = abs(hBitmapInfo.bmiHeader.biHeight);
@@ -166,13 +157,10 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 							}
 						}
 					}
-					
-					delete[] colorRefArr;
-					colorRefArrNotFreed = false;
 
 					// copying edited pixel data back to bitmap
 
-					if (SetDIBits(hdcMem, hBitmap, 0, hBitmapInfo.bmiHeader.biHeight, lpPixels, &hBitmapInfo, DIB_RGB_COLORS) == 0) {
+					if (SetDIBits(hdcMem, hBitmap, 0, hBitmapInfo.bmiHeader.biHeight, lpPixels.get(), &hBitmapInfo, DIB_RGB_COLORS) == 0) {
 						MessageBox(NULL,
 							L"Call to SetDIBits failed",
 							L"HyperMandel",
@@ -181,10 +169,6 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 						setDIBitsSuccess = true;
 					}
 				}
-
-				// free variables
-
-				delete[] lpPixels;
 
 				// rendering bitmap to screen
 
@@ -202,12 +186,6 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 			DeleteObject(hBitmap);
 			break;
 		}
-		}
-
-		// free variables if necessary
-
-		if (colorRefArrNotFreed) {
-			delete[] colorRefArr;
 		}
 	}
 }

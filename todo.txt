@@ -6,8 +6,8 @@ add basic ui, enable basic draggability of mandelbrot box
 add julia set render mode
 move rendering and blitting to separate thread
 add option to calculate func for escape radius
-use std::unique_ptr or smth to ensure deletion (its okay to have GC overhead because it is 2 objects total per frame lmao)
 lossless png optimization of icon png
+micromanage spaces before its too late
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements
@@ -34,6 +34,7 @@ all custom settings should be stored in an .ini file with same name as mandelbro
 ability to alter aspect ratio of mandelbrot, listed as custom x and y scaling factor, and custom rotation
 try emscriptening for the web, but with lack of vector operations there will be less performance
 threads should be configurable option independent of choice of algorythm
+  when implementing multithreading be wary of the fact that some threads are faster than others (performance vs efficiency cores), so perhaps assign short "jobs" (each 64x64 pixels or configurable) to each thread and assign new jobs as ones are completed; this implies making a threadpool
 should be able to independently toggle on optimizations like the fill in outline region of black with black inside
 option to color inside of mandel with iterations taken to repeat
 scale, rot, skew, (or translate for whatever reason) or even custom transform matrix for mandel
@@ -43,8 +44,9 @@ ability to view julia set of current region of mandel as minimap or just switch 
 controller support (and try to get lights to stop flashing on it)
 toggleable normalization
 mousewheel to zoom, ctrl mousewheel to rotate
-below 10fps it wont render whole frame at once, instead if dragged to new translation then will fill in pixels slowly in direction of translation and live update in a way that doesnt slow down gui
+if cannot finish rendering frame in time it wont render whole frame at once, instead if dragged to new translation then will fill in pixels slowly in direction of translation and live update in a way that doesnt slow down gui
   similar handling of scaling or other transformation alteration
+  left to right top to bottom filling in of pixels when a completely new location is set
 slider to set different performance settings, low being not live rendered, only rendered once interaction stopped, high being live rendered; possible sub sliders for resolution, render shift quality when shifting rendered output before a not live render
   this slider sets various fine settings behind the scenes
   one of them is border percent, how much bigger the canvas is than the visible area (for instant scrolling if another setting is also set but even if not then for not instant forgetfulness if scroll quickly to one side and then back)

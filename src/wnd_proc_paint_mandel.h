@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "mandel/calculate.h"
 #include "mandel/render.h"
 
