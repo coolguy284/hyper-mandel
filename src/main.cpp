@@ -1,5 +1,7 @@
 #include <Windows.h>
 
+#include "../resources/icon.h"
+
 #include "consts.h"
 #include "wnd_proc.h"
 
@@ -22,12 +24,20 @@ int WINAPI WinMain(
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = hInstance;
+#ifdef _NOICON
 	wcex.hIcon = LoadIcon(wcex.hInstance, IDI_APPLICATION);
+#else
+	wcex.hIcon = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+#endif
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1) /* white */;
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = szWindowClass;
+#ifdef _NOICON
 	wcex.hIconSm = LoadIcon(wcex.hInstance, IDI_APPLICATION);
+#else
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+#endif
 
 	// register window class
 
