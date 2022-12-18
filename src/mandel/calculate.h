@@ -11,15 +11,15 @@
 namespace mandel {
 	namespace calc {
 		// returns the iteration count of a single C value in the mandelbrot set
-
+		
 		int basic_singlepixel(
 			float cx,
 			float cy
 		);
-
+		
 		// fills iterCountArr with a 2d array of mandelbrot set values, following start, step, and count parameters
 		// array order is x + y * width
-
+		
 		void basic_multipixel(
 			float cxStart,
 			float cyStart,

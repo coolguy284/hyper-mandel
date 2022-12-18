@@ -6,8 +6,6 @@ add basic ui, enable basic draggability of mandelbrot box
 add julia set render mode
 move rendering and blitting to separate thread
 add option to calculate func for escape radius
-lossless png optimization of icon png
-micromanage spaces before its too late
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements

@@ -3,12 +3,12 @@
 namespace mandel {
 	namespace render {
 		// gets the color of an iteration count using a rainbow pallete
-
+		
 		COLORREF get_iterct_color(int iterCount) {
 			if (iterCount < 0 || iterCount >= MAX_ITERS) return RGB(0, 0, 0);
-
+			
 			int iterCountMod = (-(iterCount - 1) % 24 + 24) % 24; // minus sign at front because backwards rainbow looks better
-
+			
 			switch (iterCountMod) {
 			case 0: return RGB(255, 0, 0);
 			case 1: return RGB(255, 63, 0);
@@ -37,9 +37,9 @@ namespace mandel {
 			default: return RGB(0, 0, 0); // should be impossible branch but here to remove the warning
 			}
 		}
-
+		
 		// converts an iteration count array with a given length to a color array
-
+		
 		void convert_iterctarr_to_colorarr(
 			_In_reads_(length) int* iterCountArr,
 			_Out_writes_all_(length) COLORREF* colorRefArr,

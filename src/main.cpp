@@ -15,9 +15,9 @@ int WINAPI WinMain(
 	_In_ int nCmdShow
 ) {
 	// create window class
-
+	
 	WNDCLASSEX wcex;
-
+	
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc = WndProc;
@@ -38,20 +38,20 @@ int WINAPI WinMain(
 #else
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
 #endif
-
+	
 	// register window class
-
+	
 	if (!RegisterClassEx(&wcex)) {
 		// register failure
-
+		
 		MessageBox(NULL,
 			L"Call to RegsiterClassEx failed",
 			L"HyperMandel",
 			NULL);
-
+		
 		return 1;
 	}
-
+	
 	// create window
 	
 	HWND hWnd = CreateWindowEx(
@@ -66,30 +66,30 @@ int WINAPI WinMain(
 		hInstance,
 		NULL
 	);
-
+	
 	// check if window created
-
+	
 	if (!hWnd) {
 		MessageBox(NULL,
 			L"Call to CreateWindowEx failed",
 			L"HyperMandel",
 			NULL);
-
+		
 		return 1;
 	}
-
+	
 	// procure window
-
+	
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
-
+	
 	// handle window messages
-
+	
 	MSG msg;
 	while (GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-
+	
 	return (int)msg.wParam;
 }
