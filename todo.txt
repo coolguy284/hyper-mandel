@@ -1,6 +1,5 @@
 use error_wrap for all win32 calls
 make variables const that aren't being changed
-initalize every struct to 0 to prevent garbage memory
 add ctrl+a support for textbox
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)

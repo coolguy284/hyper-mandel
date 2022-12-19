@@ -30,7 +30,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 		case RENDER_MODE_FILLRECT: {
 			// calls fillrect on every pixel, ungodly slow
 			
-			RECT fr;
+			RECT fr = { 0 };
 			HBRUSH br;
 			
 			for (unsigned int y = 0; y < renderSize.height; y++) {
@@ -82,7 +82,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 			
 			// rendering bitmap to screen
 			
-			BITMAP bitmap;
+			BITMAP bitmap = { 0 };
 			GetObject(hBitmap, sizeof(bitmap), &bitmap);
 			BitBlt(*hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 			
@@ -173,7 +173,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 				// rendering bitmap to screen
 				
 				if (setDIBitsSuccess) {
-					BITMAP bitmap;
+					BITMAP bitmap = { 0 };
 					GetObject(hBitmap, sizeof(bitmap), &bitmap);
 					BitBlt(*hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 				}

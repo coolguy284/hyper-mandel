@@ -10,11 +10,11 @@ LRESULT CALLBACK WndProc(
 	
 	switch (message) {
 	case WM_SIZE: {
-		WIDHEIGHT windowSize;
+		WIDHEIGHT windowSize = { 0 };
 		windowSize.width = max(LOWORD(lParam), 0);
 		windowSize.height = max(HIWORD(lParam), 0);
 		
-		WIDHEIGHT renderSize;
+		WIDHEIGHT renderSize = { 0 };
 		renderSize.width = max(windowSize.width - UI_WIDTH, 0); // UI_WIDTH less because removing right side for UI
 		renderSize.height = windowSize.height;
 		
@@ -44,7 +44,7 @@ LRESULT CALLBACK WndProc(
 	case WM_PAINT: {
 		// called when window needs to be updated (repainted)
 		
-		RECT winRect;
+		RECT winRect = { 0 };
 		
 		if (!GetClientRect(hWnd, &winRect)) {
 			MessageBox(NULL,
@@ -56,7 +56,7 @@ LRESULT CALLBACK WndProc(
 		
 		// get size of client area inside window
 		
-		WIDHEIGHT windowSize;
+		WIDHEIGHT windowSize = { 0 };
 		windowSize.width = max(winRect.right - winRect.left, 0);
 		windowSize.height = max(winRect.bottom - winRect.top, 0);
 		
@@ -76,13 +76,13 @@ LRESULT CALLBACK WndProc(
 		
 #endif
 		
-		WIDHEIGHT renderSize;
+		WIDHEIGHT renderSize = { 0 };
 		renderSize.width = max(windowSize.width - UI_WIDTH, 0); // UI_WIDTH less because removing right side for UI
 		renderSize.height = windowSize.height;
 		
 		// painting
 		
-		PAINTSTRUCT ps;
+		PAINTSTRUCT ps = { 0 };
 		HDC hdc = BeginPaint(hWnd, &ps);
 		
 		// ignore everything but UI panel if window too small
@@ -93,7 +93,7 @@ LRESULT CALLBACK WndProc(
 		
 		// paint ui on right (currently blank)
 		
-		RECT uiRect;
+		RECT uiRect = { 0 };
 		uiRect.left = renderSize.width;
 		uiRect.top = 0;
 		uiRect.right = windowSize.width;

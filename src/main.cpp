@@ -174,7 +174,7 @@ int WINAPI WinMain(
 	
 	// handle window messages
 	
-	MSG msg;
+	MSG msg = { 0 };
 	while (GetMessage(&msg, NULL, 0, 0) > 0) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
