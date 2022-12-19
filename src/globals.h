@@ -20,7 +20,7 @@ const WCHAR szTitle[] = L"HyperMandel " VERSION; // window title
 	};\
 	_##name name
 
-#define _UIELEMSTRUCT_UITEXT(name, xv, yv, textv)\
+#define _UIELEMSTRUCT_UITEXT(name, xv, yv, textv) \
 	struct _##name {\
 		_UIELEMSTRUCT_CONSTCHAR(text, textv);\
 		int x = xv;\

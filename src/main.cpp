@@ -63,7 +63,7 @@ int WINAPI WinMain(
 	
 	RECT windowRect = { 0 };
 	windowRect.right = WINDOW_INITIAL_RENDER_WIDTH + UI_WIDTH;
-	windowRect.bottom = WINDOW_INITIAL_HEIGHT;
+	windowRect.bottom = WINDOW_INITIAL_RENDER_HEIGHT;
 	
 #ifdef _DEBUG
 	

@@ -4,9 +4,9 @@
 
 // https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
 
-#define CARDIOID_SKIP true
-#define PER2_BULB_SKIP true
-#define MAX_ITERS 100
+constexpr bool CARDIOID_SKIP = true;
+constexpr bool PER2_BULB_SKIP = true;
+constexpr int MAX_ITERS = 100;
 
 namespace mandel {
 	namespace calc {
