@@ -23,7 +23,7 @@ int WINAPI WinMain(
 	
 	// create window class
 	
-	WNDCLASSEX wcex = {0};
+	WNDCLASSEX wcex = { 0 };
 	
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -59,6 +59,59 @@ int WINAPI WinMain(
 		return 1;
 	}
 	
+	// create window rect and adjust size to paintable area only
+	
+	RECT windowRect = { 0 };
+	windowRect.right = WINDOW_INITIAL_RENDER_WIDTH + UI_WIDTH;
+	windowRect.bottom = WINDOW_INITIAL_HEIGHT;
+	
+#ifdef _DEBUG
+	
+	std::wostringstream unadjustWindowDebugOutputStream;
+	
+	unadjustWindowDebugOutputStream << L"AdjustWindowRectEx: Unadjusted Rect: ";
+	unadjustWindowDebugOutputStream << windowRect.left;
+	unadjustWindowDebugOutputStream << L", ";
+	unadjustWindowDebugOutputStream << windowRect.top;
+	unadjustWindowDebugOutputStream << L", ";
+	unadjustWindowDebugOutputStream << windowRect.right;
+	unadjustWindowDebugOutputStream << L", ";
+	unadjustWindowDebugOutputStream << windowRect.bottom;
+	unadjustWindowDebugOutputStream << L"\n";
+	
+	std::wstring unadjustWindowDebugOutput = unadjustWindowDebugOutputStream.str();
+	
+	OutputDebugString(unadjustWindowDebugOutput.c_str());
+	
+#endif
+	
+	AdjustWindowRectEx(
+		&windowRect,
+		WS_OVERLAPPEDWINDOW,
+		FALSE,
+		WS_EX_OVERLAPPEDWINDOW
+	);
+	
+#ifdef _DEBUG
+	
+	std::wostringstream adjustWindowDebugOutputStream;
+	
+	adjustWindowDebugOutputStream << L"AdjustWindowRectEx: Adjusted Rect: ";
+	adjustWindowDebugOutputStream << windowRect.left;
+	adjustWindowDebugOutputStream << L", ";
+	adjustWindowDebugOutputStream << windowRect.top;
+	adjustWindowDebugOutputStream << L", ";
+	adjustWindowDebugOutputStream << windowRect.right;
+	adjustWindowDebugOutputStream << L", ";
+	adjustWindowDebugOutputStream << windowRect.bottom;
+	adjustWindowDebugOutputStream << L"\n";
+	
+	std::wstring adjustWindowDebugOutput = adjustWindowDebugOutputStream.str();
+	
+	OutputDebugString(adjustWindowDebugOutput.c_str());
+	
+#endif
+	
 	// create window
 	
 	HWND hWnd = CreateWindowEx(
@@ -67,7 +120,7 @@ int WINAPI WinMain(
 		szTitle,
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		WINDOW_INITIAL_RENDER_WIDTH + UI_WIDTH + WINDOW_EXTRA_WIDTH, WINDOW_INITIAL_HEIGHT + WINDOW_EXTRA_HEIGHT,
+		windowRect.right - windowRect.left, windowRect.bottom - windowRect.top,
 		NULL,
 		NULL,
 		hInstance,

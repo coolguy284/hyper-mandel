@@ -25,7 +25,7 @@ LRESULT CALLBACK WndProc(
 			NULL,\
 			renderSize.width + UIVar.x, UIVar.y,\
 			UIVar.w, UIVar.h,\
-			SWP_FRAMECHANGED),\
+			NULL),\
 		L"SetWindowPos", L###UIVar\
 	);
 		
@@ -46,19 +46,19 @@ LRESULT CALLBACK WndProc(
 		
 		RECT winRect;
 		
-		if (!GetWindowRect(hWnd, &winRect)) {
+		if (!GetClientRect(hWnd, &winRect)) {
 			MessageBox(NULL,
-				L"Call to GetWindowRect failed",
+				L"Call to GetClientRect failed",
 				L"HyperMandel",
 				NULL);
 			break;
 		}
 		
-		// get size of paintable area inside window
+		// get size of client area inside window
 		
 		WIDHEIGHT windowSize;
-		windowSize.width = max(winRect.right - winRect.left - WINDOW_EXTRA_WIDTH, 0); // dropshadow doesn't count
-		windowSize.height = max(winRect.bottom - winRect.top - WINDOW_EXTRA_HEIGHT, 0); // title bar and dropshadow doesn't count
+		windowSize.width = max(winRect.right - winRect.left, 0);
+		windowSize.height = max(winRect.bottom - winRect.top, 0);
 		
 #ifdef _DEBUG
 		

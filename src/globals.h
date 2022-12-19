@@ -16,7 +16,7 @@ const WCHAR szTitle[] = L"HyperMandel " VERSION; // window title
 		int y = yv;\
 		int w = wv;\
 		int h = hv;\
-		HWND hWnd = {0};\
+		HWND hWnd = { 0 };\
 	};\
 	_##name name
 

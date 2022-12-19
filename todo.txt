@@ -1,6 +1,5 @@
 macro to constexpr conversion
 use error_wrap for all win32 calls
-use getclientrect instead of getwindowrect
 make variables const that aren't being changed
 initalize every struct to 0 to prevent garbage memory
 
