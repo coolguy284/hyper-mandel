@@ -4,7 +4,9 @@
 #include <sstream>
 
 #include "consts.h"
+#include "defines.h"
 #include "structs.h"
+#include "globals.h"
 #include "wnd_proc_paint_mandel.h"
 
 LRESULT CALLBACK WndProc(

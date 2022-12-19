@@ -1,8 +1,14 @@
+macro to constexpr conversion
+use error_wrap for all win32 calls
+use getclientrect instead of getwindowrect
+make variables const that aren't being changed
+initalize every struct to 0 to prevent garbage memory
+
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
 check return values of all the functions in bitblt render mode and open error popup if necessary
-add basic ui, enable basic draggability of mandelbrot box
-  ui panel should be resizable and collapsable
+complete ui functionality, enable basic draggability of mandelbrot box
+  make ui panel resizable and collapsable
 add julia set render mode
 move rendering and blitting to separate thread
 add option to calculate func for escape radius
@@ -109,3 +115,4 @@ command line arguments like "render --zx=0 --zy=0 --object=mandelbrot --threads 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is
 comment things when necessary
+if music is added, don't do it when tabbed out

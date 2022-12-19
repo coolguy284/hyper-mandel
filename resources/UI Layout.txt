@@ -1,0 +1,49 @@
+Int and Float use spinbox
+
+Set Params
+  Set: <select>
+    Options:
+      "Mandelbrot Set"
+      "Julia Set (Not Implemented)"
+  For "Mandelbrot Set":
+    Exponent: <int>
+Location Params
+  X: <float>; spinbox scaling based on zoom
+  Y: <float>; spinbox scaling based on zoom
+  Zoom: <float>; spinbox scaling logarythmic
+  Log Zoom: <checkbox>
+  Rotation: <float>
+  SkewX: <float>
+  SkewY: <float>
+Render Params
+  Render Mode External: <select>
+    Options:
+      "Iteration Count"
+      "Exterior Distance Estimate"
+  For "Iteration Count":
+    Iteration Count: <int>; range: x >= 0
+    Iteration Count Scaling: <float>
+    Normalized: <checkbox>
+  Render Mode Internal: <select>
+    Options:
+      "Loop Iteration Count"
+      "Interior Distance Estimate"
+  For "Loop Iteration Count":
+    Loop Iteration Count: <int>; range: x >= 0
+    Loop Iteration Count Scaling: <float>
+  Log View: <checkbox>
+Calculation Params
+  Calculation: <select>
+    Options:
+      "Normal"
+      "Optimized Algo"
+      "Vector Operations"
+      "Shader"
+  Threads: <int>; range: x >= 0
+  Edge Tracing: <checkbox>
+  Blitting: <select>
+    Options:
+      "FillRect (very slow)"
+      "Bitmap + SetPixel (slow)"
+      "Bitmap + PixelArray (medium)"
+      "Vulkan (fast)"

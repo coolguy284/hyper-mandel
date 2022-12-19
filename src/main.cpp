@@ -3,10 +3,13 @@
 #include "../resources/icon.h"
 
 #include "consts.h"
+#include "globals.h"
 #include "wnd_proc.h"
 
-static WCHAR szWindowClass[] = L"DesktopApp"; // window "class" (will find out later)
-static WCHAR szTitle[] = L"HyperMandel " VERSION; // window title
+// declare the extern globals
+
+UIElem_T UIElems;
+HINSTANCE mainHInstance;
 
 int WINAPI WinMain(
 	_In_ HINSTANCE hInstance,
@@ -14,9 +17,13 @@ int WINAPI WinMain(
 	_In_ LPSTR lpCmdLine,
 	_In_ int nCmdShow
 ) {
+	// assign main window instance
+	
+	mainHInstance = hInstance;
+	
 	// create window class
 	
-	WNDCLASSEX wcex;
+	WNDCLASSEX wcex = {0};
 	
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -60,7 +67,7 @@ int WINAPI WinMain(
 		szTitle,
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT,
-		854 + UI_WIDTH + WINDOW_EXTRA_WIDTH, 480 + WINDOW_EXTRA_HEIGHT,
+		WINDOW_INITIAL_RENDER_WIDTH + UI_WIDTH + WINDOW_EXTRA_WIDTH, WINDOW_INITIAL_HEIGHT + WINDOW_EXTRA_HEIGHT,
 		NULL,
 		NULL,
 		hInstance,
@@ -78,6 +85,35 @@ int WINAPI WinMain(
 		return 1;
 	}
 	
+	// create ui
+	
+#define _PLACEELEM(UIVar) {\
+	UIVar.hWnd = CreateWindowEx(\
+		WS_EX_CLIENTEDGE,\
+		UIVar.windowClass,\
+		UIVar.title,\
+		WS_GROUP | WS_TABSTOP | WS_CHILD | WS_VISIBLE,\
+		WINDOW_INITIAL_RENDER_WIDTH + UIVar.x, UIVar.y,\
+		UIVar.w, UIVar.h,\
+		hWnd,\
+		NULL,\
+		hInstance,\
+		NULL);\
+	\
+	if (!UIVar.hWnd) {\
+		WCHAR funcName[] = L"CreateWindowEx";\
+		WCHAR desc[] = L###UIVar;\
+		errorMsgBox(funcName, desc);\
+		return 1;\
+	}\
+}
+	
+	_PLACEELEM(UIElems.Location.X);
+	_PLACEELEM(UIElems.Location.Y);
+	_PLACEELEM(UIElems.Location.Zoom);
+	
+#undef _PLACEELEM
+	
 	// procure window
 	
 	ShowWindow(hWnd, nCmdShow);
@@ -86,7 +122,7 @@ int WINAPI WinMain(
 	// handle window messages
 	
 	MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0)) {
+	while (GetMessage(&msg, NULL, 0, 0) > 0) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}

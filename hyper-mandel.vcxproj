@@ -32,14 +32,18 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="resources\UI Layout.txt" />
     <Text Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resources\icon.h" />
     <ClInclude Include="resources\version.h" />
     <ClInclude Include="src\consts.h" />
+    <ClInclude Include="src\defines.h" />
+    <ClInclude Include="src\globals.h" />
     <ClInclude Include="src\mandel\calculate.h" />
     <ClInclude Include="src\mandel\render.h" />
+    <ClInclude Include="src\error_msg_box.h" />
     <ClInclude Include="src\structs.h" />
     <ClInclude Include="src\wnd_proc.h" />
     <ClInclude Include="src\wnd_proc_paint_mandel.h" />
@@ -52,6 +56,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mandel\calculate.cpp" />
     <ClCompile Include="src\mandel\render.cpp" />
+    <ClCompile Include="src\error_msg_box.cpp" />
     <ClCompile Include="src\wnd_proc.cpp" />
     <ClCompile Include="src\wnd_proc_paint_mandel.cpp" />
   </ItemGroup>

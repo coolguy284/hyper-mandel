@@ -9,6 +9,34 @@ LRESULT CALLBACK WndProc(
 	// handles window events sent by windows os
 	
 	switch (message) {
+	case WM_SIZE: {
+		WIDHEIGHT windowSize;
+		windowSize.width = max(LOWORD(lParam), 0);
+		windowSize.height = max(HIWORD(lParam), 0);
+		
+		WIDHEIGHT renderSize;
+		renderSize.width = max(windowSize.width - UI_WIDTH, 0); // UI_WIDTH less because removing right side for UI
+		renderSize.height = windowSize.height;
+		
+#define _RESIZEELEM(UIVar) \
+	ERROR_WRAP(\
+		SetWindowPos(\
+			UIVar.hWnd,\
+			NULL,\
+			renderSize.width + UIVar.x, UIVar.y,\
+			UIVar.w, UIVar.h,\
+			SWP_FRAMECHANGED),\
+		L"SetWindowPos", L###UIVar\
+	);
+		
+		_RESIZEELEM(UIElems.Location.X);
+		_RESIZEELEM(UIElems.Location.Y);
+		_RESIZEELEM(UIElems.Location.Zoom);
+		
+#undef _RESIZEELEM
+		break;
+	}
+	
 	case WM_ERASEBKGND:
 		// ignore this event because erasing background causes white flickering when resizing which is so bad it's seizure inducing
 		return 1;
@@ -29,7 +57,6 @@ LRESULT CALLBACK WndProc(
 		// get size of paintable area inside window
 		
 		WIDHEIGHT windowSize;
-		
 		windowSize.width = max(winRect.right - winRect.left - WINDOW_EXTRA_WIDTH, 0); // dropshadow doesn't count
 		windowSize.height = max(winRect.bottom - winRect.top - WINDOW_EXTRA_HEIGHT, 0); // title bar and dropshadow doesn't count
 		
@@ -72,7 +99,17 @@ LRESULT CALLBACK WndProc(
 		uiRect.right = windowSize.width;
 		uiRect.bottom = windowSize.height;
 		
-		FillRect(hdc, &uiRect, (HBRUSH)(COLOR_WINDOW + 1) /* white */);
+		FillRect(hdc, &uiRect, (HBRUSH)(COLOR_WINDOW) /* window background */);
+		
+#define _PLACETEXT(UITextVar) TextOut(hdc, renderSize.width + UITextVar.x, UITextVar.y, UITextVar.text, (int)wcslen(UITextVar.text))
+		
+		SetBkMode(hdc, TRANSPARENT);
+		
+		_PLACETEXT(UIElems.Location.XText);
+		_PLACETEXT(UIElems.Location.YText);
+		_PLACETEXT(UIElems.Location.ZoomText);
+		
+#undef _PLACETEXT
 		
 		// paint finished
 		

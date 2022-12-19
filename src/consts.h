@@ -1,9 +1,10 @@
 #pragma once
 
-#define VERSION L"v0.1.4-alpha"
+#define VERSION L"v0.2.0-alpha"
 
-// until something useful is placed in the ui box, set to 0 instead of 200
-#define UI_WIDTH 0
+#define WINDOW_INITIAL_RENDER_WIDTH 854
+#define WINDOW_INITIAL_HEIGHT 480
+#define UI_WIDTH 200
 
 // magic number for width or height of window's dropshadow
 #define WINDOW_DROPSHADOW_SIZE 20

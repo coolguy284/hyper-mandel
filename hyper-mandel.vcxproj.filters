@@ -38,6 +38,9 @@
     <Text Include="todo.txt">
       <Filter>Non-Code Files</Filter>
     </Text>
+    <Text Include="resources\UI Layout.txt">
+      <Filter>Non-Code Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\mandel\calculate.h">
@@ -64,6 +67,15 @@
     <ClInclude Include="resources\icon.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\error_msg_box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\version.rc">
@@ -87,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\wnd_proc_paint_mandel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\error_msg_box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
