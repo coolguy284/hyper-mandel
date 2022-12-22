@@ -1,15 +1,28 @@
+add functionality to current ui and scrolling and dragging to mandelbrot set
+  dragging mode normal:
+    mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
+    middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
+  dragging mode centered cursor:
+    make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely
+    pseudo cross shaped cursor rendered in the center while dragging is occuring, middle mouse when regular mouse clicked down zooms, holding shift then doing middle mouse rotates, up is clockwise
 use error_wrap for all win32 calls
 make variables const that aren't being changed
 add ctrl+a support for textbox
+fix form elements flicker when resize
+check code for form elements to see why they go off left edge when window really small, instead of stopping motion and sticking to left edge
+add remaining controls to ui
+make ui panel resizable and collapsable
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
 check return values of all the functions in bitblt render mode and open error popup if necessary
-complete ui functionality, enable basic draggability of mandelbrot box
-  make ui panel resizable and collapsable
 add julia set render mode
 move rendering and blitting to separate thread
 add option to calculate func for escape radius
+check for updates button, checks using GitHub releases, opens popup saying there is a new release available (and a second button if a new prerelease is available); buttons to install update, visit releases page, or just to close prompt
+  current program version (32 or 64 bit, debug / release / release-noicon) should be stored as variable somewhere, and update checker will download that specific version
+  if choose to install update: will download new exe in same folder with a temporary name (if fails then popup saying update could not be downloaded, check permissions for folder, with the given error message); create bat file that sleeps for 0.5 seconds and tries to delete old exe and rename new exe to old exe's name, if fails, wait 1 sec try again, if fails, wait 2, 4, 8, 15, 30, 60 seconds, if still fail then make visualbasicscript to popup with error message saying updated exe could not be installed (check permissions in folder) (this should basically never happen because file wouldn't have been able to be downloaded in first place); then program saves state to disk (when that gets implemented), runs the batch file and immediately exits
+render to file brings up dialog box which saves arguments for the next time it is run, for the remainder of the session and also saves it to the ini file
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements
@@ -83,6 +96,8 @@ library features
   make a simple function that fills array with each step in the path for a single value of c and a given starting z
   function that gets iteration count with pixel rendering option taken into account
 burning ship fractal, other iterative fractals
+ability to input custom polynomial (arbitrary polynomial for now (with decimal and negative exponent) probably more general equation support later and even variable parsing, basically make it turing complete because why not, potentially make it support arbitrary lua or c++ code, c++ because of next thing:) for now interpreted but eventually jit compiled using luajit or tiny c compiler or something; js and python support
+  possible automatic vectorization or shaderization
 3d fractals support with 3d viewer and slice viewer
 4d fractal support and more d
 1d and 0d fractals if there are any
@@ -109,6 +124,7 @@ visiting saved location should zoom out, pan, zoom in, and do necessary rotation
 render progress indicator (like in animation sequence todo) for normal rendering as well
 add option to render iterative fractal with image file as output space not simple iteration count; possibly mix the two concepts
 command line arguments like "render --zx=0 --zy=0 --object=mandelbrot --threads 8 --resolution=1920x1080 -o filename.png"
+script can be loaded that will render the mandelbrot set or other set with configurable params, and save to a particular filename; and script can run multiple renders, even in parallel
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is

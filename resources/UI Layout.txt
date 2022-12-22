@@ -5,11 +5,15 @@ Set Params
     Options:
       "Mandelbrot Set"
       "Julia Set (Not Implemented)"
+      "Burning Ship Fractal (Not Implemented)"
+      "Custom Polynomial (Not Implemented)"
   For "Mandelbrot Set":
     Exponent: <int>
+    Zx: <float>
+    Zy: <float>
 Location Params
-  X: <float>; spinbox scaling based on zoom
-  Y: <float>; spinbox scaling based on zoom
+  X: <float>; spinbox speed based on zoom
+  Y: <float>; spinbox speed based on zoom
   Zoom: <float>; spinbox scaling logarythmic
   Log Zoom: <checkbox>
   Rotation: <float>
@@ -32,6 +36,14 @@ Render Params
     Loop Iteration Count: <int>; range: x >= 0
     Loop Iteration Count Scaling: <float>
   Log View: <checkbox>
+  Precision: <select>
+    Options:
+      "Float"
+      "Double"
+      "Long Double" (if not available on processor then will say "Long Double (Emulated)" emulated using GMP or MPFR or MPIR)
+      "Quad (GMP)" (possibly MPFR or MPIR instead)
+      "Oct (GMP)" (possibly MPFR or MPIR instead)
+      "BigDecimal (GMP)" (possibly MPIR instead)
 Calculation Params
   Calculation: <select>
     Options:
@@ -47,3 +59,12 @@ Calculation Params
       "Bitmap + SetPixel (slow)"
       "Bitmap + PixelArray (medium)"
       "Vulkan (fast)"
+  Render to File: <button>
+UI Params
+  Dragging Mode: <select>
+    Options:
+      "Normal Mode"
+      "Centered Cursor"
+Misc:
+  Version: <info>
+  Check for Updates: <button>
