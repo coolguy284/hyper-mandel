@@ -1,15 +1,56 @@
 #include "calculate.h"
 
-// https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
-
 namespace mandel {
 	namespace calc {
+		// converts x, y, zoom values into input for multipixel
+		
+		Basic_MultiPixel_Args convert_coord_to_multipixel(const Coords coords) {
+			Basic_MultiPixel_Args mpArgs = { 0 };
+			
+			switch (coords.zoom_mode) {
+			case Coords::ZOOM_MODE::Y_STABLE:
+				mpArgs.cyStep = -1.0f / coords.zoom / coords.height;
+				mpArgs.cxStep = -mpArgs.cyStep;
+				break;
+			
+			case Coords::ZOOM_MODE::X_STABLE:
+				mpArgs.cxStep = 1.0f / coords.zoom / coords.width;
+				mpArgs.cyStep = -mpArgs.cxStep;
+				break;
+			
+			case Coords::ZOOM_MODE::GROW: {
+				int minDimension = min(coords.width, coords.height);
+				
+				mpArgs.cxStep = 1.0f / coords.zoom / minDimension;
+				mpArgs.cyStep = -mpArgs.cxStep;
+				break;
+			}
+			
+			case Coords::ZOOM_MODE::SHRINK: {
+				int maxDimension = max(coords.width, coords.height);
+				
+				mpArgs.cxStep = 1.0f / coords.zoom / maxDimension;
+				mpArgs.cyStep = -mpArgs.cxStep;
+				break;
+			}
+			}
+			
+			mpArgs.cxStart = coords.cx - (mpArgs.cxStep * coords.width / 2.0f);
+			mpArgs.cyStart = coords.cy - (mpArgs.cyStep * coords.height / 2.0f);
+			
+			mpArgs.cxCount = coords.width;
+			mpArgs.cyCount = coords.height;
+			
+			return mpArgs;
+		}
+		
 		// returns the iteration count of a single C value in the mandelbrot set
 		
 		int basic_singlepixel(
-			float cx,
-			float cy
+			const float cx,
+			const float cy
 		) {
+			// https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
 			if (CARDIOID_SKIP) {
 				float qt1 = cx - 0.25f;
 				float q = qt1 * qt1 + cy * cy;
@@ -52,28 +93,23 @@ namespace mandel {
 		// array order is x + y * width
 		
 		void basic_multipixel(
-			float cxStart,
-			float cyStart,
-			float cxStep,
-			float cyStep,
-			int cxCount,
-			int cyCount,
-			_Out_writes_all_(cxCount* cyCount) int* iterCountArr
+			const Basic_MultiPixel_Args args,
+			_Out_writes_all_(args.cxCount * args.cyCount) int* iterCountArr
 		) {
-			int index = 0;
+			unsigned int index = 0;
 			
-			float cyCurrent = cyStart;
-			for (int y = 0; y < cyCount; y++) {
-				float cxCurrent = cxStart;
+			float cyCurrent = args.cyStart;
+			for (unsigned int y = 0; y < args.cyCount; y++) {
+				float cxCurrent = args.cxStart;
 				
-				for (int x = 0; x < cxCount; x++) {
+				for (unsigned int x = 0; x < args.cxCount; x++) {
 					iterCountArr[index] = basic_singlepixel(cxCurrent, cyCurrent);
 					
 					index++;
-					cxCurrent += cxStep;
+					cxCurrent += args.cxStep;
 				}
 				
-				cyCurrent += cyStep;
+				cyCurrent += args.cyStep;
 			}
 		}
 	}

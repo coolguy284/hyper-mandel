@@ -1,6 +1,6 @@
 #include "wnd_proc_paint_mandel.h"
 
-void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
+void WndProc_paint_mandel(const WIDHEIGHT renderSize, _In_ HDC* hdc) {
 	unsigned int mandelArrayLength = renderSize.width * renderSize.height;
 	
 	if (mandelArrayLength > 0) {
@@ -8,17 +8,14 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 		
 		std::unique_ptr<int[]> iterCountArr = std::make_unique<int[]>(mandelArrayLength);
 		
-		long minDimension = min(renderSize.width, renderSize.height);
+		mandel::calc::Coords coords;
 		
-		mandel::calc::basic_multipixel(
-			-2.0f / minDimension * renderSize.width,
-			2.0f / minDimension * renderSize.height,
-			4.0f / minDimension,
-			-4.0f / minDimension,
-			renderSize.width,
-			renderSize.height,
-			iterCountArr.get()
-		);
+		coords.width = renderSize.width;
+		coords.height = renderSize.height;
+		
+		mandel::calc::Basic_MultiPixel_Args mpArgs = mandel::calc::convert_coord_to_multipixel(coords);
+		
+		mandel::calc::basic_multipixel(mpArgs, iterCountArr.get());
 		
 		std::unique_ptr<COLORREF[]> colorRefArr = std::make_unique<COLORREF[]>(mandelArrayLength);
 		
@@ -27,14 +24,14 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 		// different render mode options
 		
 		switch (RENDER_MODE) {
-		case RENDER_MODE_FILLRECT: {
+		case RENDER_MODES::FILLRECT: {
 			// calls fillrect on every pixel, ungodly slow
 			
 			RECT fr = { 0 };
 			HBRUSH br;
 			
-			for (unsigned int y = 0; y < renderSize.height; y++) {
-				for (unsigned int x = 0; x < renderSize.width; x++) {
+			for (int y = 0; y < renderSize.height; y++) {
+				for (int x = 0; x < renderSize.width; x++) {
 					unsigned int baseColorIndex = x + y * renderSize.width;
 					
 					if (baseColorIndex < mandelArrayLength) {
@@ -55,7 +52,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 			break;
 		}
 		
-		case RENDER_MODE_BITMAP_SETPIXEL: {
+		case RENDER_MODES::BITMAP_SETPIXEL: {
 			// creates a bitmap, then calls SetPixel, then renders it, slow
 			
 			// https://stackoverflow.com/questions/1748470/how-to-draw-image-on-a-window
@@ -69,8 +66,8 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 			
 			// setting pixels
 			
-			for (unsigned int y = 0; y < renderSize.height; y++) {
-				for (unsigned int x = 0; x < renderSize.width; x++) {
+			for (int y = 0; y < renderSize.height; y++) {
+				for (int x = 0; x < renderSize.width; x++) {
 					unsigned int baseColorIndex = x + y * renderSize.width;
 					
 					if (baseColorIndex < mandelArrayLength) {
@@ -94,7 +91,7 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 			break;
 		}
 		
-		case RENDER_MODE_BITMAP_PIXELARRAY: {
+		case RENDER_MODES::BITMAP_PIXELARRAY: {
 			// creates a bitmap, then locks it and edits pixel memory, then renders it, decent,
 			// but still slower than calculating the mandelbrot set itself -.-
 			
@@ -138,8 +135,8 @@ void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc) {
 					
 					// setting pixels
 					
-					for (unsigned int y = 0; y < renderSize.height; y++) {
-						for (unsigned int x = 0; x < renderSize.width; x++) {
+					for (int y = 0; y < renderSize.height; y++) {
+						for (int x = 0; x < renderSize.width; x++) {
 							unsigned int basePixelIndex = x * 4 + y * renderSize.width * 4;
 							
 							if (basePixelIndex < hBitmapInfo.bmiHeader.biSizeImage) {

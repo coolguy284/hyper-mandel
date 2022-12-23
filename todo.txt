@@ -9,6 +9,8 @@ fix form elements flicker when resize
 add remaining controls to ui
 make ui panel resizable and collapsable
 render from center of each pixel (move start .5 of a pixel right and down)
+convert mandel calculation functions to templates
+snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
@@ -126,6 +128,7 @@ render progress indicator (like in animation sequence todo) for normal rendering
 add option to render iterative fractal with image file as output space not simple iteration count; possibly mix the two concepts
 command line arguments like "render --zx=0 --zy=0 --object=mandelbrot --threads 8 --resolution=1920x1080 -o filename.png"
 script can be loaded that will render the mandelbrot set or other set with configurable params, and save to a particular filename; and script can run multiple renders, even in parallel
+fractional max iteration count when normalized rendering
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is

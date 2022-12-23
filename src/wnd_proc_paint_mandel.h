@@ -8,4 +8,4 @@
 #include "consts.h"
 #include "structs.h"
 
-void WndProc_paint_mandel(WIDHEIGHT renderSize, HDC* hdc);
+void WndProc_paint_mandel(const WIDHEIGHT renderSize, _In_ HDC* hdc);
