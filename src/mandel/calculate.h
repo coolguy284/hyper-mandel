@@ -18,7 +18,7 @@ namespace mandel {
 			unsigned int width = 0; // initalized with a safe default but in reality should always be set
 			unsigned int height = 0; // initalized with a safe default but in reality should always be set
 			
-			// relative location in subpixel to use, for x, 0.0 is left edge, 1.0 is right edge
+			// relative location inside pixel to use, for x, 0.0 is left edge, 1.0 is right edge
 			float subpixel_rel_x = 0.5f;
 			float subpixel_rel_y = 0.5f;
 			

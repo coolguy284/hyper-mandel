@@ -35,8 +35,8 @@ namespace mandel {
 			}
 			}
 			
-			mpArgs.cxStart = coords.cx - (mpArgs.cxStep * coords.width / 2.0f);
-			mpArgs.cyStart = coords.cy - (mpArgs.cyStep * coords.height / 2.0f);
+			mpArgs.cxStart = coords.cx - (mpArgs.cxStep * coords.width / 2.0f) + coords.subpixel_rel_x * mpArgs.cxStep;
+			mpArgs.cyStart = coords.cy - (mpArgs.cyStep * coords.height / 2.0f) + coords.subpixel_rel_y * mpArgs.cyStep;
 			
 			mpArgs.cxCount = coords.width;
 			mpArgs.cyCount = coords.height;

@@ -8,7 +8,6 @@ add ctrl+a support for textbox
 fix form elements flicker when resize
 add remaining controls to ui
 make ui panel resizable and collapsable
-render from center of each pixel (move start .5 of a pixel right and down)
 convert mandel calculation functions to templates
 snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
 
