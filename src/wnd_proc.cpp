@@ -61,19 +61,7 @@ LRESULT CALLBACK WndProc(
 		windowSize.height = max(winRect.bottom - winRect.top, 0);
 		
 #ifdef _DEBUG
-		
-		std::wostringstream paintDebugOutputStream;
-		
-		paintDebugOutputStream << L"WM_PAINT: Window Size: ";
-		paintDebugOutputStream << windowSize.width;
-		paintDebugOutputStream << L", ";
-		paintDebugOutputStream << windowSize.height;
-		paintDebugOutputStream << L"\n";
-		
-		std::wstring paintDebugOutput = paintDebugOutputStream.str();
-		
-		OutputDebugString(paintDebugOutput.c_str());
-		
+		PRINT_DEBUG_2ARG(L"WM_PAINT: Window Size: ", windowSize.width, windowSize.height);
 #endif
 		
 		WIDHEIGHT renderSize = { 0 };

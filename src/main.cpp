@@ -66,23 +66,7 @@ int WINAPI WinMain(
 	windowRect.bottom = WINDOW_INITIAL_RENDER_HEIGHT;
 	
 #ifdef _DEBUG
-	
-	std::wostringstream unadjustWindowDebugOutputStream;
-	
-	unadjustWindowDebugOutputStream << L"AdjustWindowRectEx: Unadjusted Rect: ";
-	unadjustWindowDebugOutputStream << windowRect.left;
-	unadjustWindowDebugOutputStream << L", ";
-	unadjustWindowDebugOutputStream << windowRect.top;
-	unadjustWindowDebugOutputStream << L", ";
-	unadjustWindowDebugOutputStream << windowRect.right;
-	unadjustWindowDebugOutputStream << L", ";
-	unadjustWindowDebugOutputStream << windowRect.bottom;
-	unadjustWindowDebugOutputStream << L"\n";
-	
-	std::wstring unadjustWindowDebugOutput = unadjustWindowDebugOutputStream.str();
-	
-	OutputDebugString(unadjustWindowDebugOutput.c_str());
-	
+	PRINT_DEBUG_4ARG(L"AdjustWindowRectEx: Unadjusted Rect: ", windowRect.left, windowRect.top, windowRect.right, windowRect.bottom);
 #endif
 	
 	AdjustWindowRectEx(
@@ -93,23 +77,7 @@ int WINAPI WinMain(
 	);
 	
 #ifdef _DEBUG
-	
-	std::wostringstream adjustWindowDebugOutputStream;
-	
-	adjustWindowDebugOutputStream << L"AdjustWindowRectEx: Adjusted Rect: ";
-	adjustWindowDebugOutputStream << windowRect.left;
-	adjustWindowDebugOutputStream << L", ";
-	adjustWindowDebugOutputStream << windowRect.top;
-	adjustWindowDebugOutputStream << L", ";
-	adjustWindowDebugOutputStream << windowRect.right;
-	adjustWindowDebugOutputStream << L", ";
-	adjustWindowDebugOutputStream << windowRect.bottom;
-	adjustWindowDebugOutputStream << L"\n";
-	
-	std::wstring adjustWindowDebugOutput = adjustWindowDebugOutputStream.str();
-	
-	OutputDebugString(adjustWindowDebugOutput.c_str());
-	
+	PRINT_DEBUG_4ARG(L"AdjustWindowRectEx: Adjusted Rect: ", windowRect.left, windowRect.top, windowRect.right, windowRect.bottom);
 #endif
 	
 	// create window

@@ -1,10 +1,7 @@
 add functionality to current ui and scrolling and dragging to mandelbrot set
-  dragging mode normal:
-    mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
-    middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
-  dragging mode centered cursor:
-    make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely
-    pseudo cross shaped cursor rendered in the center while dragging is occuring, middle mouse when regular mouse clicked down zooms, holding shift then doing middle mouse rotates, up is clockwise
+mandel dragging mode normal:
+  mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
+  middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
 use error_wrap for all win32 calls
 make variables const that aren't being changed
 add ctrl+a support for textbox
@@ -23,6 +20,9 @@ check for updates button, checks using GitHub releases, opens popup saying there
   current program version (32 or 64 bit, debug / release / release-noicon) should be stored as variable somewhere, and update checker will download that specific version
   if choose to install update: will download new exe in same folder with a temporary name (if fails then popup saying update could not be downloaded, check permissions for folder, with the given error message); create bat file that sleeps for 0.5 seconds and tries to delete old exe and rename new exe to old exe's name, if fails, wait 1 sec try again, if fails, wait 2, 4, 8, 15, 30, 60 seconds, if still fail then make visualbasicscript to popup with error message saying updated exe could not be installed (check permissions in folder) (this should basically never happen because file wouldn't have been able to be downloaded in first place); then program saves state to disk (when that gets implemented), runs the batch file and immediately exits
 render to file brings up dialog box which saves arguments for the next time it is run, for the remainder of the session and also saves it to the ini file
+mandel dragging mode centered cursor:
+  make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely
+  pseudo cross shaped cursor rendered in the center while dragging is occuring, middle mouse when regular mouse clicked down zooms, holding shift then doing middle mouse rotates, up is clockwise
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements
