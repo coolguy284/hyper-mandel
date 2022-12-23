@@ -1,7 +1,7 @@
 add functionality to current ui and scrolling and dragging to mandelbrot set
 mandel dragging mode normal:
-  mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
-  middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
+	mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
+	middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
 use error_wrap for all win32 calls
 make variables const that aren't being changed
 add ctrl+a support for textbox
@@ -17,12 +17,12 @@ add julia set render mode
 move rendering and blitting to separate thread
 add option to calculate func for escape radius
 check for updates button, checks using GitHub releases, opens popup saying there is a new release available (and a second button if a new prerelease is available); buttons to install update, visit releases page, or just to close prompt
-  current program version (32 or 64 bit, debug / release / release-noicon) should be stored as variable somewhere, and update checker will download that specific version
-  if choose to install update: will download new exe in same folder with a temporary name (if fails then popup saying update could not be downloaded, check permissions for folder, with the given error message); create bat file that sleeps for 0.5 seconds and tries to delete old exe and rename new exe to old exe's name, if fails, wait 1 sec try again, if fails, wait 2, 4, 8, 15, 30, 60 seconds, if still fail then make visualbasicscript to popup with error message saying updated exe could not be installed (check permissions in folder) (this should basically never happen because file wouldn't have been able to be downloaded in first place); then program saves state to disk (when that gets implemented), runs the batch file and immediately exits
+	current program version (32 or 64 bit, debug / release / release-noicon) should be stored as variable somewhere, and update checker will download that specific version
+	if choose to install update: will download new exe in same folder with a temporary name (if fails then popup saying update could not be downloaded, check permissions for folder, with the given error message); create bat file that sleeps for 0.5 seconds and tries to delete old exe and rename new exe to old exe's name, if fails, wait 1 sec try again, if fails, wait 2, 4, 8, 15, 30, 60 seconds, if still fail then make visualbasicscript to popup with error message saying updated exe could not be installed (check permissions in folder) (this should basically never happen because file wouldn't have been able to be downloaded in first place); then program saves state to disk (when that gets implemented), runs the batch file and immediately exits
 render to file brings up dialog box which saves arguments for the next time it is run, for the remainder of the session and also saves it to the ini file
 mandel dragging mode centered cursor:
-  make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely
-  pseudo cross shaped cursor rendered in the center while dragging is occuring, middle mouse when regular mouse clicked down zooms, holding shift then doing middle mouse rotates, up is clockwise
+	make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely
+	pseudo cross shaped cursor rendered in the center while dragging is occuring, middle mouse when regular mouse clicked down zooms, holding shift then doing middle mouse rotates, up is clockwise
 decide how to handle aspect ratios, probably 4 modes, shrink in one axis grow in other, or both shrink (what it is now) or both grow
 
 much faster render mode using vulkan or smth
@@ -31,11 +31,11 @@ right can be collapsed with arrow on left of the right that will collapse it
 f11 to windowed fullscreen
 options to change exponent in mandelbrot (with complex number support and ability to change it live), uses tiny c compiler to recompile the code for any parameter change to be more optimized
 option to choose algorythm, option to test all algorythms and pick the fastest, if chosen it will show FPS after each algorythm
-  option 1 naive c++ mandelbrot algo
-  option 2 XMM or YMM register (vector operations) c++ algo with masking
-  option 3 gpu compute or regular shader algo
-  option 4 naive c++ mandelbrot algo with heavy optimization on filling in areas in big sweeps once it has been encircled with black
-  further options that have heavy algorythm optimizations with YMM registers and gpu support
+	option 1 naive c++ mandelbrot algo
+	option 2 XMM or YMM register (vector operations) c++ algo with masking
+	option 3 gpu compute or regular shader algo
+	option 4 naive c++ mandelbrot algo with heavy optimization on filling in areas in big sweeps once it has been encircled with black
+	further options that have heavy algorythm optimizations with YMM registers and gpu support
 this should obviously be fast enough that it can easily render in realtime with panning, zooming, etc.
 julia set support
 support for many iterated fractals
@@ -43,14 +43,14 @@ support for pasting in a custom equation and having it compiled and run
 iteration count can be set or set to auto
 color scheme can be chosen, rainbow, blue, red, green, etc., custom color scheme option as well
 all custom settings should be stored in an .ini file with same name as mandelbrot exe
-  option to store all preferences in documents instead (with customizable path, name, file extension) and only store path to ini in the main ini file; this is if documents is synced to a cloud storage
-  save window pos and size to ini
-  able to save interesting locations that optionally have settings attached to ini
-  saves current render settings, pos, rot, etc, and fractal choice and params
+	option to store all preferences in documents instead (with customizable path, name, file extension) and only store path to ini in the main ini file; this is if documents is synced to a cloud storage
+	save window pos and size to ini
+	able to save interesting locations that optionally have settings attached to ini
+	saves current render settings, pos, rot, etc, and fractal choice and params
 ability to alter aspect ratio of mandelbrot, listed as custom x and y scaling factor, and custom rotation
 try emscriptening for the web, but with lack of vector operations there will be less performance
 threads should be configurable option independent of choice of algorythm
-  when implementing multithreading be wary of the fact that some threads are faster than others (performance vs efficiency cores), so perhaps assign short "jobs" (each 64x64 pixels or configurable) to each thread and assign new jobs as ones are completed; this implies making a threadpool
+	when implementing multithreading be wary of the fact that some threads are faster than others (performance vs efficiency cores), so perhaps assign short "jobs" (each 64x64 pixels or configurable) to each thread and assign new jobs as ones are completed; this implies making a threadpool
 should be able to independently toggle on optimizations like the fill in outline region of black with black inside
 option to color inside of mandel with iterations taken to repeat
 scale, rot, skew, (or translate for whatever reason) or even custom transform matrix for mandel
@@ -61,25 +61,25 @@ controller support (and try to get lights to stop flashing on it)
 toggleable normalization
 mousewheel to zoom, ctrl mousewheel to rotate
 if cannot finish rendering frame in time it wont render whole frame at once, instead if dragged to new translation then will fill in pixels slowly in direction of translation and live update in a way that doesnt slow down gui
-  similar handling of scaling or other transformation alteration
-  left to right top to bottom filling in of pixels when a completely new location is set
+	similar handling of scaling or other transformation alteration
+	left to right top to bottom filling in of pixels when a completely new location is set
 slider to set different performance settings, low being not live rendered, only rendered once interaction stopped, high being live rendered; possible sub sliders for resolution, render shift quality when shifting rendered output before a not live render
-  this slider sets various fine settings behind the scenes
-  one of them is border percent, how much bigger the canvas is than the visible area (for instant scrolling if another setting is also set but even if not then for not instant forgetfulness if scroll quickly to one side and then back)
-  another is border autorendered percent which is percent of border percent that is autorendered in the background (for instant scrolling)
-  another setting for supersampling or subsampling (supersampling good for zooming in seamlessly ish and subsampling good for very high intensity areas of the mandelbrot set where more pixelated images will render noticeably faster)
-    supersampling is one of the pixel rendering options (how to render each pixel), others being
-      use top left, top right, bottom left, bottom right, center, rest of 9 possible points, custom (with 2 floats), all 9 averaged, 4 centerpoints averaged, custom (with top left coord, amount to step in each direction, and amount of steps in each direction), circle sampling (with option for number of points on circle)
-  option to set to render every frame (with optional frame cap) or only render when image updated (moved, rotated)
-  menus motion smooth or snap
-  render incrementally if it is going slow (as in show 2x downscaled before showing normal output, or 4x then 2x then normal, or even higher; also show it scanning in vertically or even horizontally for later stages)
+	this slider sets various fine settings behind the scenes
+	one of them is border percent, how much bigger the canvas is than the visible area (for instant scrolling if another setting is also set but even if not then for not instant forgetfulness if scroll quickly to one side and then back)
+	another is border autorendered percent which is percent of border percent that is autorendered in the background (for instant scrolling)
+	another setting for supersampling or subsampling (supersampling good for zooming in seamlessly ish and subsampling good for very high intensity areas of the mandelbrot set where more pixelated images will render noticeably faster)
+		supersampling is one of the pixel rendering options (how to render each pixel), others being
+			use top left, top right, bottom left, bottom right, center, rest of 9 possible points, custom (with 2 floats), all 9 averaged, 4 centerpoints averaged, custom (with top left coord, amount to step in each direction, and amount of steps in each direction), circle sampling (with option for number of points on circle)
+	option to set to render every frame (with optional frame cap) or only render when image updated (moved, rotated)
+	menus motion smooth or snap
+	render incrementally if it is going slow (as in show 2x downscaled before showing normal output, or 4x then 2x then normal, or even higher; also show it scanning in vertically or even horizontally for later stages)
 default precision mode is auto, where it does float for weak zoom, double for stronger zoom, extended for even more zoom if processor supports extended, and then some sort of fixed precision or bigdecimal or maybe gmpy or glfc quads then octs, etc.
-  somehow optimize it so it stays mostly performant at higher precisions
+	somehow optimize it so it stays mostly performant at higher precisions
 dll version that can be used by other programs to generate mandelbrot, the programs can request many images at once and set optimization parameters and they will be fulfilled eventually
 ability to render to file, with customizable resolution
-  ability to render huge images directly to file so not taking up more ram than is available
+	ability to render huge images directly to file so not taking up more ram than is available
 should be iteration scaling option, that makes it so it takes 10 iterations or X iterations to change to next color in pallete or more, for very high iteration count increasing areas
-  or maybe iteration scaling is set based on standard deviation of image
+	or maybe iteration scaling is set based on standard deviation of image
 option to show path of particular pixel, or to do it for many pixels at once in a grid pattern and show how the grid shape evolves and expands
 histogram of iteration counts pull uppable and also histogram based iteration coloring mode
 external and / or internal distance estimation coloring method
@@ -87,41 +87,41 @@ can mix and match coloring methods for inside and outside or even have 2 colorin
 when rendering every frame, show FPS and its inverse (frame time), and also percentage of time that is spent calculating and rendering and idle from that frame time
 add dll compile mode for library features
 library features
-  2d array of iteration counts or decimal iteration counts; customizble exit radius and customizable decimal calculation radius (the radius to do the normalization calculation; which should be the same as exit radius)
-    negative values for internal iteration counts if set to calculate that
-    2 flags, one for do internal count and other for do external count (which might as well be on due to nature of algorythm)
-  2d array of exterior or interior distance estimation; also 2 flags one for external and one for internal
-  different functions for different optimized modes, or different arguments on the same function
-  iteration count limit is argument
-  possibly expand arguments to include exponent, julia mode; change mandelbrot starting z
-  make a simple function that fills array with each step in the path for a single value of c and a given starting z
-  function that gets iteration count with pixel rendering option taken into account
+	2d array of iteration counts or decimal iteration counts; customizble exit radius and customizable decimal calculation radius (the radius to do the normalization calculation; which should be the same as exit radius)
+		negative values for internal iteration counts if set to calculate that
+		2 flags, one for do internal count and other for do external count (which might as well be on due to nature of algorythm)
+	2d array of exterior or interior distance estimation; also 2 flags one for external and one for internal
+	different functions for different optimized modes, or different arguments on the same function
+	iteration count limit is argument
+	possibly expand arguments to include exponent, julia mode; change mandelbrot starting z
+	make a simple function that fills array with each step in the path for a single value of c and a given starting z
+	function that gets iteration count with pixel rendering option taken into account
 burning ship fractal, other iterative fractals
 ability to input custom polynomial (arbitrary polynomial for now (with decimal and negative exponent) probably more general equation support later and even variable parsing, basically make it turing complete because why not, potentially make it support arbitrary lua or c++ code, c++ because of next thing:) for now interpreted but eventually jit compiled using luajit or tiny c compiler or something; js and python support
-  possible automatic vectorization or shaderization
+	possible automatic vectorization or shaderization
 3d fractals support with 3d viewer and slice viewer
 4d fractal support and more d
 1d and 0d fractals if there are any
-  one 1d is cantor dust
+	one 1d is cantor dust
 include other types of fractals not just formula per pixel ones
-  like koch snowflake and 2d cantor dust
-  or cantor set with finite level (at that point its not even a fractal)
+	like koch snowflake and 2d cantor dust
+	or cantor set with finite level (at that point its not even a fractal)
 great britain fractal for fun
 animation sequence rendering able to change every parameter smoothly or not smoothly, linearly or with easing; render as sequence of image files with option to set effort value and quality (only for lossy algos) or as video file with optional ability to customize codec
-  ability to add customizable information about current coordinates and or zoom; ability to choose location of information on rendered video with presets or custom x and y and choice of centering around coordinates, and/or to increase size of rendered output so text doesn't obscure anything; also ability to choose precision of information or if information will dynamically increase in precision
-  render progress indicator in frames out of total frames and for x and y of the current frame or maybe even iteration count if it's being super slow
+	ability to add customizable information about current coordinates and or zoom; ability to choose location of information on rendered video with presets or custom x and y and choice of centering around coordinates, and/or to increase size of rendered output so text doesn't obscure anything; also ability to choose precision of information or if information will dynamically increase in precision
+	render progress indicator in frames out of total frames and for x and y of the current frame or maybe even iteration count if it's being super slow
 double finger or multi finger (it averages the inputs) touchscreen support for zoom, rot, and others (3 finger could do skew)
 can lock any parameter (most likely lock skew by default because that seems annoying), for example can lock rot if 2 finger zoom on phone accidentally rot; could also lock zoom, or even x or y or both
 android version of program
 ui to adjust skew shows 2 colored vectors at center of screen (the i and j basis vectors) and can drag them to adjust skew or only rotate them or only scale them by clicking in special areas; put a circle around vectors and at one point on circle is 2 arrows thing pointing back and forth along circle, that is the special object to rotate; special objects change mouse to grabber; special object to zoom could be object perpendicular to that object that can be held in towards center of circle to slowly zoom in and vice versa, resets when let go
 complete recording mode where all inputs are saved to file, just to see how that goes
-  also playback of recording file
+	also playback of recording file
 option to silence volume up and down inputs and use them instead to rotate mandelbrot set, vol down is counterclockwise
-  pressing down on volume button (which is a mute) will either reset rotation, or switch scrolling into zoom mode instead
-  wasd keys and arrow keys for movement
-  optional mouse lock to center of screen and hide, and mouse movement instantly moves mandelbrot set
+	pressing down on volume button (which is a mute) will either reset rotation, or switch scrolling into zoom mode instead
+	wasd keys and arrow keys for movement
+	optional mouse lock to center of screen and hide, and mouse movement instantly moves mandelbrot set
 visiting saved location should zoom out, pan, zoom in, and do necessary rotations and skews and other setting changes; if change from mandelbrot to julia or something, then fade when fully zoomed out
-  optionally transition rotation to 0deg when fully zoomed out
+	optionally transition rotation to 0deg when fully zoomed out
 render progress indicator (like in animation sequence todo) for normal rendering as well
 add option to render iterative fractal with image file as output space not simple iteration count; possibly mix the two concepts
 command line arguments like "render --zx=0 --zy=0 --object=mandelbrot --threads 8 --resolution=1920x1080 -o filename.png"
