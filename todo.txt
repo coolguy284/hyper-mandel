@@ -6,9 +6,9 @@ use error_wrap for all win32 calls
 make variables const that aren't being changed
 add ctrl+a support for textbox
 fix form elements flicker when resize
-check code for form elements to see why they go off left edge when window really small, instead of stopping motion and sticking to left edge
 add remaining controls to ui
 make ui panel resizable and collapsable
+render from center of each pixel (move start .5 of a pixel right and down)
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
@@ -23,6 +23,7 @@ render to file brings up dialog box which saves arguments for the next time it i
 mandel dragging mode centered cursor:
   make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely
   pseudo cross shaped cursor rendered in the center while dragging is occuring, middle mouse when regular mouse clicked down zooms, holding shift then doing middle mouse rotates, up is clockwise
+decide how to handle aspect ratios, probably 4 modes, shrink in one axis grow in other, or both shrink (what it is now) or both grow
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements

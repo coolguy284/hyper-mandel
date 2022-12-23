@@ -18,6 +18,10 @@ LRESULT CALLBACK WndProc(
 		renderSize.width = max(windowSize.width - UI_WIDTH, 0); // UI_WIDTH less because removing right side for UI
 		renderSize.height = windowSize.height;
 		
+#ifdef _DEBUG
+		PRINT_DEBUG_2ARG(L"WM_SIZE: Render Size: ", renderSize.width, renderSize.height);
+#endif
+		
 #define _RESIZEELEM(UIVar) \
 	ERROR_WRAP(\
 		SetWindowPos(\
