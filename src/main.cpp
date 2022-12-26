@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <CommCtrl.h>
 
 #include "../resources/icon.h"
 
@@ -10,6 +11,10 @@
 
 UIElem_T UIElems;
 HINSTANCE mainHInstance;
+HWND mainHWnd;
+WIDHEIGHT windowSize = { 0 };
+WIDHEIGHT renderSize = { 0 };
+mandel::calc::Coords mandelCoords;
 
 int WINAPI WinMain(
 	_In_ HINSTANCE hInstance,
@@ -106,13 +111,18 @@ int WINAPI WinMain(
 		return 1;
 	}
 	
+	// assign main window handle
+	mainHWnd = hWnd;
+	
 	// create ui
 	
-#define _PLACEELEM(UIVar) {\
+#define _PLACEELEM(UIVar, coordRef) {\
+	std::wstring coordRefString = float_to_string(coordRef);\
+	\
 	UIVar.hWnd = CreateWindowEx(\
 		WS_EX_CLIENTEDGE,\
 		UIVar.windowClass,\
-		UIVar.title,\
+		coordRefString.c_str(),\
 		WS_GROUP | WS_TABSTOP | WS_CHILD | WS_VISIBLE,\
 		WINDOW_INITIAL_RENDER_WIDTH + UIVar.x, UIVar.y,\
 		UIVar.w, UIVar.h,\
@@ -127,11 +137,14 @@ int WINAPI WinMain(
 		errorMsgBox(funcName, desc);\
 		return 1;\
 	}\
+	\
+	/* third param is uIDSubclass and according to windows example can be set to 0 (so basically null) */\
+	SetWindowSubclass(UIVar.hWnd, EditProc, NULL, (DWORD_PTR)&coordRef);\
 }
 	
-	_PLACEELEM(UIElems.Location.X);
-	_PLACEELEM(UIElems.Location.Y);
-	_PLACEELEM(UIElems.Location.Zoom);
+	_PLACEELEM(UIElems.Location.X, mandelCoords.cx);
+	_PLACEELEM(UIElems.Location.Y, mandelCoords.cy);
+	_PLACEELEM(UIElems.Location.Zoom, mandelCoords.zoom);
 	
 #undef _PLACEELEM
 	

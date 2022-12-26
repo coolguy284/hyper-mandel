@@ -2,7 +2,10 @@
 
 #include <Windows.h>
 
+#include "mandel/calculate.h"
+
 #include "consts.h"
+#include "structs.h"
 
 const WCHAR szWindowClass[] = L"DesktopApp"; // window class
 const WCHAR szTitle[] = L"HyperMandel " VERSION; // window title
@@ -11,7 +14,6 @@ const WCHAR szTitle[] = L"HyperMandel " VERSION; // window title
 #define _UIELEMSTRUCT_UIELEM(name, xv, yv, wv, hv, cls, initialVal) \
 	struct _##name {\
 		_UIELEMSTRUCT_CONSTCHAR(windowClass, cls);\
-		_UIELEMSTRUCT_CONSTCHAR(title, initialVal);\
 		int x = xv;\
 		int y = yv;\
 		int w = wv;\
@@ -48,5 +50,8 @@ struct UIElem_T {
 #undef _UIELEMSTRUCT_UITEXT
 
 extern UIElem_T UIElems;
-
 extern HINSTANCE mainHInstance;
+extern HWND mainHWnd;
+extern WIDHEIGHT windowSize;
+extern WIDHEIGHT renderSize;
+extern mandel::calc::Coords mandelCoords;

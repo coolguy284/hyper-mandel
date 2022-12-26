@@ -10,11 +10,9 @@ LRESULT CALLBACK WndProc(
 	
 	switch (message) {
 	case WM_SIZE: {
-		WIDHEIGHT windowSize = { 0 };
 		windowSize.width = max(LOWORD(lParam), 0);
 		windowSize.height = max(HIWORD(lParam), 0);
 		
-		WIDHEIGHT renderSize = { 0 };
 		renderSize.width = max(windowSize.width - UI_WIDTH, 0); // UI_WIDTH less because removing right side for UI
 		renderSize.height = windowSize.height;
 		
@@ -80,7 +78,7 @@ LRESULT CALLBACK WndProc(
 		// ignore everything but UI panel if window too small
 		
 		if (windowSize.width > UI_WIDTH) {
-			WndProc_paint_mandel(renderSize, &hdc);
+			WndProc_paint_mandel(&hdc);
 		}
 		
 		// paint ui on right (currently blank)
@@ -116,6 +114,58 @@ LRESULT CALLBACK WndProc(
 	
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	
+	return 0;
+}
+
+LRESULT CALLBACK EditProc(
+	_In_ HWND hWnd,
+	_In_ UINT message,
+	_In_ WPARAM wParam,
+	_In_ LPARAM lParam,
+	UINT_PTR uIdSubclass,
+	DWORD_PTR drRefData
+) {
+	switch (message) {
+	case WM_CHAR: {
+		// recalculate mandelbrot set if enter key pressed
+		if (wParam == VK_RETURN) {
+			// get contents in edit
+			std::wstring strValToSet = get_string_from_editctrl(hWnd);
+			
+			try {
+				// get float version of string contents in edit
+				float valToSet = std::stof(strValToSet);
+				
+				// set value referenced by drRefData (points to a float in mandelCoords)
+				*(float*)drRefData = valToSet;
+				
+				// rerun paint_mandel
+				HDC hDC = GetDC(mainHWnd);
+				WndProc_paint_mandel(&hDC);
+				ReleaseDC(mainHWnd, hDC);
+			} catch (const std::invalid_argument e) {
+				MessageBox(NULL, L"Value is not a valid number.", L"HyperMandel Error", MB_OK);
+			} catch (const std::out_of_range e) {
+				MessageBox(NULL, L"Value is not in range of datatype.", L"HyperMandel Error", MB_OK);
+			}
+		} else {
+			// handoff to default action
+			return DefSubclassProc(hWnd, message, wParam, lParam);
+		}
+		break;
+	}
+	
+	/*case WM_NCDESTROY:
+		// deliberately not removing subclass as windows example doesn't do it
+		// https://learn.microsoft.com/en-us/windows/win32/controls/subclassing-overview
+		//RemoveWindowSubclass(hWnd, EditProc, uIdSubclass);
+		// deliberately not clearing drRefData as it points to struct in global memory
+		break;*/
+	
+	default:
+		return DefSubclassProc(hWnd, message, wParam, lParam);
 	}
 	
 	return 0;

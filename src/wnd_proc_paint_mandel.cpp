@@ -1,6 +1,6 @@
 #include "wnd_proc_paint_mandel.h"
 
-void WndProc_paint_mandel(const WIDHEIGHT renderSize, _In_ HDC* hdc) {
+void WndProc_paint_mandel(_In_ HDC* hdc) {
 	unsigned int mandelArrayLength = renderSize.width * renderSize.height;
 	
 	if (mandelArrayLength > 0) {
@@ -8,12 +8,10 @@ void WndProc_paint_mandel(const WIDHEIGHT renderSize, _In_ HDC* hdc) {
 		
 		std::unique_ptr<int[]> iterCountArr = std::make_unique<int[]>(mandelArrayLength);
 		
-		mandel::calc::Coords coords;
+		mandelCoords.width = renderSize.width;
+		mandelCoords.height = renderSize.height;
 		
-		coords.width = renderSize.width;
-		coords.height = renderSize.height;
-		
-		mandel::calc::Basic_MultiPixel_Args mpArgs = mandel::calc::convert_coord_to_multipixel(coords);
+		mandel::calc::Basic_MultiPixel_Args mpArgs = mandel::calc::convert_coord_to_multipixel(mandelCoords);
 		
 		mandel::calc::basic_multipixel(mpArgs, iterCountArr.get());
 		
