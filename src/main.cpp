@@ -37,18 +37,18 @@ int WINAPI WinMain(
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = hInstance;
 #ifdef _NOICON
-	wcex.hIcon = LoadIcon(wcex.hInstance, IDI_APPLICATION);
+	wcex.hIcon = (HICON)LoadImage(wcex.hInstance, MAKEINTRESOURCE(IDI_APPLICATION), IMAGE_ICON, 0, 0, LR_SHARED);
 #else
-	wcex.hIcon = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hIcon = (HICON)LoadImage(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 0, 0, LR_SHARED); // loaded from a file but not explicitly (loaded from exe itself, specified in resource file), don't know if LR_SHARED is a problem
 #endif
-	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hCursor = (HCURSOR)LoadImage(NULL, MAKEINTRESOURCE(IDC_ARROW), IMAGE_CURSOR, 0, 0, LR_SHARED);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1) /* white */;
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = szWindowClass;
 #ifdef _NOICON
-	wcex.hIconSm = LoadIcon(wcex.hInstance, IDI_APPLICATION);
+	wcex.hIconSm = (HICON)LoadImage(wcex.hInstance, MAKEINTRESOURCE(IDI_APPLICATION), IMAGE_ICON, 0, 0, LR_SHARED);
 #else
-	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hIconSm = (HICON)LoadImage(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 0, 0, LR_SHARED); // loaded from a file but not explicitly (loaded from exe itself, specified in resource file), don't know if LR_SHARED is a problem
 #endif
 	
 	// register window class
