@@ -98,18 +98,16 @@ namespace mandel {
 		) {
 			size_t index = 0;
 			
-			float cyCurrent = args.cyStart;
 			for (size_t y = 0; y < args.cyCount; y++) {
-				float cxCurrent = args.cxStart;
+				float cyCurrent = args.cyStart + args.cyStep * y;
 				
 				for (size_t x = 0; x < args.cxCount; x++) {
+					float cxCurrent = args.cxStart + args.cxStep * x;
+
 					iterCountArr[index] = basic_singlepixel(cxCurrent, cyCurrent);
 					
 					index++;
-					cxCurrent += args.cxStep;
 				}
-				
-				cyCurrent += args.cyStep;
 			}
 		}
 	}

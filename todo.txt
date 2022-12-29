@@ -1,5 +1,4 @@
-use multiplier not adder for cxStep so it gets blocky before stopping completely
-add functionality to current ui and scrolling and dragging to mandelbrot set
+add scrolling and dragging to mandelbrot set
 mandel dragging mode normal:
 	mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
 	middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
@@ -48,6 +47,7 @@ all custom settings should be stored in an .ini file with same name as mandelbro
 	option to store all preferences in documents instead (with customizable path, name, file extension) and only store path to ini in the main ini file; this is if documents is synced to a cloud storage
 	save window pos and size to ini
 	able to save interesting locations that optionally have settings attached to ini
+		preset saved locations, one of which is the wikipedia thing (mandelbrot set, x: 0.001643721971153, y: -0.822467633298876, zoom: 2000000 or maybe something else)
 	saves current render settings, pos, rot, etc, and fractal choice and params
 ability to alter aspect ratio of mandelbrot, listed as custom x and y scaling factor, and custom rotation
 try emscriptening for the web, but with lack of vector operations there will be less performance
