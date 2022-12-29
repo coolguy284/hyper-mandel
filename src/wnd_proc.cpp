@@ -21,7 +21,7 @@ LRESULT CALLBACK WndProc(
 #endif
 		
 #define _RESIZEELEM(UIVar) \
-	ERROR_WRAP_ZERO(\
+	ERROR_CHECK_ZERO(\
 		SetWindowPos(\
 			UIVar.hWnd,\
 			NULL,\
@@ -48,7 +48,7 @@ LRESULT CALLBACK WndProc(
 		
 		RECT winRect = { 0 };
 		
-		ERROR_WRAP_ZERO_EXTRA(
+		ERROR_CHECK_ZERO_EXTRA(
 			GetClientRect(hWnd, &winRect),
 			L"GetClientRect", L"WndProc/WM_PAINT",
 			break);
@@ -87,16 +87,16 @@ LRESULT CALLBACK WndProc(
 		uiRect.right = windowSize.width;
 		uiRect.bottom = windowSize.height;
 		
-		ERROR_WRAP_ZERO(
+		ERROR_CHECK_ZERO(
 			FillRect(hdc, &uiRect, (HBRUSH)(COLOR_WINDOW) /* window background */),
 			L"FillRect", L"WndProc/WM_PAINT");
 		
 #define _PLACETEXT(UITextVar) \
-	ERROR_WRAP_ZERO(\
+	ERROR_CHECK_ZERO(\
 		TextOut(hdc, renderSize.width + UITextVar.x, UITextVar.y, UITextVar.text, (int)wcslen(UITextVar.text)),\
 		L"TextOut", L"WndProc/WM_PAINT")
 		
-		ERROR_WRAP_ZERO(
+		ERROR_CHECK_ZERO(
 			SetBkMode(hdc, TRANSPARENT),
 			L"SetBkMode", L"WndProc/WM_PAINT");
 		

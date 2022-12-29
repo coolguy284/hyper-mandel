@@ -58,7 +58,7 @@ int WINAPI WinMain(
 	
 	// register window class
 	
-	ERROR_WRAP_ZERO_EXTRA(
+	ERROR_CHECK_ZERO_EXTRA(
 		RegisterClassEx(&wcex),
 		L"RegisterClassEx", L"WinMain",
 		return 1);
@@ -73,7 +73,7 @@ int WINAPI WinMain(
 	PRINT_DEBUG_4ARG(L"AdjustWindowRectEx: Unadjusted Rect: ", windowRect.left, windowRect.top, windowRect.right, windowRect.bottom);
 #endif
 	
-	ERROR_WRAP_ZERO(
+	ERROR_CHECK_ZERO(
 		AdjustWindowRectEx(
 			&windowRect,
 			WS_OVERLAPPEDWINDOW,
@@ -123,7 +123,7 @@ int WINAPI WinMain(
 		NULL);\
 	ERROR_CHECK_ZERO_EXTRA(UIVar.hWnd, L"CreateWindowEx", L"WinMain/" L###UIVar, return 1);\
 	\
-	ERROR_WRAP_ZERO_EXTRA(\
+	ERROR_CHECK_ZERO_EXTRA(\
 		/* third param is uIDSubclass and according to windows example can be set to 0 (so basically null) */\
 		SetWindowSubclass(UIVar.hWnd, EditProc, NULL, (DWORD_PTR)&coordRef),\
 		L"SetWindowSubclass", L"WinMain/" L###UIVar,\
@@ -140,7 +140,7 @@ int WINAPI WinMain(
 	// procure window
 	
 	WARN_WRAP_NONZERO(ShowWindow(hWnd, nCmdShow), L"UpdateWindow", L"WinMain", L"window already visible");
-	ERROR_WRAP_ZERO(UpdateWindow(hWnd), L"UpdateWindow", L"WinMain");
+	ERROR_CHECK_ZERO(UpdateWindow(hWnd), L"UpdateWindow", L"WinMain");
 	
 	// handle window messages
 	

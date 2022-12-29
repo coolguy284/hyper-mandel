@@ -2,25 +2,6 @@
 
 #include "error_msg_box.h"
 
-// wraps Win32 API call in value check if it is zero, meaning it errored, if so opens a MsgBox, with optional extra action version
-#define ERROR_WRAP_ZERO(funcCall, funcName, location) {\
-	BOOL _result = funcCall;\
-	if (!_result) {\
-		WCHAR _funcName[] = funcName;\
-		WCHAR _location[] = location;\
-		errorMsgBox(_funcName, _location);\
-	}\
-}
-#define ERROR_WRAP_ZERO_EXTRA(funcCall, funcName, location, extraAction) {\
-	BOOL _result = funcCall;\
-	if (!_result) {\
-		WCHAR _funcName[] = funcName;\
-		WCHAR _location[] = location;\
-		errorMsgBox(_funcName, _location);\
-		extraAction;\
-	}\
-}
-
 // checks function return value is zero indicating it errored, if so opens a MsgBox, with optional extra action version
 #define ERROR_CHECK_ZERO(returnVal, funcName, location) {\
 	if (!returnVal) {\

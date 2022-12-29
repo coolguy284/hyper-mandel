@@ -43,12 +43,12 @@ void WndProc_paint_mandel(HDC hdc) {
 						ERROR_CHECK_ZERO_EXTRA(br, L"CreateSolidBrush", L"WndProc_paint_mandel/RENDER_MODES::FILLRECT", goto fillrect_switchbreak);
 						
 						bool deferBreak = false;
-						ERROR_WRAP_ZERO_EXTRA(
+						ERROR_CHECK_ZERO_EXTRA(
 							FillRect(hdc, &fr, br),
 							L"FillRect", L"WndProc_paint_mandel/RENDER_MODES::FILLRECT",
 							deferBreak = true);
 						
-						ERROR_WRAP_ZERO_EXTRA(
+						ERROR_CHECK_ZERO_EXTRA(
 							DeleteObject(br),
 							L"DeleteObject", L"WndProc_paint_mandel/RENDER_MODES::FILLRECT",
 							goto fillrect_switchbreak);
@@ -101,7 +101,7 @@ void WndProc_paint_mandel(HDC hdc) {
 						
 						BITMAP bitmap = { 0 };
 						GetObject(hBitmap, sizeof(bitmap), &bitmap);
-						ERROR_WRAP_ZERO(
+						ERROR_CHECK_ZERO(
 							BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY),
 							L"BitBlt", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL");
 					}
@@ -207,7 +207,7 @@ void WndProc_paint_mandel(HDC hdc) {
 						if (setDIBitsSuccess) {
 							BITMAP bitmap = { 0 };
 							GetObject(hBitmap, sizeof(bitmap), &bitmap);
-							ERROR_WRAP_ZERO(
+							ERROR_CHECK_ZERO(
 								BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY),
 								L"BitBlt", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_PIXELARRAY");
 						}
