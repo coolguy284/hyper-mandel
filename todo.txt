@@ -11,6 +11,7 @@ make ui panel resizable and collapsable
 convert mandel calculation functions to templates
 snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
 make edit controls word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))
+fix messages (tier below warnings), particularly by making array indexes datatype size_t
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
