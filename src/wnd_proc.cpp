@@ -150,7 +150,7 @@ LRESULT CALLBACK EditProc(
 				HDC hdc = GetDC(mainHWnd);
 				ERROR_CHECK_ZERO_EXTRA(hdc, L"GetDC", L"EditProc/WM_CHAR/VK_RETURN", break);
 				WndProc_paint_mandel(hdc);
-				WARN_WRAP_ZERO(ReleaseDC(mainHWnd, hdc), L"ReleaseDC", L"EditProc/WM_CHAR/VK_RETURN", L"device context not released");
+				WARN_CHECK_ZERO(ReleaseDC(mainHWnd, hdc), L"ReleaseDC", L"EditProc/WM_CHAR/VK_RETURN", L"device context not released");
 			} catch (const std::invalid_argument e) {
 				MessageBox(NULL, L"Value is not a valid number.", L"HyperMandel Error", MB_OK);
 			} catch (const std::out_of_range e) {

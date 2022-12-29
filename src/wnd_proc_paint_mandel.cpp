@@ -122,13 +122,13 @@ void WndProc_paint_mandel(HDC hdc) {
 							L"CreateCompatibleDC", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL");
 					}
 					
-					WARN_WRAP_ZERO(
+					WARN_CHECK_ZERO(
 						DeleteDC(hdcMem),
 						L"DeleteDC", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL",
 						L"device context not deleted");
 				}
 				
-				WARN_WRAP_ZERO(
+				WARN_CHECK_ZERO(
 					DeleteObject(hBitmap),
 					L"DeleteObject", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL",
 					L"hBitmap not deleted");
@@ -231,13 +231,13 @@ void WndProc_paint_mandel(HDC hdc) {
 							L"CreateCompatibleDC", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL");
 					}
 					
-					WARN_WRAP_ZERO(
+					WARN_CHECK_ZERO(
 						DeleteDC(hdcMem),
 						L"DeleteDC", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL",
 						L"device context not deleted");
 				}
 				
-				WARN_WRAP_ZERO(
+				WARN_CHECK_ZERO(
 					DeleteObject(hBitmap),
 					L"DeleteObject", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL",
 					L"hBitmap not deleted");

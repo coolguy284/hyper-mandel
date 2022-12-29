@@ -139,7 +139,7 @@ int WINAPI WinMain(
 	
 	// procure window
 	
-	WARN_WRAP_NONZERO(ShowWindow(hWnd, nCmdShow), L"UpdateWindow", L"WinMain", L"window already visible");
+	WARN_CHECK_NONZERO(ShowWindow(hWnd, nCmdShow), L"UpdateWindow", L"WinMain", L"window already visible");
 	ERROR_CHECK_ZERO(UpdateWindow(hWnd), L"UpdateWindow", L"WinMain");
 	
 	// handle window messages

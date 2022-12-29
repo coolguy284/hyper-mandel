@@ -36,26 +36,24 @@
 
 // wraps Win32 API call in value check if it isn't zero, if so prints debug warning
 #ifdef _DEBUG
-#define WARN_WRAP_NONZERO(funcCall, funcName, location, msg) {\
-	BOOL _result = funcCall;\
-	if (_result) {\
+#define WARN_CHECK_NONZERO(returnVal, funcName, location, msg) {\
+	if (returnVal) {\
 		PRINT_DEBUG_NOARG(L"Runtime Warning in " funcName L" at " location L": " msg);\
 	}\
 }
 #else
-#define WARN_WRAP_NONZERO(funcCall, funcName, location) funcCall;
+#define WARN_CHECK_NONZERO(returnVal, funcName, location) funcCall;
 #endif
 
 // wraps Win32 API call in value check if it is zero, if so prints debug warning
 #ifdef _DEBUG
-#define WARN_WRAP_ZERO(funcCall, funcName, location, msg) {\
-	BOOL _result = funcCall;\
-	if (!_result) {\
+#define WARN_CHECK_ZERO(returnVal, funcName, location, msg) {\
+	if (!returnVal) {\
 		PRINT_DEBUG_NOARG(L"Runtime Warning in " funcName L" at " location L": " msg);\
 	}\
 }
 #else
-#define WARN_WRAP_ZERO(funcCall, funcName, location) funcCall;
+#define WARN_CHECK_ZERO(returnVal, funcName, location) funcCall;
 #endif
 
 #define PRINT_DEBUG_NOARG(msg) OutputDebugString(msg L"\n")
