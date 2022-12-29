@@ -9,4 +9,4 @@
 #include "structs.h"
 #include "globals.h"
 
-void WndProc_paint_mandel(_In_ HDC* hdc);
+void WndProc_paint_mandel(HDC hdc);

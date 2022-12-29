@@ -1,4 +1,3 @@
-don't pass pointer to handle as handle is size of pointer anyway
 use multiplier not adder for cxStep so it gets blocky before stopping completely
 add functionality to current ui and scrolling and dragging to mandelbrot set
 mandel dragging mode normal:

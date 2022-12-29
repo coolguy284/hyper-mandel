@@ -78,7 +78,7 @@ LRESULT CALLBACK WndProc(
 		// ignore everything but UI panel if window too small
 		
 		if (windowSize.width > UI_WIDTH) {
-			WndProc_paint_mandel(&hdc);
+			WndProc_paint_mandel(hdc);
 		}
 		
 		// paint ui on right (currently blank)
@@ -142,9 +142,9 @@ LRESULT CALLBACK EditProc(
 				*(float*)drRefData = valToSet;
 				
 				// rerun paint_mandel
-				HDC hDC = GetDC(mainHWnd);
-				WndProc_paint_mandel(&hDC);
-				ReleaseDC(mainHWnd, hDC);
+				HDC hdc = GetDC(mainHWnd);
+				WndProc_paint_mandel(hdc);
+				ReleaseDC(mainHWnd, hdc);
 			} catch (const std::invalid_argument e) {
 				MessageBox(NULL, L"Value is not a valid number.", L"HyperMandel Error", MB_OK);
 			} catch (const std::out_of_range e) {

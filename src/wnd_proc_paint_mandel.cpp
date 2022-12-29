@@ -1,6 +1,6 @@
 #include "wnd_proc_paint_mandel.h"
 
-void WndProc_paint_mandel(_In_ HDC* hdc) {
+void WndProc_paint_mandel(HDC hdc) {
 	unsigned int mandelArrayLength = renderSize.width * renderSize.height;
 	
 	if (mandelArrayLength > 0) {
@@ -41,7 +41,7 @@ void WndProc_paint_mandel(_In_ HDC* hdc) {
 						
 						br = CreateSolidBrush(colorRefArr[baseColorIndex]);
 						
-						FillRect(*hdc, &fr, br);
+						FillRect(hdc, &fr, br);
 						
 						DeleteObject(br);
 					}
@@ -57,9 +57,9 @@ void WndProc_paint_mandel(_In_ HDC* hdc) {
 			
 			// creating bitmap and handle to change pixels
 			
-			HBITMAP hBitmap = CreateCompatibleBitmap(*hdc, renderSize.width, renderSize.height);
+			HBITMAP hBitmap = CreateCompatibleBitmap(hdc, renderSize.width, renderSize.height);
 			
-			HDC hdcMem = CreateCompatibleDC(*hdc);
+			HDC hdcMem = CreateCompatibleDC(hdc);
 			HGDIOBJ oldBitmap = SelectObject(hdcMem, hBitmap);
 			
 			// setting pixels
@@ -79,7 +79,7 @@ void WndProc_paint_mandel(_In_ HDC* hdc) {
 			
 			BITMAP bitmap = { 0 };
 			GetObject(hBitmap, sizeof(bitmap), &bitmap);
-			BitBlt(*hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+			BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 			
 			// cleaning up
 			
@@ -95,9 +95,9 @@ void WndProc_paint_mandel(_In_ HDC* hdc) {
 			
 			// creating bitmap and handle to change pixels
 			
-			HBITMAP hBitmap = CreateCompatibleBitmap(*hdc, renderSize.width, renderSize.height);
+			HBITMAP hBitmap = CreateCompatibleBitmap(hdc, renderSize.width, renderSize.height);
 			
-			HDC hdcMem = CreateCompatibleDC(*hdc);
+			HDC hdcMem = CreateCompatibleDC(hdc);
 			HGDIOBJ oldBitmap = SelectObject(hdcMem, hBitmap);
 			
 			// https://stackoverflow.com/questions/3688409/getdibits-and-loop-through-pixels-using-x-y
@@ -170,7 +170,7 @@ void WndProc_paint_mandel(_In_ HDC* hdc) {
 				if (setDIBitsSuccess) {
 					BITMAP bitmap = { 0 };
 					GetObject(hBitmap, sizeof(bitmap), &bitmap);
-					BitBlt(*hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+					BitBlt(hdc, 0, 0, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
 				}
 			}
 			

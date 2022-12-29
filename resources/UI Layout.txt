@@ -73,6 +73,8 @@ UI Params
 			"Normal Mode" (default)
 			"Centered Cursor"
 	Live Update: <checkbox> (questionmark icon hover: Updates fractal for each character of input)
+	Capture Volume Inputs: <checkbox> (questionmark icon hover: Converts volume up to rotate clockwise and down to counterclockwise, for keyboards with a volume knob)
+	Reverse Volume Inputs: <checkbox> (greyed out unless capture volume inputs checked, but still editable despite greyed out)
 Misc:
 	Version: <info>
 	Check for Updates: <button>
