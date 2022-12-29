@@ -12,16 +12,7 @@
 	}\
 }
 
-#define PRINT_DEBUG_NOARG(label) {\
-	std::wostringstream debugOutputStream;\
-	\
-	debugOutputStream << label;\
-	debugOutputStream << L"\n";\
-	\
-	std::wstring debugOutput = debugOutputStream.str();\
-	\
-	OutputDebugString(debugOutput.c_str());\
-}
+#define PRINT_DEBUG_NOARG(msg) OutputDebugString(msg L"\n")
 
 #define PRINT_DEBUG_2ARG(label, arg1, arg2) {\
 	std::wostringstream debugOutputStream;\
