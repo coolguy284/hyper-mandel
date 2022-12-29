@@ -96,13 +96,13 @@ namespace mandel {
 			const Basic_MultiPixel_Args args,
 			_Out_writes_all_(args.cxCount * args.cyCount) int* iterCountArr
 		) {
-			unsigned int index = 0;
+			size_t index = 0;
 			
 			float cyCurrent = args.cyStart;
-			for (unsigned int y = 0; y < args.cyCount; y++) {
+			for (size_t y = 0; y < args.cyCount; y++) {
 				float cxCurrent = args.cxStart;
 				
-				for (unsigned int x = 0; x < args.cxCount; x++) {
+				for (size_t x = 0; x < args.cxCount; x++) {
 					iterCountArr[index] = basic_singlepixel(cxCurrent, cyCurrent);
 					
 					index++;

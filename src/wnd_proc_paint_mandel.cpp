@@ -28,9 +28,9 @@ void WndProc_paint_mandel(HDC hdc) {
 			RECT fr = { 0 };
 			HBRUSH br;
 			
-			for (int y = 0; y < renderSize.height; y++) {
-				for (int x = 0; x < renderSize.width; x++) {
-					unsigned int baseColorIndex = x + y * renderSize.width;
+			for (size_t y = 0; y < renderSize.height; y++) {
+				for (size_t x = 0; x < renderSize.width; x++) {
+					size_t baseColorIndex = x + y * renderSize.width;
 					
 					if (baseColorIndex < mandelArrayLength) {
 						// apparently baseColorIndex could go over somehow
@@ -88,10 +88,10 @@ void WndProc_paint_mandel(HDC hdc) {
 						
 						bool setPixelSuccess = true;
 						
-						int y, x;
+						size_t y, x;
 						for (y = 0; y < renderSize.height; y++) {
 							for (x = 0; x < renderSize.width; x++) {
-								unsigned int baseColorIndex = x + y * renderSize.width;
+								size_t baseColorIndex = x + y * renderSize.width;
 								
 								if (baseColorIndex < mandelArrayLength) {
 									// apparently baseColorIndex could go over somehow
@@ -184,15 +184,15 @@ void WndProc_paint_mandel(HDC hdc) {
 								
 								// setting pixels
 								
-								for (int y = 0; y < renderSize.height; y++) {
-									for (int x = 0; x < renderSize.width; x++) {
-										unsigned int basePixelIndex = x * 4 + y * renderSize.width * 4;
+								for (size_t y = 0; y < renderSize.height; y++) {
+									for (size_t x = 0; x < renderSize.width; x++) {
+										size_t basePixelIndex = x * 4 + y * renderSize.width * 4;
 										
 										if (basePixelIndex < hBitmapInfo.bmiHeader.biSizeImage) {
 											// apparently basePixelIndex could go over somehow, not for colorRefArr like the others but lpPixels instead
 											
 											// capping colorRefIndex just in case
-											unsigned int colorRefIndex = x + (renderSize.height - y - 1) * renderSize.width;
+											size_t colorRefIndex = x + (renderSize.height - y - 1) * renderSize.width;
 											
 											if (colorRefIndex < mandelArrayLength) {
 												COLORREF color = colorRefArr[colorRefIndex];
