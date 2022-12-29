@@ -21,14 +21,14 @@ LRESULT CALLBACK WndProc(
 #endif
 		
 #define _RESIZEELEM(UIVar) \
-	ERROR_WRAP(\
+	ERROR_WRAP_ZERO(\
 		SetWindowPos(\
 			UIVar.hWnd,\
 			NULL,\
 			renderSize.width + UIVar.x, UIVar.y,\
 			UIVar.w, UIVar.h,\
 			NULL),\
-		L"SetWindowPos", L###UIVar\
+		L"SetWindowPos", L"WndProc/WM_SIZE/" L###UIVar\
 	);
 		
 		_RESIZEELEM(UIElems.Location.X);
@@ -48,13 +48,10 @@ LRESULT CALLBACK WndProc(
 		
 		RECT winRect = { 0 };
 		
-		if (!GetClientRect(hWnd, &winRect)) {
-			MessageBox(NULL,
-				L"Call to GetClientRect failed",
-				L"HyperMandel",
-				NULL);
-			break;
-		}
+		ERROR_WRAP_ZERO_EXTRA(
+			GetClientRect(hWnd, &winRect),
+			L"GetClientRect", L"WndProc/WM_PAINT",
+			break);
 		
 		// get size of client area inside window
 		
@@ -74,6 +71,7 @@ LRESULT CALLBACK WndProc(
 		
 		PAINTSTRUCT ps = { 0 };
 		HDC hdc = BeginPaint(hWnd, &ps);
+		ERROR_CHECK_ZERO_EXTRA(hdc, L"BeginPaint", L"WndProc/WM_PAINT", break);
 		
 		// ignore everything but UI panel if window too small
 		
@@ -89,11 +87,18 @@ LRESULT CALLBACK WndProc(
 		uiRect.right = windowSize.width;
 		uiRect.bottom = windowSize.height;
 		
-		FillRect(hdc, &uiRect, (HBRUSH)(COLOR_WINDOW) /* window background */);
+		ERROR_WRAP_ZERO(
+			FillRect(hdc, &uiRect, (HBRUSH)(COLOR_WINDOW) /* window background */),
+			L"FillRect", L"WndProc/WM_PAINT");
 		
-#define _PLACETEXT(UITextVar) TextOut(hdc, renderSize.width + UITextVar.x, UITextVar.y, UITextVar.text, (int)wcslen(UITextVar.text))
+#define _PLACETEXT(UITextVar) \
+	ERROR_WRAP_ZERO(\
+		TextOut(hdc, renderSize.width + UITextVar.x, UITextVar.y, UITextVar.text, (int)wcslen(UITextVar.text)),\
+		L"TextOut", L"WndProc/WM_PAINT")
 		
-		SetBkMode(hdc, TRANSPARENT);
+		ERROR_WRAP_ZERO(
+			SetBkMode(hdc, TRANSPARENT),
+			L"SetBkMode", L"WndProc/WM_PAINT");
 		
 		_PLACETEXT(UIElems.Location.XText);
 		_PLACETEXT(UIElems.Location.YText);
@@ -143,8 +148,9 @@ LRESULT CALLBACK EditProc(
 				
 				// rerun paint_mandel
 				HDC hdc = GetDC(mainHWnd);
+				ERROR_CHECK_ZERO_EXTRA(hdc, L"GetDC", L"EditProc/WM_CHAR/VK_RETURN", break);
 				WndProc_paint_mandel(hdc);
-				ReleaseDC(mainHWnd, hdc);
+				WARN_WRAP_ZERO(ReleaseDC(mainHWnd, hdc), L"ReleaseDC", L"EditProc/WM_CHAR/VK_RETURN", L"device context not released");
 			} catch (const std::invalid_argument e) {
 				MessageBox(NULL, L"Value is not a valid number.", L"HyperMandel Error", MB_OK);
 			} catch (const std::out_of_range e) {

@@ -1,9 +1,9 @@
+error wrap behaves identically to error check
 use multiplier not adder for cxStep so it gets blocky before stopping completely
 add functionality to current ui and scrolling and dragging to mandelbrot set
 mandel dragging mode normal:
 	mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
 	middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
-use error_wrap for all win32 calls
 make variables const that aren't being changed
 add ctrl+a support for textbox
 fix form elements flicker when resize
@@ -11,6 +11,7 @@ add remaining controls to ui
 make ui panel resizable and collapsable
 convert mandel calculation functions to templates
 snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
+make edit controls word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top

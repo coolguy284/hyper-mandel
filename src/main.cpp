@@ -38,33 +38,32 @@ int WINAPI WinMain(
 	wcex.hInstance = hInstance;
 #ifdef _NOICON
 	wcex.hIcon = (HICON)LoadImage(wcex.hInstance, IDI_APPLICATION, IMAGE_ICON, 0, 0, LR_SHARED);
+	ERROR_CHECK_ZERO(wcex.hIcon, L"LoadImage", L"WinMain/wcex.hIcon");
 #else
 	wcex.hIcon = (HICON)LoadImage(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 0, 0, LR_SHARED); // loaded from a file but not explicitly (loaded from exe itself, specified in resource file), don't know if LR_SHARED is a problem
+	ERROR_CHECK_ZERO(wcex.hIcon, L"LoadImage", L"WinMain/wcex.hIcon");
 #endif
 	wcex.hCursor = (HCURSOR)LoadImage(NULL, IDC_ARROW, IMAGE_CURSOR, 0, 0, LR_SHARED);
+	ERROR_CHECK_ZERO(wcex.hCursor, L"LoadImage", L"WinMain/wcex.hCursor");
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1) /* white */;
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = szWindowClass;
 #ifdef _NOICON
 	wcex.hIconSm = (HICON)LoadImage(wcex.hInstance, IDI_APPLICATION, IMAGE_ICON, 0, 0, LR_SHARED);
+	ERROR_CHECK_ZERO(wcex.hIconSm, L"LoadImage", L"WinMain/wcex.hIconSm");
 #else
 	wcex.hIconSm = (HICON)LoadImage(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 0, 0, LR_SHARED); // loaded from a file but not explicitly (loaded from exe itself, specified in resource file), don't know if LR_SHARED is a problem
+	ERROR_CHECK_ZERO(wcex.hIconSm, L"LoadImage", L"WinMain/wcex.hIconSm");
 #endif
 	
 	// register window class
 	
-	if (!RegisterClassEx(&wcex)) {
-		// register failure
-		
-		MessageBox(NULL,
-			L"Call to RegsiterClassEx failed",
-			L"HyperMandel",
-			NULL);
-		
-		return 1;
-	}
+	ERROR_WRAP_ZERO_EXTRA(
+		RegisterClassEx(&wcex),
+		L"RegisterClassEx", L"WinMain",
+		return 1);
 	
-	// create window rect and adjust size to paintable area only
+	// create window rect with client area and adjust size to window area
 	
 	RECT windowRect = { 0 };
 	windowRect.right = WINDOW_INITIAL_RENDER_WIDTH + UI_WIDTH;
@@ -74,18 +73,20 @@ int WINAPI WinMain(
 	PRINT_DEBUG_4ARG(L"AdjustWindowRectEx: Unadjusted Rect: ", windowRect.left, windowRect.top, windowRect.right, windowRect.bottom);
 #endif
 	
-	AdjustWindowRectEx(
-		&windowRect,
-		WS_OVERLAPPEDWINDOW,
-		FALSE,
-		WS_EX_OVERLAPPEDWINDOW
+	ERROR_WRAP_ZERO(
+		AdjustWindowRectEx(
+			&windowRect,
+			WS_OVERLAPPEDWINDOW,
+			FALSE,
+			WS_EX_OVERLAPPEDWINDOW),
+		L"AdjustWindowRectEx", L"WinMain"
 	);
 	
 #ifdef _DEBUG
 	PRINT_DEBUG_4ARG(L"AdjustWindowRectEx: Adjusted Rect: ", windowRect.left, windowRect.top, windowRect.right, windowRect.bottom);
 #endif
 	
-	// create window
+	// create window and check if created
 	
 	HWND hWnd = CreateWindowEx(
 		WS_EX_OVERLAPPEDWINDOW,
@@ -99,17 +100,7 @@ int WINAPI WinMain(
 		hInstance,
 		NULL
 	);
-	
-	// check if window created
-	
-	if (!hWnd) {
-		MessageBox(NULL,
-			L"Call to CreateWindowEx failed",
-			L"HyperMandel",
-			NULL);
-		
-		return 1;
-	}
+	ERROR_CHECK_ZERO_EXTRA(hWnd, L"CreateWindowEx", L"WinMain", return 1);
 	
 	// assign main window handle
 	mainHWnd = hWnd;
@@ -130,16 +121,14 @@ int WINAPI WinMain(
 		NULL,\
 		hInstance,\
 		NULL);\
+	ERROR_CHECK_ZERO_EXTRA(UIVar.hWnd, L"CreateWindowEx", L"WinMain/" L###UIVar, return 1);\
 	\
-	if (!UIVar.hWnd) {\
-		WCHAR funcName[] = L"CreateWindowEx";\
-		WCHAR desc[] = L###UIVar;\
-		errorMsgBox(funcName, desc);\
-		return 1;\
-	}\
-	\
-	/* third param is uIDSubclass and according to windows example can be set to 0 (so basically null) */\
-	SetWindowSubclass(UIVar.hWnd, EditProc, NULL, (DWORD_PTR)&coordRef);\
+	ERROR_WRAP_ZERO_EXTRA(\
+		/* third param is uIDSubclass and according to windows example can be set to 0 (so basically null) */\
+		SetWindowSubclass(UIVar.hWnd, EditProc, NULL, (DWORD_PTR)&coordRef),\
+		L"SetWindowSubclass", L"WinMain/" L###UIVar,\
+		return 1\
+	);\
 }
 	
 	_PLACEELEM(UIElems.Location.X, mandelCoords.cx);
@@ -150,15 +139,15 @@ int WINAPI WinMain(
 	
 	// procure window
 	
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
+	WARN_WRAP_NONZERO(ShowWindow(hWnd, nCmdShow), L"UpdateWindow", L"WinMain", L"window already visible");
+	ERROR_WRAP_ZERO(UpdateWindow(hWnd), L"UpdateWindow", L"WinMain");
 	
 	// handle window messages
 	
 	MSG msg = { 0 };
 	while (GetMessage(&msg, NULL, 0, 0) > 0) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		TranslateMessage(&msg); // ignoring error checking because docs confusing
+		DispatchMessage(&msg); // ignoring return value
 	}
 	
 	return (int)msg.wParam;

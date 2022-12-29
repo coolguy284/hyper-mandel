@@ -6,6 +6,7 @@
 #include "mandel/render.h"
 
 #include "consts.h"
+#include "defines.h"
 #include "structs.h"
 #include "globals.h"
 
