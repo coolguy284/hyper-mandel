@@ -8,6 +8,8 @@ HWND mainHWnd;
 WIDHEIGHT windowSize = { 0 };
 WIDHEIGHT renderSize = { 0 };
 mandel::calc::Coords mandelCoords;
+Inputs_T inputs;
+LPWSTR currentDeliberateCursor = IDC_ARROW;
 
 int WINAPI WinMain(
 	_In_ HINSTANCE hInstance,
@@ -36,7 +38,7 @@ int WINAPI WinMain(
 	wcex.hIcon = (HICON)LoadImage(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 0, 0, LR_SHARED); // loaded from a file but not explicitly (loaded from exe itself, specified in resource file), don't know if LR_SHARED is a problem
 	ERROR_CHECK_ZERO(wcex.hIcon, L"LoadImage", L"WinMain/wcex.hIcon");
 #endif
-	wcex.hCursor = (HCURSOR)LoadImage(NULL, IDC_ARROW, IMAGE_CURSOR, 0, 0, LR_SHARED);
+	wcex.hCursor = (HCURSOR)LoadImage(NULL, currentDeliberateCursor, IMAGE_CURSOR, 0, 0, LR_SHARED);
 	ERROR_CHECK_ZERO(wcex.hCursor, L"LoadImage", L"WinMain/wcex.hCursor");
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1) /* white */;
 	wcex.lpszMenuName = NULL;

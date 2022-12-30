@@ -10,6 +10,7 @@ make ui panel resizable and collapsable
 convert mandel calculation functions to templates
 snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
 make edit controls word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))
+only load required dlls for debug, release
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
@@ -133,4 +134,4 @@ fractional max iteration count when normalized rendering
 keep in mind:
 put comments on all uses of system colors stating what the color actually is
 comment things when necessary
-if music is added, don't do it when tabbed out
+if music is added, don't play it when tabbed out

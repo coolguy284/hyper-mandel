@@ -41,12 +41,14 @@
     <ClInclude Include="src\consts.h" />
     <ClInclude Include="src\defines.h" />
     <ClInclude Include="src\globals.h" />
+    <ClInclude Include="src\main.h" />
     <ClInclude Include="src\mandel\calculate.h" />
     <ClInclude Include="src\mandel\render.h" />
     <ClInclude Include="src\error_msg_box.h" />
     <ClInclude Include="src\misc.h" />
     <ClInclude Include="src\structs.h" />
     <ClInclude Include="src\wnd_proc.h" />
+    <ClInclude Include="src\wnd_proc_mouse_click_or_move.h" />
     <ClInclude Include="src\wnd_proc_paint_mandel.h" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +62,7 @@
     <ClCompile Include="src\error_msg_box.cpp" />
     <ClCompile Include="src\misc.cpp" />
     <ClCompile Include="src\wnd_proc.cpp" />
+    <ClCompile Include="src\wnd_proc_mouse_click_or_move.cpp" />
     <ClCompile Include="src\wnd_proc_paint_mandel.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

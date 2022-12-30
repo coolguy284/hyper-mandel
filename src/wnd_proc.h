@@ -12,6 +12,7 @@
 #include "globals.h"
 #include "misc.h"
 #include "wnd_proc_paint_mandel.h"
+#include "wnd_proc_mouse_click_or_move.h"
 
 LRESULT CALLBACK WndProc(
 	_In_ HWND hWnd,

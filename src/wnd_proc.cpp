@@ -113,6 +113,54 @@ LRESULT CALLBACK WndProc(
 		break;
 	}
 	
+#define _RECALC_MOUSEBUTTONS_ANY \
+	inputs.processed.mouseButtons.any = \
+		inputs.raw.mouseButtons.left ||\
+		inputs.raw.mouseButtons.middle ||\
+		inputs.raw.mouseButtons.right ||\
+		inputs.raw.mouseButtons.mouse4 ||\
+		inputs.raw.mouseButtons.mouse5;
+	
+	// track mouse buttons
+	case WM_LBUTTONDOWN:                  inputs.raw.mouseButtons.left = true;    inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); break;
+	case WM_LBUTTONUP:                    inputs.raw.mouseButtons.left = false;   _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); break;
+	case WM_MBUTTONDOWN:                  inputs.raw.mouseButtons.middle = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); break;
+	case WM_MBUTTONUP:                    inputs.raw.mouseButtons.middle = false; _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); break;
+	case WM_RBUTTONDOWN:                  inputs.raw.mouseButtons.right = true;   inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); break;
+	case WM_RBUTTONUP:                    inputs.raw.mouseButtons.right = false;  _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); break;
+	case WM_XBUTTONDOWN:
+		if (HIWORD(wParam) == XBUTTON1) { inputs.raw.mouseButtons.mouse4 = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); }
+		else                            { inputs.raw.mouseButtons.mouse5 = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); }
+		break;
+	case WM_XBUTTONUP:
+		if (HIWORD(wParam) == XBUTTON1) { inputs.raw.mouseButtons.mouse4 = true;  _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); }
+		else                            { inputs.raw.mouseButtons.mouse5 = true;  _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); }
+		break;
+	
+#undef _RECALC_MOUSEBUTTONS_ANY
+	
+	// track mouse position
+	case WM_MOUSEMOVE:
+		inputs.raw.mousePos = MAKEPOINTS(lParam); // hopefully doesn't change mousePos to a new address somehow
+		break;
+	
+	case WM_SETCURSOR: // hoping that this will get called immediately after WM_MOUSEMOVE, every time (as it has done previously)
+		if ((HWND)wParam == hWnd) {
+			if (LOWORD(lParam) == HTCLIENT) {
+				WndProc_mouse_click_or_move();
+				
+				// halt further processing
+				return TRUE;
+			} else {
+				// run default processing (to set as arrow or resize, etc.)
+				return DefWindowProc(hWnd, message, wParam, lParam);
+			}
+		} else {
+			// allow further processing
+			return FALSE;
+		}
+		break;
+	
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

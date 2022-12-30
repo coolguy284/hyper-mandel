@@ -41,7 +41,7 @@ struct UIElem_T {
 		_UIELEMSTRUCT_UITEXT(ZoomText, 10, 110, L"Zoom:");
 		_UIELEMSTRUCT_UIELEM(Zoom, 10, 128, 180, 23, L"Edit", L"");
 	};
-
+	
 	Location_T Location;
 };
 
@@ -49,9 +49,49 @@ struct UIElem_T {
 #undef _UIELEMSTRUCT_UIELEM
 #undef _UIELEMSTRUCT_UITEXT
 
+struct Inputs_T {
+	struct Raw_T {
+		struct MouseButtons_T {
+			bool left = false;
+			bool middle = false;
+			bool right = false;
+			bool mouse4 = false;
+			bool mouse5 = false;
+			
+			bool pLeft = false;
+			bool pMiddle = false;
+			bool pRight = false;
+			bool pMouse4 = false;
+			bool pMouse5 = false;
+		};
+		
+		MouseButtons_T mouseButtons;
+		
+		POINTS mousePos = { 0 };
+		POINTS pMousePos = { 0 };
+	};
+	
+	Raw_T raw;
+	
+	struct Processed_T {
+		struct MouseButtons_T {
+			bool any = false;
+			bool pAny = false;
+		};
+		
+		MouseButtons_T mouseButtons;
+		
+		bool draggingFractal = false;
+	};
+	
+	Processed_T processed;
+};
+
 extern UIElem_T UIElems;
 extern HINSTANCE mainHInstance;
 extern HWND mainHWnd;
 extern WIDHEIGHT windowSize;
 extern WIDHEIGHT renderSize;
 extern mandel::calc::Coords mandelCoords;
+extern Inputs_T inputs;
+extern LPWSTR currentDeliberateCursor;

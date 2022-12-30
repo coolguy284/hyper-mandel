@@ -103,7 +103,7 @@ namespace mandel {
 				
 				for (size_t x = 0; x < args.cxCount; x++) {
 					float cxCurrent = args.cxStart + args.cxStep * x;
-
+					
 					iterCountArr[index] = basic_singlepixel(cxCurrent, cyCurrent);
 					
 					index++;

@@ -89,3 +89,10 @@
 	\
 	OutputDebugString(debugOutput.c_str());\
 }
+
+// only make a windows api call if cursor needs changing
+#define SET_CURSOR(cursor) \
+	if (currentDeliberateCursor != cursor) {\
+		SetCursor((HCURSOR)LoadImage(NULL, cursor, IMAGE_CURSOR, 0, 0, LR_SHARED));\
+		currentDeliberateCursor = cursor;\
+	}

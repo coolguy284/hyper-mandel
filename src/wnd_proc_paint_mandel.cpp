@@ -34,10 +34,10 @@ void WndProc_paint_mandel(HDC hdc) {
 					
 					if (baseColorIndex < mandelArrayLength) {
 						// apparently baseColorIndex could go over somehow
-						fr.left = x;
-						fr.top = y;
-						fr.right = x + 1;
-						fr.bottom = y + 1;
+						fr.left = (LONG)x;
+						fr.top = (LONG)y;
+						fr.right = (LONG)(x + 1);
+						fr.bottom = (LONG)(y + 1);
 						
 						br = CreateSolidBrush(colorRefArr[baseColorIndex]);
 						ERROR_CHECK_ZERO_EXTRA(br, L"CreateSolidBrush", L"WndProc_paint_mandel/RENDER_MODES::FILLRECT", goto fillrect_switch_break);
@@ -96,7 +96,7 @@ void WndProc_paint_mandel(HDC hdc) {
 								if (baseColorIndex < mandelArrayLength) {
 									// apparently baseColorIndex could go over somehow
 									ERROR_CHECK_NONZERO_EXTRA(
-										SetPixel(hdcMem, x, y, colorRefArr[baseColorIndex]) == -1,
+										SetPixel(hdcMem, (int)x, (int)y, colorRefArr[baseColorIndex]) == -1,
 										L"SetPixel", L"WndProc_paint_mandel/RENDER_MODES::BITMAP_SETPIXEL",
 										setPixelSuccess = false; goto setpixel_outer_for_break);
 								}
