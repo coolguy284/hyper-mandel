@@ -42,7 +42,7 @@
 	}\
 }
 #else
-#define WARN_CHECK_NONZERO(returnVal, funcName, location) funcCall;
+#define WARN_CHECK_NONZERO(returnVal, funcName, location, msg) returnVal;
 #endif
 
 // wraps Win32 API call in value check if it is zero, if so prints debug warning
@@ -53,7 +53,7 @@
 	}\
 }
 #else
-#define WARN_CHECK_ZERO(returnVal, funcName, location) funcCall;
+#define WARN_CHECK_ZERO(returnVal, funcName, location, msg) returnVal;
 #endif
 
 #define PRINT_DEBUG_NOARG(msg) OutputDebugString(msg L"\n")
