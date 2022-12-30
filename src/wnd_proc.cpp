@@ -152,7 +152,7 @@ LRESULT CALLBACK WndProc(
 				// halt further processing
 				return TRUE;
 			} else {
-				// run default processing (to set as arrow or resize, etc.)
+				// run default processing (to set cursor to arrow or resizer, etc.)
 				return DefWindowProc(hWnd, message, wParam, lParam);
 			}
 		} else {

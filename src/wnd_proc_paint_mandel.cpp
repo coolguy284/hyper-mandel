@@ -1,6 +1,8 @@
 #include "wnd_proc_paint_mandel.h"
 
 void WndProc_paint_mandel(HDC hdc) {
+	if (renderSize.width < 0 || renderSize.height < 0) return; // just in case, for prosperity's sake
+	
 	unsigned int mandelArrayLength = renderSize.width * renderSize.height;
 	
 	if (mandelArrayLength > 0) {
@@ -21,6 +23,9 @@ void WndProc_paint_mandel(HDC hdc) {
 		
 		// different render mode options
 		
+		size_t renderWidth = renderSize.width;
+		size_t renderHeight = renderSize.height;
+		
 		switch (RENDER_MODE) {
 		case RENDER_MODES::FILLRECT: {
 			// calls fillrect on every pixel, ungodly slow
@@ -28,8 +33,8 @@ void WndProc_paint_mandel(HDC hdc) {
 			RECT fr = { 0 };
 			HBRUSH br;
 			
-			for (size_t y = 0; y < renderSize.height; y++) {
-				for (size_t x = 0; x < renderSize.width; x++) {
+			for (size_t y = 0; y < renderHeight; y++) {
+				for (size_t x = 0; x < renderWidth; x++) {
 					size_t baseColorIndex = x + y * renderSize.width;
 					
 					if (baseColorIndex < mandelArrayLength) {
@@ -89,8 +94,8 @@ void WndProc_paint_mandel(HDC hdc) {
 						bool setPixelSuccess = true;
 						
 						size_t y, x;
-						for (y = 0; y < renderSize.height; y++) {
-							for (x = 0; x < renderSize.width; x++) {
+						for (y = 0; y < renderHeight; y++) {
+							for (x = 0; x < renderWidth; x++) {
 								size_t baseColorIndex = x + y * renderSize.width;
 								
 								if (baseColorIndex < mandelArrayLength) {
@@ -184,8 +189,8 @@ void WndProc_paint_mandel(HDC hdc) {
 								
 								// setting pixels
 								
-								for (size_t y = 0; y < renderSize.height; y++) {
-									for (size_t x = 0; x < renderSize.width; x++) {
+								for (size_t y = 0; y < renderHeight; y++) {
+									for (size_t x = 0; x < renderWidth; x++) {
 										size_t basePixelIndex = x * 4 + y * renderSize.width * 4;
 										
 										if (basePixelIndex < hBitmapInfo.bmiHeader.biSizeImage) {
