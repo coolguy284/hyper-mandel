@@ -1,8 +1,10 @@
 #pragma once
 
-#include <Windows.h>
 #include <sstream>
+
+#include <Windows.h>
 #include <CommCtrl.h>
+#include <windowsx.h>
 
 #include "consts.h"
 #include "defines.h"

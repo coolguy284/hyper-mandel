@@ -1,9 +1,10 @@
 #pragma once
 
-#include <Windows.h>
-#include <string>
-#include <sstream>
 #include <memory>
+#include <sstream>
+#include <string>
+
+#include <Windows.h>
 
 std::wstring get_string_from_editctrl(HWND hWnd);
 
