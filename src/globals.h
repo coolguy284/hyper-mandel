@@ -5,7 +5,7 @@
 #include "mandel/calculate.h"
 
 #include "consts.h"
-#include "structs.h"
+#include "structs_defines.h"
 
 const WCHAR szWindowClass[] = L"DesktopApp"; // window class
 const WCHAR szTitle[] = L"HyperMandel " VERSION; // window title

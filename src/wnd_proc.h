@@ -7,10 +7,11 @@
 #include <windowsx.h>
 
 #include "consts.h"
-#include "defines.h"
-#include "structs.h"
+#include "structs_defines.h"
 #include "globals.h"
 #include "misc.h"
+#include "error_funcs_defines.h"
+#include "debug_print_defines.h"
 #include "wnd_proc_paint_mandel.h"
 #include "wnd_proc_mouse_click_or_move.h"
 
