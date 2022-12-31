@@ -17,6 +17,7 @@ ui elem dirty bit
 	each ui element sets its own dirty bool in the struct if it is modified
 	pressing enter or changing a select or checkbox will transfer over all the elements with a dirty bool and unset them
 	edits to fractal view will overwrite textboxes regardless of dirty bool, and unset dirty bool; translation will reset x or y textbox or both; scroll will reset zoom textbox or also x or y or both; rotation will reset rotation textbox; etc.
+set proper font
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top

@@ -258,6 +258,6 @@ bool WndProc_paint_mandel() {
 	ERROR_CHECK_ZERO_EXTRA(hdc, L"GetDC", L"WndProc_paint_mandel (no args version)", return false);
 	WndProc_paint_mandel(hdc);
 	WARN_CHECK_ZERO(ReleaseDC(mainHWnd, hdc), L"ReleaseDC", L"WndProc_paint_mandel (no args version)", L"device context not released");
-
+	
 	return true;
 }

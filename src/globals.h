@@ -82,7 +82,7 @@ struct Inputs_T {
 		MouseButtons_T mouseButtons;
 		
 		bool draggingFractal = false;
-
+		
 		POINTS mouseDelta = { 0 };
 	};
 	

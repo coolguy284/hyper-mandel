@@ -142,7 +142,7 @@ LRESULT CALLBACK WndProc(
 	// track mouse position
 	case WM_MOUSEMOVE:
 		inputs.raw.mousePos = MAKEPOINTS(lParam); // hopefully doesn't change mousePos to a new address somehow
-
+		
 		WndProc_mouse_click_or_move();
 		break;
 	

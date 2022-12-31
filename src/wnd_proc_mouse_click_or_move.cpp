@@ -1,6 +1,12 @@
 #include "wnd_proc_mouse_click_or_move.h"
 
 void WndProc_mouse_click_or_move() {
+	// calculate delta
+	inputs.processed.mouseDelta = {
+		(short)(inputs.raw.mousePos.x - inputs.raw.pMousePos.x),
+		(short)(inputs.raw.mousePos.y - inputs.raw.pMousePos.y)
+	};
+	
 	// if not clicked: change cursor to cross on left side (for fractal), arrow on right (for ui)
 	// if clicked down on right: enter fractal dragging mode (cursor becomes 4 way arrow), capture pointer, only leave mode when let go
 	if (!inputs.processed.draggingFractal) {
@@ -38,31 +44,25 @@ void WndProc_mouse_click_or_move() {
 			ERROR_CHECK_ZERO(
 				SetWindowText(UIElems.Location.X.hWnd, cxString.c_str()),
 				L"SetWindowText", L"WndProc_mouse_click_or_move");
-
+			
 			updated = true;
 		}
-
+		
 		if (inputs.processed.mouseDelta.y) {
 			mandelCoords.cy -= inputs.processed.mouseDelta.y * mandelArgs.cyStep;
 			std::wstring cyString = float_to_string(mandelCoords.cy);
 			ERROR_CHECK_ZERO(
 				SetWindowText(UIElems.Location.Y.hWnd, cyString.c_str()),
 				L"SetWindowText", L"WndProc_mouse_click_or_move");
-
+			
 			updated = true;
 		}
-
+		
 		if (updated) {
 			WndProc_paint_mandel();
 		}
 	}
-
-	// calculate delta
-	inputs.processed.mouseDelta = {
-		(short)(inputs.raw.mousePos.x - inputs.raw.pMousePos.x),
-		(short)(inputs.raw.mousePos.y - inputs.raw.pMousePos.y)
-	};
-
+	
 	// set p variables
 	inputs.raw.mouseButtons.pLeft = inputs.raw.mouseButtons.left;
 	inputs.raw.mouseButtons.pMiddle = inputs.raw.mouseButtons.middle;
