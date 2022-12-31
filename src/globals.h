@@ -82,6 +82,8 @@ struct Inputs_T {
 		MouseButtons_T mouseButtons;
 		
 		bool draggingFractal = false;
+
+		POINTS mouseDelta = { 0 };
 	};
 	
 	Processed_T processed;
@@ -93,5 +95,6 @@ extern HWND mainHWnd;
 extern WIDHEIGHT windowSize;
 extern WIDHEIGHT renderSize;
 extern mandel::calc::Coords mandelCoords;
+extern mandel::calc::Basic_MultiPixel_Args mandelArgs;
 extern Inputs_T inputs;
 extern LPWSTR currentDeliberateCursor;

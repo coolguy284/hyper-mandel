@@ -12,3 +12,5 @@
 #include "debug_print_defines.h"
 
 void WndProc_paint_mandel(HDC hdc);
+
+bool WndProc_paint_mandel();

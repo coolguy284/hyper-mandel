@@ -1,4 +1,4 @@
-add scrolling and dragging to mandelbrot set; add inertia to dragging
+add scrolling to mandelbrot set; add inertia to dragging
 mandel dragging mode normal:
 	mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
 	middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
@@ -9,9 +9,14 @@ add remaining controls to ui
 make ui panel resizable and collapsable
 convert mandel calculation functions to templates
 snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
-make edit controls word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))
+enable horizontal scroll in textboxes
+	later make edit controls word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))
 only load required dlls for debug, release
 fix clicking on top bar then moving down doesnt make cursor into cross
+ui elem dirty bit
+	each ui element sets its own dirty bool in the struct if it is modified
+	pressing enter or changing a select or checkbox will transfer over all the elements with a dirty bool and unset them
+	edits to fractal view will overwrite textboxes regardless of dirty bool, and unset dirty bool; translation will reset x or y textbox or both; scroll will reset zoom textbox or also x or y or both; rotation will reset rotation textbox; etc.
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
@@ -58,6 +63,7 @@ threads should be configurable option independent of choice of algorythm
 should be able to independently toggle on optimizations like the fill in outline region of black with black inside
 option to color inside of mandel with iterations taken to repeat
 scale, rot, skew, (or translate for whatever reason) or even custom transform matrix for mandel
+	translation textboxes useful for specific translations proportionate to viewing window, i.e. 1.0 on x translation shifts everything 1x of the principal width (either left or right, can't decide); principal width based on the grow shrink modes set in the coords
 log mandel minimap in right or not minimap and is standard view mode instead
 f11 fullscreen support
 ability to view julia set of current region of mandel as minimap or just switch views to julia mode

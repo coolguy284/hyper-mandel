@@ -142,6 +142,8 @@ LRESULT CALLBACK WndProc(
 	// track mouse position
 	case WM_MOUSEMOVE:
 		inputs.raw.mousePos = MAKEPOINTS(lParam); // hopefully doesn't change mousePos to a new address somehow
+
+		WndProc_mouse_click_or_move();
 		break;
 	
 	case WM_SETCURSOR: // hoping that this will get called immediately after WM_MOUSEMOVE, every time (as it has done previously)
@@ -196,10 +198,7 @@ LRESULT CALLBACK EditProc(
 				*(float*)drRefData = valToSet;
 				
 				// rerun paint_mandel
-				HDC hdc = GetDC(mainHWnd);
-				ERROR_CHECK_ZERO_EXTRA(hdc, L"GetDC", L"EditProc/WM_CHAR/VK_RETURN", break);
-				WndProc_paint_mandel(hdc);
-				WARN_CHECK_ZERO(ReleaseDC(mainHWnd, hdc), L"ReleaseDC", L"EditProc/WM_CHAR/VK_RETURN", L"device context not released");
+				WndProc_paint_mandel();
 			} catch (const std::invalid_argument e) {
 				MessageBox(NULL, L"Value is not a valid number.", L"HyperMandel Error", MB_OK);
 			} catch (const std::out_of_range e) {

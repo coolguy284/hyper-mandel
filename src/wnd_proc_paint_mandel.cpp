@@ -13,9 +13,9 @@ void WndProc_paint_mandel(HDC hdc) {
 		mandelCoords.width = renderSize.width;
 		mandelCoords.height = renderSize.height;
 		
-		mandel::calc::Basic_MultiPixel_Args mpArgs = mandel::calc::convert_coord_to_multipixel(mandelCoords);
+		mandelArgs = mandel::calc::convert_coord_to_multipixel(mandelCoords);
 		
-		mandel::calc::basic_multipixel(mpArgs, iterCountArr.get());
+		mandel::calc::basic_multipixel(mandelArgs, iterCountArr.get());
 		
 		std::unique_ptr<COLORREF[]> colorRefArr = std::make_unique<COLORREF[]>(mandelArrayLength);
 		
@@ -251,4 +251,13 @@ void WndProc_paint_mandel(HDC hdc) {
 		}
 		}
 	}
+}
+
+bool WndProc_paint_mandel() {
+	HDC hdc = GetDC(mainHWnd);
+	ERROR_CHECK_ZERO_EXTRA(hdc, L"GetDC", L"WndProc_paint_mandel (no args version)", return false);
+	WndProc_paint_mandel(hdc);
+	WARN_CHECK_ZERO(ReleaseDC(mainHWnd, hdc), L"ReleaseDC", L"WndProc_paint_mandel (no args version)", L"device context not released");
+
+	return true;
 }

@@ -8,6 +8,7 @@ HWND mainHWnd;
 WIDHEIGHT windowSize = { 0 };
 WIDHEIGHT renderSize = { 0 };
 mandel::calc::Coords mandelCoords;
+mandel::calc::Basic_MultiPixel_Args mandelArgs;
 Inputs_T inputs;
 LPWSTR currentDeliberateCursor = IDC_ARROW;
 
@@ -122,8 +123,7 @@ int WINAPI WinMain(
 		/* third param is uIDSubclass and according to windows example can be set to 0 (so basically null) */\
 		SetWindowSubclass(UIVar.hWnd, EditProc, NULL, (DWORD_PTR)&coordRef),\
 		L"SetWindowSubclass", L"WinMain/" L###UIVar,\
-		return 1\
-	);\
+		return 1);\
 }
 	
 	_PLACEELEM(UIElems.Location.X, mandelCoords.cx);
