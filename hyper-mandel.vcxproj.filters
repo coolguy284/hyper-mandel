@@ -52,9 +52,6 @@
     <ClInclude Include="src\wnd_proc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\structs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\consts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -70,9 +67,6 @@
     <ClInclude Include="src\globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\error_msg_box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -83,6 +77,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\wnd_proc_mouse_click_or_move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\debug_print_defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\error_funcs_defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structs_defines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

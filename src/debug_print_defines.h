@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+
 #define PRINT_DEBUG_NOARG(msg) OutputDebugString(msg L"\n")
 
 #define PRINT_DEBUG_2ARG(label, arg1, arg2) {\
