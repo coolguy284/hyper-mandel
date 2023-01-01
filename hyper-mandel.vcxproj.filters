@@ -88,6 +88,9 @@
     <ClInclude Include="src\structs_defines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\wnd_proc_mouse_wheel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resources\version.rc">
@@ -120,6 +123,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\wnd_proc_mouse_click_or_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wnd_proc_mouse_wheel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

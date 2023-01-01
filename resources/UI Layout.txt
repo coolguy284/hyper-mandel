@@ -65,7 +65,8 @@ Calculation Params
 			"FillRect (very slow)"
 			"Bitmap + SetPixel (slow)"
 			"Bitmap + PixelArray (medium)" (default)
-			"Vulkan (fast)"
+			"Vulkan Compute (medium fast)"
+			"Vulkan Shader (fast)"
 	Render to File: <button>
 UI Params
 	Dragging Mode: <select>
@@ -75,6 +76,7 @@ UI Params
 	Live Update: <checkbox> (questionmark icon hover: Updates fractal for each character of input)
 	Capture Volume Inputs: <checkbox> (questionmark icon hover: Converts volume up to rotate clockwise and down to counterclockwise, for keyboards with a volume knob)
 	Reverse Volume Inputs: <checkbox> (greyed out unless capture volume inputs checked, but still editable despite greyed out)
+	Configure Hiding Components: <checkbox>
 Misc:
 	Version: <info>
 	Check for Updates: <button>

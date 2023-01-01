@@ -14,3 +14,10 @@ struct WIDHEIGHT {
 
 // if cursor is set by another routine
 #define RESET_CURSOR_VAR() currentDeliberateCursor = NULL;
+
+#define SET_TEXTBOX_TEXT(UIVar, value) {\
+	std::wstring valueStr = float_to_string(value);\
+	ERROR_CHECK_ZERO(\
+		SetWindowText(UIVar.hWnd, valueStr.c_str()),\
+		L"SetWindowText", L"SET_TEXTBOX_TEXT");\
+}

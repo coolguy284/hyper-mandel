@@ -133,8 +133,8 @@ LRESULT CALLBACK WndProc(
 		else                            { inputs.raw.mouseButtons.mouse5 = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); }
 		break;
 	case WM_XBUTTONUP:
-		if (HIWORD(wParam) == XBUTTON1) { inputs.raw.mouseButtons.mouse4 = true;  _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); }
-		else                            { inputs.raw.mouseButtons.mouse5 = true;  _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); }
+		if (HIWORD(wParam) == XBUTTON1) { inputs.raw.mouseButtons.mouse4 = false; _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); }
+		else                            { inputs.raw.mouseButtons.mouse5 = false; _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); }
 		break;
 	
 #undef _RECALC_MOUSEBUTTONS_ANY
@@ -143,7 +143,7 @@ LRESULT CALLBACK WndProc(
 	case WM_MOUSEMOVE:
 		inputs.raw.mousePos = MAKEPOINTS(lParam); // hopefully doesn't change mousePos to a new address somehow
 		
-		WndProc_mouse_click_or_move();
+		WndProc_mouse_click_or_move(); // this is necessary because MOUSEMOVE doesn't lead to SETCURSOR if mouse is being held and dragged (it is called otherwise)
 		break;
 	
 	case WM_SETCURSOR: // hoping that this will get called immediately after WM_MOUSEMOVE, every time (as it has done previously)
@@ -164,6 +164,13 @@ LRESULT CALLBACK WndProc(
 		}
 		break;
 	
+	case WM_MOUSEWHEEL:
+		if (inputs.raw.mousePos.x < renderSize.width) {
+			short zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+			WndProc_mouse_wheel(zDelta);
+		}
+		break;
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

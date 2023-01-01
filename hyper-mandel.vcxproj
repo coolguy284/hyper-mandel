@@ -50,6 +50,7 @@
     <ClInclude Include="src\structs_defines.h" />
     <ClInclude Include="src\wnd_proc.h" />
     <ClInclude Include="src\wnd_proc_mouse_click_or_move.h" />
+    <ClInclude Include="src\wnd_proc_mouse_wheel.h" />
     <ClInclude Include="src\wnd_proc_paint_mandel.h" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +65,7 @@
     <ClCompile Include="src\misc.cpp" />
     <ClCompile Include="src\wnd_proc.cpp" />
     <ClCompile Include="src\wnd_proc_mouse_click_or_move.cpp" />
+    <ClCompile Include="src\wnd_proc_mouse_wheel.cpp" />
     <ClCompile Include="src\wnd_proc_paint_mandel.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

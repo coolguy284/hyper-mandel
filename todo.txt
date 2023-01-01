@@ -1,4 +1,6 @@
-add scrolling to mandelbrot set; add inertia to dragging
+add inertia to dragging and maybe scrolling
+shorten one statement flow control statements
+add rotation using mousehwheel or mousewheel with ctrl
 mandel dragging mode normal:
 	mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
 	middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
@@ -10,7 +12,7 @@ make ui panel resizable and collapsable
 convert mandel calculation functions to templates
 snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
 enable horizontal scroll in textboxes
-	later make edit controls word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))
+	later make textboxes word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))
 only load required dlls for debug, release
 fix clicking on top bar then moving down doesnt make cursor into cross
 ui elem dirty bit
@@ -18,6 +20,8 @@ ui elem dirty bit
 	pressing enter or changing a select or checkbox will transfer over all the elements with a dirty bool and unset them
 	edits to fractal view will overwrite textboxes regardless of dirty bool, and unset dirty bool; translation will reset x or y textbox or both; scroll will reset zoom textbox or also x or y or both; rotation will reset rotation textbox; etc.
 set proper font
+if mouseDelta is so small it gets lost in floating point precision loss (basically coordinates don't change), then special mouseDeltaAccumulated variable is increased (or decreased if mouse is moved back; or reset to zero if zoom or if mousedrag is stopped), storing the accumulated mouseDelta which is added to next mouseMove
+somehow make child windows render first, instead of waiting on main window render to finish (this is so textboxes will show updated coordinates live instead of getting stuck and not showing coordinates until all motion stops)
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
@@ -138,6 +142,7 @@ add option to render iterative fractal with image file as output space not simpl
 command line arguments like "render --zx=0 --zy=0 --object=mandelbrot --threads 8 --resolution=1920x1080 -o filename.png"
 script can be loaded that will render the mandelbrot set or other set with configurable params, and save to a particular filename; and script can run multiple renders, even in parallel
 fractional max iteration count when normalized rendering
+can check and uncheck ui checkbox "configure hiding components", when checked every component has a checkbox next to it that is checked, if unchecked, then when configure hiding components is unchecked the element will disappear
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is

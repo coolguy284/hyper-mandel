@@ -14,6 +14,7 @@
 #include "debug_print_defines.h"
 #include "wnd_proc_paint_mandel.h"
 #include "wnd_proc_mouse_click_or_move.h"
+#include "wnd_proc_mouse_wheel.h"
 
 LRESULT CALLBACK WndProc(
 	_In_ HWND hWnd,

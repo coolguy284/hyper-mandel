@@ -39,23 +39,25 @@ void WndProc_mouse_click_or_move() {
 		bool updated = false;
 
 		if (inputs.processed.mouseDelta.x) {
-			mandelCoords.cx -= inputs.processed.mouseDelta.x * mandelArgs.cxStep;
-			std::wstring cxString = float_to_string(mandelCoords.cx);
-			ERROR_CHECK_ZERO(
-				SetWindowText(UIElems.Location.X.hWnd, cxString.c_str()),
-				L"SetWindowText", L"WndProc_mouse_click_or_move");
-			
-			updated = true;
+			float newCx = mandelCoords.cx - inputs.processed.mouseDelta.x * mandelArgs.cxStep;
+
+			if (newCx != mandelCoords.cx) {
+				mandelCoords.cx = newCx;
+				SET_TEXTBOX_TEXT(UIElems.Location.X, mandelCoords.cx);
+
+				updated = true;
+			}
 		}
 		
 		if (inputs.processed.mouseDelta.y) {
-			mandelCoords.cy -= inputs.processed.mouseDelta.y * mandelArgs.cyStep;
-			std::wstring cyString = float_to_string(mandelCoords.cy);
-			ERROR_CHECK_ZERO(
-				SetWindowText(UIElems.Location.Y.hWnd, cyString.c_str()),
-				L"SetWindowText", L"WndProc_mouse_click_or_move");
-			
-			updated = true;
+			float newCy = mandelCoords.cy - inputs.processed.mouseDelta.y * mandelArgs.cyStep;
+
+			if (newCy != mandelCoords.cy) {
+				mandelCoords.cy = newCy;
+				SET_TEXTBOX_TEXT(UIElems.Location.Y, mandelCoords.cy);
+
+				updated = true;
+			}
 		}
 		
 		if (updated) {
