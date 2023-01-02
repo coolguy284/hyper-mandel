@@ -60,9 +60,7 @@ void WndProc_mouse_click_or_move() {
 			}
 		}
 		
-		if (updated) {
-			WndProc_paint_mandel();
-		}
+		if (updated) WndProc_paint_mandel();
 	}
 	
 	// set p variables

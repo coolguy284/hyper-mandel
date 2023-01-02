@@ -45,9 +45,8 @@ namespace mandel {
 			_Out_writes_all_(length) COLORREF* colorRefArr,
 			int length
 		) {
-			for (int i = 0; i < length; i++) {
+			for (int i = 0; i < length; i++)
 				colorRefArr[i] = get_iterct_color(iterCountArr[i]);
-			}
 		}
 	}
 }

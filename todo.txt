@@ -1,5 +1,4 @@
 add inertia to dragging and maybe scrolling
-shorten one statement flow control statements
 add rotation using mousehwheel or mousewheel with ctrl
 mandel dragging mode normal:
 	mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag

@@ -12,13 +12,17 @@ void WndProc_mouse_wheel(short zDelta) {
 		float cyZoomDiff = cyDiff - cyDiff / zoomFactor;
 
 		mandelCoords.zoom *= zoomFactor;
+		
 		float newCx = mandelCoords.cx + cxZoomDiff;
 		float newCy = mandelCoords.cy + cyZoomDiff;
+		
 		SET_TEXTBOX_TEXT(UIElems.Location.Zoom, mandelCoords.zoom);
+		
 		if (newCx != mandelCoords.cx) {
 			mandelCoords.cx = newCx;
 			SET_TEXTBOX_TEXT(UIElems.Location.X, mandelCoords.cx);
 		}
+		
 		if (newCy != mandelCoords.cy) {
 			mandelCoords.cy = newCy;
 			SET_TEXTBOX_TEXT(UIElems.Location.Y, mandelCoords.cy);

@@ -75,9 +75,8 @@ LRESULT CALLBACK WndProc(
 		
 		// ignore everything but UI panel if window too small
 		
-		if (windowSize.width > UI_WIDTH) {
+		if (windowSize.width > UI_WIDTH)
 			WndProc_paint_mandel(hdc);
-		}
 		
 		// paint ui on right (currently blank)
 		
