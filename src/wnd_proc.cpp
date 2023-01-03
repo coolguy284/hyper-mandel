@@ -171,7 +171,7 @@ LRESULT CALLBACK WndProc(
 			WndProc_mouse_wheel(zDelta);
 		}
 		break;
-
+	
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

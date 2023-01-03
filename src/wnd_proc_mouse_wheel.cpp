@@ -10,7 +10,7 @@ void WndProc_mouse_wheel(short zDelta) {
 		float cyDiff = cyCursor - mandelCoords.cy;
 		float cxZoomDiff = cxDiff - cxDiff / zoomFactor;
 		float cyZoomDiff = cyDiff - cyDiff / zoomFactor;
-
+		
 		mandelCoords.zoom *= zoomFactor;
 		
 		float newCx = mandelCoords.cx + cxZoomDiff;
@@ -27,7 +27,7 @@ void WndProc_mouse_wheel(short zDelta) {
 			mandelCoords.cy = newCy;
 			SET_TEXTBOX_TEXT(UIElems.Location.Y, mandelCoords.cy);
 		}
-
+		
 		WndProc_paint_mandel();
 	}
 }

@@ -2,9 +2,9 @@
 
 std::wstring float_to_string(float val) {
 	std::wostringstream strVal;
-
+	
 	strVal << val;
-
+	
 	return strVal.str();
 }
 
