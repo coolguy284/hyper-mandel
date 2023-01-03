@@ -36,28 +36,28 @@ void WndProc_mouse_click_or_move() {
 	
 	// perform mandel dragging
 	if (inputs.processed.draggingFractal) {
+		float newCx = mandelCoords.cx - \
+			(inputs.processed.mouseDelta.x * mandelArgs.x_step_cx +
+			inputs.processed.mouseDelta.y * mandelArgs.y_step_cx);
+		
+		float newCy = mandelCoords.cy - \
+			(inputs.processed.mouseDelta.x * mandelArgs.x_step_cy +
+			inputs.processed.mouseDelta.y * mandelArgs.y_step_cy);
+		
 		bool updated = false;
-
-		if (inputs.processed.mouseDelta.x) {
-			float newCx = mandelCoords.cx - inputs.processed.mouseDelta.x * mandelArgs.x_step_cx;
-
-			if (newCx != mandelCoords.cx) {
-				mandelCoords.cx = newCx;
-				SET_TEXTBOX_TEXT(UIElems.Location.X, mandelCoords.cx);
-
-				updated = true;
-			}
+		
+		if (newCx != mandelCoords.cx) {
+			mandelCoords.cx = newCx;
+			SET_TEXTBOX_TEXT(UIElems.Location.X, mandelCoords.cx);
+			
+			updated = true;
 		}
 		
-		if (inputs.processed.mouseDelta.y) {
-			float newCy = mandelCoords.cy - inputs.processed.mouseDelta.y * mandelArgs.y_step_cy;
-
-			if (newCy != mandelCoords.cy) {
-				mandelCoords.cy = newCy;
-				SET_TEXTBOX_TEXT(UIElems.Location.Y, mandelCoords.cy);
-
-				updated = true;
-			}
+		if (newCy != mandelCoords.cy) {
+			mandelCoords.cy = newCy;
+			SET_TEXTBOX_TEXT(UIElems.Location.Y, mandelCoords.cy);
+			
+			updated = true;
 		}
 		
 		if (updated) WndProc_paint_mandel();
