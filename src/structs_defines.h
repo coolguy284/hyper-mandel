@@ -21,3 +21,10 @@ struct WIDHEIGHT {
 		SetWindowText(UIVar.hWnd, valueStr.c_str()),\
 		L"SetWindowText", L"SET_TEXTBOX_TEXT");\
 }
+
+#define RESET_FOCUS_TO_MAIN() {\
+	HWND currentFocus = GetFocus();\
+	if (currentFocus != NULL && currentFocus != mainHWnd) {\
+		ERROR_CHECK_ZERO(SetFocus(mainHWnd), L"SetFocus", L"RESET_FOCUS_TO_MAIN");\
+	}\
+}

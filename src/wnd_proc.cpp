@@ -123,15 +123,16 @@ LRESULT CALLBACK WndProc(
 		inputs.raw.mouseButtons.mouse5;
 	
 	// track mouse buttons
-	case WM_LBUTTONDOWN:                  inputs.raw.mouseButtons.left = true;    inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); break;
+	case WM_LBUTTONDOWN:                  inputs.raw.mouseButtons.left = true;    inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); RESET_FOCUS_TO_MAIN(); break;
 	case WM_LBUTTONUP:                    inputs.raw.mouseButtons.left = false;   _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); break;
-	case WM_MBUTTONDOWN:                  inputs.raw.mouseButtons.middle = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); break;
+	case WM_MBUTTONDOWN:                  inputs.raw.mouseButtons.middle = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); RESET_FOCUS_TO_MAIN(); break;
 	case WM_MBUTTONUP:                    inputs.raw.mouseButtons.middle = false; _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); break;
-	case WM_RBUTTONDOWN:                  inputs.raw.mouseButtons.right = true;   inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); break;
+	case WM_RBUTTONDOWN:                  inputs.raw.mouseButtons.right = true;   inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); RESET_FOCUS_TO_MAIN(); break;
 	case WM_RBUTTONUP:                    inputs.raw.mouseButtons.right = false;  _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); break;
 	case WM_XBUTTONDOWN:
 		if (HIWORD(wParam) == XBUTTON1) { inputs.raw.mouseButtons.mouse4 = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); }
 		else                            { inputs.raw.mouseButtons.mouse5 = true;  inputs.processed.mouseButtons.any = true; WndProc_mouse_click_or_move(); }
+		RESET_FOCUS_TO_MAIN();
 		break;
 	case WM_XBUTTONUP:
 		if (HIWORD(wParam) == XBUTTON1) { inputs.raw.mouseButtons.mouse4 = false; _RECALC_MOUSEBUTTONS_ANY;                 WndProc_mouse_click_or_move(); }
