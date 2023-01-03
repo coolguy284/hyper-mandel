@@ -45,9 +45,9 @@ void WndProc_mouse_wheel(short zDelta) {
 void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseScrolling) {
 	if (wDelta != 0) {
 		if (coarseScrolling)
-			mandelCoords.rotation += wDelta * HSCROLL_COARSE_ROTATION_MULT;
+			mandelCoords.rotation = mod_pos(mandelCoords.rotation + wDelta * HSCROLL_COARSE_ROTATION_MULT, 360.0f);
 		else
-			mandelCoords.rotation += wDelta * HSCROLL_FINE_ROTATION_MULT;
+			mandelCoords.rotation = mod_pos(mandelCoords.rotation + wDelta * HSCROLL_FINE_ROTATION_MULT, 360.0f);
 		
 		SET_TEXTBOX_TEXT(UIElems.Location.Rotation, mandelCoords.rotation);
 		

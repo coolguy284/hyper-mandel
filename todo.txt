@@ -1,4 +1,8 @@
-modulo rotation to 360 when scrolling by default to prevent useless precision loss
+make mouse scroll work out of bounds if mouse captured
+make rotate scroll amount not change if unit is changed
+make rotate centered around cursor
+ctrl for fine; shift for rotation; therefore ctrl mousewheel is fine zoom; shift is rotate; ctrl+shift is fine rotate
+movement with arrow keys, ability to set focus to window as a whole instead of textboxes so it actually works
 add inertia to dragging and maybe scrolling
 add rotation using mousehwheel or mousewheel with ctrl
 mandel dragging mode normal:
@@ -144,6 +148,7 @@ command line arguments like "render --zx=0 --zy=0 --object=mandelbrot --threads 
 script can be loaded that will render the mandelbrot set or other set with configurable params, and save to a particular filename; and script can run multiple renders, even in parallel
 fractional max iteration count when normalized rendering
 can check and uncheck ui checkbox "configure hiding components", when checked every component has a checkbox next to it that is checked, if unchecked, then when configure hiding components is unchecked the element will disappear
+add option to set clamp of rotation to something other than 0-360, maybe -360-360 or more
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is
