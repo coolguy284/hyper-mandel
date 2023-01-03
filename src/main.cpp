@@ -8,7 +8,7 @@ HWND mainHWnd;
 WIDHEIGHT windowSize = { 0 };
 WIDHEIGHT renderSize = { 0 };
 mandel::calc::Coords mandelCoords;
-mandel::calc::Basic_MultiPixel_Args mandelArgs;
+mandel::calc::Basic_MultiPixel_Args mandelArgs = { 0 };
 Inputs_T inputs;
 LPWSTR currentDeliberateCursor = IDC_ARROW;
 
