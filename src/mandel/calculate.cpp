@@ -7,36 +7,67 @@ namespace mandel {
 		Basic_MultiPixel_Args convert_coord_to_multipixel(const Coords coords) {
 			Basic_MultiPixel_Args mpArgs = { 0 };
 			
+			// calculate non rotated view
+			
+			float nonRotated_x_step_cx = 0.0f;
+			float nonRotated_y_step_cy = 0.0f;
+			
 			switch (coords.zoom_mode) {
 			case Coords::ZOOM_MODE::Y_STABLE:
-				mpArgs.y_step_cy = -1.0f / coords.zoom / coords.height;
-				mpArgs.x_step_cx = -mpArgs.y_step_cy;
+				nonRotated_y_step_cy = -1.0f / coords.zoom / coords.height;
+				nonRotated_x_step_cx = -nonRotated_y_step_cy;
 				break;
 			
 			case Coords::ZOOM_MODE::X_STABLE:
-				mpArgs.x_step_cx = 1.0f / coords.zoom / coords.width;
-				mpArgs.y_step_cy = -mpArgs.x_step_cx;
+				nonRotated_x_step_cx = 1.0f / coords.zoom / coords.width;
+				nonRotated_y_step_cy = -nonRotated_x_step_cx;
 				break;
 			
 			case Coords::ZOOM_MODE::GROW: {
 				int minDimension = min(coords.width, coords.height);
 				
-				mpArgs.x_step_cx = 1.0f / coords.zoom / minDimension;
-				mpArgs.y_step_cy = -mpArgs.x_step_cx;
+				nonRotated_x_step_cx = 1.0f / coords.zoom / minDimension;
+				nonRotated_y_step_cy = -nonRotated_x_step_cx;
 				break;
 			}
 			
 			case Coords::ZOOM_MODE::SHRINK: {
 				int maxDimension = max(coords.width, coords.height);
 				
-				mpArgs.x_step_cx = 1.0f / coords.zoom / maxDimension;
-				mpArgs.y_step_cy = -mpArgs.x_step_cx;
+				nonRotated_x_step_cx = 1.0f / coords.zoom / maxDimension;
+				nonRotated_y_step_cy = -nonRotated_x_step_cx;
 				break;
 			}
 			}
 			
-			mpArgs.start_cx = coords.cx - (mpArgs.x_step_cx * coords.width / 2.0f) + coords.subpixel_rel_x * mpArgs.x_step_cx;
-			mpArgs.start_cy = coords.cy - (mpArgs.y_step_cy * coords.height / 2.0f) + coords.subpixel_rel_y * mpArgs.y_step_cy;
+			float nonRotated_start_cx_delta = -(nonRotated_x_step_cx * coords.width / 2.0f) + coords.subpixel_rel_x * nonRotated_x_step_cx;
+			float nonRotated_start_cy_delta = -(nonRotated_y_step_cy * coords.height / 2.0f) + coords.subpixel_rel_y * nonRotated_y_step_cy;
+			
+			// rotate variables by given rotation
+			
+			float rotationRads = 0.0f;
+			switch (coords.rotation_unit) {
+			case Coords::ROTATION_UNIT::RADIANS:
+				rotationRads = coords.rotation;
+				break;
+			
+			case Coords::ROTATION_UNIT::DEGREES:
+				rotationRads = coords.rotation / 180.0f * std::numbers::pi_v<float>;
+				break;
+			
+			case Coords::ROTATION_UNIT::GRADIANS:
+				rotationRads = coords.rotation / 200.0f * std::numbers::pi_v<float>;
+				break;
+			}
+			
+			mpArgs.start_cx = (cosf(rotationRads) * nonRotated_start_cx_delta - sinf(rotationRads) * nonRotated_start_cy_delta) + coords.cx;
+			mpArgs.start_cy = (cosf(rotationRads) * nonRotated_start_cy_delta + sinf(rotationRads) * nonRotated_start_cx_delta) + coords.cy;
+			mpArgs.x_step_cx = cosf(rotationRads) * nonRotated_x_step_cx;
+			mpArgs.x_step_cy = -sinf(rotationRads) * nonRotated_y_step_cy;
+			mpArgs.y_step_cx = sinf(rotationRads) * nonRotated_x_step_cx;
+			mpArgs.y_step_cy = cosf(rotationRads) * nonRotated_y_step_cy;
+			
+			// add in width and height
 			
 			mpArgs.x_count = coords.width;
 			mpArgs.y_count = coords.height;

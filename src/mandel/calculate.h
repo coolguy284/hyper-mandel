@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cmath>
+#include <numbers>
+
 #include <Windows.h>
 
 constexpr bool CARDIOID_SKIP = true;
