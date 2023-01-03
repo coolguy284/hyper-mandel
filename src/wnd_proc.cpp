@@ -167,7 +167,7 @@ LRESULT CALLBACK WndProc(
 	
 	// mousewheel can be used for zooming or rotating
 	case WM_MOUSEWHEEL:
-		if (inputs.raw.mousePos.x < renderSize.width) {
+		if (inputs.processed.draggingFractal || inputs.raw.mousePos.x < renderSize.width) {
 			short zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 			WORD keyState = GET_KEYSTATE_WPARAM(wParam);
 			if (keyState & MK_SHIFT) {
@@ -187,7 +187,7 @@ LRESULT CALLBACK WndProc(
 	
 	// horizontal clicking of mousewheel used for rotation only
 	case WM_MOUSEHWHEEL:
-		if (inputs.raw.mousePos.x < renderSize.width) {
+		if (inputs.processed.draggingFractal || inputs.raw.mousePos.x < renderSize.width) {
 			short wDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 			bool ctrlHeld = GET_KEYSTATE_WPARAM(wParam) & MK_CONTROL;
 			if (ctrlHeld) {
