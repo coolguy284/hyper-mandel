@@ -41,3 +41,16 @@ void WndProc_mouse_wheel(short zDelta) {
 		WndProc_paint_mandel();
 	}
 }
+
+void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseScrolling) {
+	if (wDelta != 0) {
+		if (coarseScrolling)
+			mandelCoords.rotation += wDelta * HSCROLL_COARSE_ROTATION_MULT;
+		else
+			mandelCoords.rotation += wDelta * HSCROLL_FINE_ROTATION_MULT;
+		
+		SET_TEXTBOX_TEXT(UIElems.Location.Rotation, mandelCoords.rotation);
+		
+		WndProc_paint_mandel();
+	}
+}

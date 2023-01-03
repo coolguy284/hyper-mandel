@@ -165,10 +165,38 @@ LRESULT CALLBACK WndProc(
 		}
 		break;
 	
+	// mousewheel can be used for zooming or rotating
 	case WM_MOUSEWHEEL:
 		if (inputs.raw.mousePos.x < renderSize.width) {
 			short zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
-			WndProc_mouse_wheel(zDelta);
+			WORD keyState = GET_KEYSTATE_WPARAM(wParam);
+			if (keyState & MK_SHIFT) {
+				// coarse rotation
+				// it's not a horizontal scroll but the code called is the same
+				WndProc_mouse_wheel_horizontal(zDelta, true);
+			} else if (keyState & MK_CONTROL) {
+				// fine rotation
+				// it's not a horizontal scroll but the code called is the same
+				WndProc_mouse_wheel_horizontal(zDelta, false);
+			} else {
+				// regular zooming in and out
+				WndProc_mouse_wheel(zDelta);
+			}
+		}
+		break;
+	
+	// horizontal clicking of mousewheel used for rotation only
+	case WM_MOUSEHWHEEL:
+		if (inputs.raw.mousePos.x < renderSize.width) {
+			short wDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+			bool ctrlHeld = GET_KEYSTATE_WPARAM(wParam) & MK_CONTROL;
+			if (ctrlHeld) {
+				// fine scrolling
+				WndProc_mouse_wheel_horizontal(wDelta, false);
+			} else {
+				// coarse scrolling
+				WndProc_mouse_wheel_horizontal(wDelta, true);
+			}
 		}
 		break;
 	

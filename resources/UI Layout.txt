@@ -23,6 +23,8 @@ Location Params
 			"Degrees" (default)
 			"Radians"
 			"Gradians"
+	Modulo Rotation When Scrolling: <checkbox=true>
+	Modulo Rotation On Input: <checkbox=true>
 	SkewX: <float=0>
 	SkewY: <float=0>
 	ScaleX: <float=1>

@@ -1,3 +1,4 @@
+modulo rotation to 360 when scrolling by default to prevent useless precision loss
 add inertia to dragging and maybe scrolling
 add rotation using mousehwheel or mousewheel with ctrl
 mandel dragging mode normal:
@@ -21,6 +22,7 @@ ui elem dirty bit
 set proper font
 if mouseDelta is so small it gets lost in floating point precision loss (basically coordinates don't change), then special mouseDeltaAccumulated variable is increased (or decreased if mouse is moved back; or reset to zero if zoom or if mousedrag is stopped), storing the accumulated mouseDelta which is added to next mouseMove
 somehow make child windows render first, instead of waiting on main window render to finish (this is so textboxes will show updated coordinates live instead of getting stuck and not showing coordinates until all motion stops)
+add help page
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
