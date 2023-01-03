@@ -11,9 +11,21 @@ namespace mandel {
 		// converts cx, cy, zoom, and other values into input for multipixel
 		
 		struct Coords {
+			// mathematical params
+			
 			float cx = 0.0f;
 			float cy = 0.0f;
+			
 			float zoom = 0.25f; // 1 / zoom is approximate diameter of render
+			
+			float rotation = 0.0f;
+			enum class ROTATION_UNIT {
+				RADIANS,
+				DEGREES,
+				GRADIANS,
+			} rotation_unit = ROTATION_UNIT::DEGREES;
+			
+			// technical params
 			
 			unsigned int width = 0; // initalized with a safe default but in reality should always be set
 			unsigned int height = 0; // initalized with a safe default but in reality should always be set
@@ -32,14 +44,17 @@ namespace mandel {
 		};
 		
 		struct Basic_MultiPixel_Args {
-			float cxStart;
-			float cyStart;
+			float start_cx;
+			float start_cy;
 			
-			float cxStep;
-			float cyStep;
+			// x and y screen coordinates each can step in both cx and cy directions (this allows rotation or any other linear transformation to the mandelbrot set, such as a skew)
+			float x_step_cx;
+			float x_step_cy;
+			float y_step_cx;
+			float y_step_cy;
 			
-			unsigned int cxCount;
-			unsigned int cyCount;
+			unsigned int x_count;
+			unsigned int y_count;
 		};
 		
 		Basic_MultiPixel_Args convert_coord_to_multipixel(const Coords coords);
@@ -57,7 +72,7 @@ namespace mandel {
 		
 		void basic_multipixel(
 			const Basic_MultiPixel_Args args,
-			_Out_writes_all_(args.cxCount * args.cyCount) int* iterCountArr
+			_Out_writes_all_(args.x_count * args.y_count) int* iterCountArr
 		);
 	}
 }

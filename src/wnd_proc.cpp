@@ -34,6 +34,7 @@ LRESULT CALLBACK WndProc(
 		_RESIZEELEM(UIElems.Location.X);
 		_RESIZEELEM(UIElems.Location.Y);
 		_RESIZEELEM(UIElems.Location.Zoom);
+		_RESIZEELEM(UIElems.Location.Rotation);
 		
 #undef _RESIZEELEM
 		break;
@@ -102,6 +103,7 @@ LRESULT CALLBACK WndProc(
 		_PLACETEXT(UIElems.Location.XText);
 		_PLACETEXT(UIElems.Location.YText);
 		_PLACETEXT(UIElems.Location.ZoomText);
+		_PLACETEXT(UIElems.Location.RotationText);
 		
 #undef _PLACETEXT
 		

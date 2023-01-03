@@ -9,37 +9,37 @@ namespace mandel {
 			
 			switch (coords.zoom_mode) {
 			case Coords::ZOOM_MODE::Y_STABLE:
-				mpArgs.cyStep = -1.0f / coords.zoom / coords.height;
-				mpArgs.cxStep = -mpArgs.cyStep;
+				mpArgs.y_step_cy = -1.0f / coords.zoom / coords.height;
+				mpArgs.x_step_cx = -mpArgs.y_step_cy;
 				break;
 			
 			case Coords::ZOOM_MODE::X_STABLE:
-				mpArgs.cxStep = 1.0f / coords.zoom / coords.width;
-				mpArgs.cyStep = -mpArgs.cxStep;
+				mpArgs.x_step_cx = 1.0f / coords.zoom / coords.width;
+				mpArgs.y_step_cy = -mpArgs.x_step_cx;
 				break;
 			
 			case Coords::ZOOM_MODE::GROW: {
 				int minDimension = min(coords.width, coords.height);
 				
-				mpArgs.cxStep = 1.0f / coords.zoom / minDimension;
-				mpArgs.cyStep = -mpArgs.cxStep;
+				mpArgs.x_step_cx = 1.0f / coords.zoom / minDimension;
+				mpArgs.y_step_cy = -mpArgs.x_step_cx;
 				break;
 			}
 			
 			case Coords::ZOOM_MODE::SHRINK: {
 				int maxDimension = max(coords.width, coords.height);
 				
-				mpArgs.cxStep = 1.0f / coords.zoom / maxDimension;
-				mpArgs.cyStep = -mpArgs.cxStep;
+				mpArgs.x_step_cx = 1.0f / coords.zoom / maxDimension;
+				mpArgs.y_step_cy = -mpArgs.x_step_cx;
 				break;
 			}
 			}
 			
-			mpArgs.cxStart = coords.cx - (mpArgs.cxStep * coords.width / 2.0f) + coords.subpixel_rel_x * mpArgs.cxStep;
-			mpArgs.cyStart = coords.cy - (mpArgs.cyStep * coords.height / 2.0f) + coords.subpixel_rel_y * mpArgs.cyStep;
+			mpArgs.start_cx = coords.cx - (mpArgs.x_step_cx * coords.width / 2.0f) + coords.subpixel_rel_x * mpArgs.x_step_cx;
+			mpArgs.start_cy = coords.cy - (mpArgs.y_step_cy * coords.height / 2.0f) + coords.subpixel_rel_y * mpArgs.y_step_cy;
 			
-			mpArgs.cxCount = coords.width;
-			mpArgs.cyCount = coords.height;
+			mpArgs.x_count = coords.width;
+			mpArgs.y_count = coords.height;
 			
 			return mpArgs;
 		}
@@ -94,15 +94,15 @@ namespace mandel {
 		
 		void basic_multipixel(
 			const Basic_MultiPixel_Args args,
-			_Out_writes_all_(args.cxCount * args.cyCount) int* iterCountArr
+			_Out_writes_all_(args.x_count * args.y_count) int* iterCountArr
 		) {
 			size_t index = 0;
 			
-			for (size_t y = 0; y < args.cyCount; y++) {
-				float cyCurrent = args.cyStart + args.cyStep * y;
+			for (size_t y = 0; y < args.y_count; y++) {
+				float cyCurrent = args.start_cy + args.y_step_cy * y;
 				
-				for (size_t x = 0; x < args.cxCount; x++) {
-					float cxCurrent = args.cxStart + args.cxStep * x;
+				for (size_t x = 0; x < args.x_count; x++) {
+					float cxCurrent = args.start_cx + args.x_step_cx * x;
 					
 					iterCountArr[index] = basic_singlepixel(cxCurrent, cyCurrent);
 					

@@ -128,7 +128,8 @@ int WINAPI WinMain(
 	
 	_PLACEELEM(UIElems.Location.X, mandelCoords.cx);
 	_PLACEELEM(UIElems.Location.Y, mandelCoords.cy);
-	_PLACEELEM(UIElems.Location.Zoom, mandelCoords.zoom);
+	_PLACEELEM(UIElems.Location.Zoom, mandelCoords.zoom)
+	_PLACEELEM(UIElems.Location.Rotation, mandelCoords.rotation);
 	
 #undef _PLACEELEM
 	

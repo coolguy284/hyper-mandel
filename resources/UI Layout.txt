@@ -13,13 +13,22 @@ Set Params
 		Zx: <float=0>
 		Zy: <float=0>
 Location Params
-	X: <float=0>; spinbox speed based on zoom
-	Y: <float=0>; spinbox speed based on zoom
+	Cx: <float=0>; spinbox speed based on zoom
+	Cy: <float=0>; spinbox speed based on zoom
 	Zoom: <float=0.25>; spinbox scaling logarythmic
 	Log Zoom: <checkbox=false>
 	Rotation: <float=0>
+	Rotation Unit: <select>
+		Options:
+			"Degrees" (default)
+			"Radians"
+			"Gradians"
 	SkewX: <float=0>
 	SkewY: <float=0>
+	ScaleX: <float=1>
+	ScaleY: <float=1>
+	TranslateX: <float=0>
+	TranslateY: <float=0>
 	Zoom Mode: <select>
 		Options:
 			"Y Stable"

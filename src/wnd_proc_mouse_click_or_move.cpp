@@ -39,7 +39,7 @@ void WndProc_mouse_click_or_move() {
 		bool updated = false;
 
 		if (inputs.processed.mouseDelta.x) {
-			float newCx = mandelCoords.cx - inputs.processed.mouseDelta.x * mandelArgs.cxStep;
+			float newCx = mandelCoords.cx - inputs.processed.mouseDelta.x * mandelArgs.x_step_cx;
 
 			if (newCx != mandelCoords.cx) {
 				mandelCoords.cx = newCx;
@@ -50,7 +50,7 @@ void WndProc_mouse_click_or_move() {
 		}
 		
 		if (inputs.processed.mouseDelta.y) {
-			float newCy = mandelCoords.cy - inputs.processed.mouseDelta.y * mandelArgs.cyStep;
+			float newCy = mandelCoords.cy - inputs.processed.mouseDelta.y * mandelArgs.y_step_cy;
 
 			if (newCy != mandelCoords.cy) {
 				mandelCoords.cy = newCy;

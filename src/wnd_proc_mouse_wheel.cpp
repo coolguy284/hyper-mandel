@@ -4,8 +4,8 @@ void WndProc_mouse_wheel(short zDelta) {
 	if (zDelta != 0) {
 		// special math with current x and y coordinates so that zoom is relative to the cross's position
 		float zoomFactor = powf(SCROLL_ZOOM_MULT, zDelta);
-		float cxCursor = mandelArgs.cxStart + mandelArgs.cxStep * inputs.raw.mousePos.x;
-		float cyCursor = mandelArgs.cyStart + mandelArgs.cyStep * inputs.raw.mousePos.y;
+		float cxCursor = mandelArgs.start_cx + mandelArgs.x_step_cx * inputs.raw.mousePos.x;
+		float cyCursor = mandelArgs.start_cy + mandelArgs.y_step_cy * inputs.raw.mousePos.y;
 		float cxDiff = cxCursor - mandelCoords.cx;
 		float cyDiff = cyCursor - mandelCoords.cy;
 		float cxZoomDiff = cxDiff - cxDiff / zoomFactor;
