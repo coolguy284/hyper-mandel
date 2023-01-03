@@ -2,12 +2,9 @@ make mouse scroll work out of bounds if mouse captured
 make rotate scroll amount not change if unit is changed
 make rotate centered around cursor
 ctrl for fine; shift for rotation; therefore ctrl mousewheel is fine zoom; shift is rotate; ctrl+shift is fine rotate
-movement with arrow keys, ability to set focus to window as a whole instead of textboxes so it actually works
+movement with arrow keys, ability to set focus to window as a whole instead of textboxes so it actually works (so make window focus get reset to main window when mousebuttondown on it)
 add inertia to dragging and maybe scrolling
-add rotation using mousehwheel or mousewheel with ctrl
-mandel dragging mode normal:
-	mouse cursor to omnidirectional dragger icon when clicked down, mouse still visible, mandelbrot has inertia and drag
-	middle mouse, even when not dragging, zooms, and zooms to the location of the mouse
+add checkbox for capturing volume inputs
 make variables const that aren't being changed
 add ctrl+a support for textbox
 fix form elements flicker when resize

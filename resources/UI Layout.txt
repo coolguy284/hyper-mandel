@@ -37,6 +37,7 @@ Location Params
 			"X Stable"
 			"Grow" (default)
 			"Shrink"
+	Smooth Movement: <checkbox=true>
 Render Params
 	Render Mode External: <select>
 		Options:
