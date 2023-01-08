@@ -250,7 +250,7 @@ LRESULT CALLBACK WndProc(
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	
-	return 0;
+	return 0; // processed the message
 }
 
 LRESULT CALLBACK EditProc(

@@ -106,8 +106,8 @@ namespace mandel {
 			
 			while (zx * zx + zy * zy < 4.0f && iterCount < MAX_ITERS) {
 				// z = z^2 + c
-				
 				// (a + bi)^2 = (a*a + 2*a*b*i + b*b*-1) = (a*a - b*b) + (2*a*b)*i
+				
 				float z2x = zx * zx - zy * zy;
 				float z2y = 2 * zx * zy;
 				

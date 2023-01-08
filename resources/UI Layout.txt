@@ -4,9 +4,10 @@ Set Params
 	Set: <select>
 		Options:
 			"Mandelbrot Set" (default)
-			"Julia Set (Not Implemented)"
-			"Burning Ship Fractal (Not Implemented)"
-			"Custom Polynomial (Not Implemented)"
+			"Julia Set"
+			"Burning Ship Fractal"
+			"Sus Fractal"
+			"Custom Polynomial"
 	For "Mandelbrot Set":
 		ExponentX: <float=2>
 		ExponentY: <float=0>
@@ -27,6 +28,8 @@ Location Params
 	Modulo Rotation On Input: <checkbox=true>
 	SkewX: <float=0>
 	SkewY: <float=0>
+	FlipX: <checkbox=false>
+	FlipY: <checkbox=false>
 	ScaleX: <float=1>
 	ScaleY: <float=1>
 	TranslateX: <float=0>
@@ -79,6 +82,8 @@ Calculation Params
 			"Bitmap + PixelArray (medium)" (default)
 			"Vulkan Compute (medium fast)"
 			"Vulkan Shader (fast)"
+	Edge Tracing: <checkbox=false>
+	Peturbation Theory: <checkbox=false>
 	Render to File: <button>
 UI Params
 	Dragging Mode: <select>

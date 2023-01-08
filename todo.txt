@@ -23,6 +23,12 @@ set proper font
 if mouseDelta is so small it gets lost in floating point precision loss (basically coordinates don't change), then special mouseDeltaAccumulated variable is increased (or decreased if mouse is moved back; or reset to zero if zoom or if mousedrag is stopped), storing the accumulated mouseDelta which is added to next mouseMove
 somehow make child windows render first, instead of waiting on main window render to finish (this is so textboxes will show updated coordinates live instead of getting stuck and not showing coordinates until all motion stops)
 add help page
+flipx should automatically put a minus sign in scalex and vice versa
+	only store scalex in ini because flipx can be inferred from it
+fix white screen mandel on different device
+edge tracing
+perturbation theory
+fix blurry appearance with display scaling
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
@@ -38,6 +44,7 @@ mandel dragging mode centered cursor:
 	make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely
 	pseudo cross shaped cursor rendered in the center while dragging is occuring, middle mouse when regular mouse clicked down zooms, holding shift then doing middle mouse rotates, up is clockwise
 decide how to handle aspect ratios, probably 4 modes, shrink in one axis grow in other, or both shrink (what it is now) or both grow
+rename wnd_proc_mouse_wheel_horiz to wnd_proc_mouse_wheel_rotation; other one to wnd_proc_mouse_wheel_zoom
 
 much faster render mode using vulkan or smth
 left is mandelbrot, right is gui elements
@@ -146,6 +153,7 @@ fractional max iteration count when normalized rendering
 can check and uncheck ui checkbox "configure hiding components", when checked every component has a checkbox next to it that is checked, if unchecked, then when configure hiding components is unchecked the element will disappear
 add option to set clamp of rotation to something other than 0-360, maybe -360-360 or more
 make mouse scroll work out of bounds if mouse captured
+add volume slider and default off checkbox to play sus song on sus fractal
 
 keep in mind:
 put comments on all uses of system colors stating what the color actually is
