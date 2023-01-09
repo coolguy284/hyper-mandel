@@ -242,6 +242,16 @@ LRESULT CALLBACK WndProc(
 		}
 		break;
 	
+	case WM_KEYDOWN:
+		if (wParam >= VK_F13 && wParam <= VK_F24) {
+			// f13 - f24
+			MessageBox(hWnd, L"We don't do that here.", L"F13 to F24 Pressed", MB_OK);
+			return FALSE; // processed the message
+		}
+		
+		return DefWindowProc(hWnd, message, wParam, lParam); // did not process the message
+		break;
+	
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

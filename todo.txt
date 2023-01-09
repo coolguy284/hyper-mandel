@@ -1,7 +1,8 @@
 make rotate scroll amount not change if unit is changed
 make rotate centered around cursor
 ctrl for fine; shift for rotation; therefore ctrl mousewheel is fine zoom; shift is rotate; ctrl+shift is fine rotate
-movement with arrow keys
+movement with arrow keys or wasd
+f2 to take screenshot, f3 to take screenshot with coordinate info and other info at bottom
 add inertia to dragging and maybe scrolling
 add checkbox for capturing volume inputs
 make variables const that aren't being changed
@@ -22,7 +23,7 @@ ui elem dirty bit
 set proper font
 if mouseDelta is so small it gets lost in floating point precision loss (basically coordinates don't change), then special mouseDeltaAccumulated variable is increased (or decreased if mouse is moved back; or reset to zero if zoom or if mousedrag is stopped), storing the accumulated mouseDelta which is added to next mouseMove
 somehow make child windows render first, instead of waiting on main window render to finish (this is so textboxes will show updated coordinates live instead of getting stuck and not showing coordinates until all motion stops)
-add help page
+add help page, accessible when pressing f1 or in other places
 flipx should automatically put a minus sign in scalex and vice versa
 	only store scalex in ini because flipx can be inferred from it
 fix white screen mandel on different device
