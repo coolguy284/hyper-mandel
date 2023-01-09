@@ -63,7 +63,7 @@ namespace mandel {
 		};
 		
 		// converts x, y, zoom values into input for multipixel
-
+		
 		template <typename T>
 		Basic_MultiPixel_Args<T> convert_coord_to_multipixel(const Coords<T> coords);
 		
