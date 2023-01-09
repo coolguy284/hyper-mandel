@@ -1,4 +1,4 @@
-#include "calculate.h"
+#include "calculate.hpp"
 
 namespace mandel {
 	namespace calc {

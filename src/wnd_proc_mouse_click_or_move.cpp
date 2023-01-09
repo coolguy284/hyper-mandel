@@ -1,4 +1,4 @@
-#include "wnd_proc_mouse_click_or_move.h"
+#include "wnd_proc_mouse_click_or_move.hpp"
 
 void WndProc_mouse_click_or_move() {
 	// calculate delta

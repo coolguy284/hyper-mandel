@@ -2,14 +2,14 @@
 
 #include <memory>
 
-#include "mandel/calculate.h"
-#include "mandel/render.h"
+#include "mandel/calculate.hpp"
+#include "mandel/render.hpp"
 
-#include "consts.h"
-#include "structs_defines.h"
-#include "globals.h"
-#include "error_funcs_defines.h"
-#include "debug_print_defines.h"
+#include "consts.hpp"
+#include "structs_defines.hpp"
+#include "globals.hpp"
+#include "error_funcs_defines.hpp"
+#include "debug_print_defines.hpp"
 
 void WndProc_paint_mandel(HDC hdc);
 

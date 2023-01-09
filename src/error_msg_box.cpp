@@ -1,4 +1,4 @@
-#include "error_msg_box.h"
+#include "error_msg_box.hpp"
 
 // https://learn.microsoft.com/en-us/windows/win32/debug/retrieving-the-last-error-code
 

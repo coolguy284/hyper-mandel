@@ -1,4 +1,4 @@
-#include "wnd_proc.h"
+#include "wnd_proc.hpp"
 
 LRESULT CALLBACK WndProc(
 	_In_ HWND hWnd,

@@ -1,4 +1,4 @@
-#include "wnd_proc_mouse_wheel.h"
+#include "wnd_proc_mouse_wheel.hpp"
 
 void WndProc_mouse_wheel(short zDelta) {
 	if (zDelta != 0) {

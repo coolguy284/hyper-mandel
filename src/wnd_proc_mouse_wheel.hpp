@@ -1,10 +1,10 @@
 #pragma once
 
-#include "consts.h"
-#include "globals.h"
-#include "misc.h"
-#include "error_funcs_defines.h"
-#include "wnd_proc_paint_mandel.h"
+#include "consts.hpp"
+#include "globals.hpp"
+#include "misc.hpp"
+#include "error_funcs_defines.hpp"
+#include "wnd_proc_paint_mandel.hpp"
 
 void WndProc_mouse_wheel(short zDelta);
 

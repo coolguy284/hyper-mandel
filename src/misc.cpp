@@ -1,4 +1,4 @@
-#include "misc.h"
+#include "misc.hpp"
 
 std::wstring float_to_string(float val) {
 	std::wostringstream strVal;

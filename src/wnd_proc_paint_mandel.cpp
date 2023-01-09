@@ -1,4 +1,4 @@
-#include "wnd_proc_paint_mandel.h"
+#include "wnd_proc_paint_mandel.hpp"
 
 void WndProc_paint_mandel(HDC hdc) {
 	if (renderSize.width < 0 || renderSize.height < 0) return; // just in case, for prosperity's sake

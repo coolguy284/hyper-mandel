@@ -49,52 +49,52 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\mandel\calculate.h">
+    <ClInclude Include="src\mandel\calculate.hpp">
       <Filter>Header Files\mandel</Filter>
     </ClInclude>
-    <ClInclude Include="src\mandel\render.h">
+    <ClInclude Include="src\mandel\render.hpp">
       <Filter>Header Files\mandel</Filter>
     </ClInclude>
-    <ClInclude Include="src\wnd_proc.h">
+    <ClInclude Include="src\wnd_proc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\consts.h">
+    <ClInclude Include="src\consts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\wnd_proc_paint_mandel.h">
+    <ClInclude Include="src\wnd_proc_paint_mandel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resources\version.h">
+    <ClInclude Include="resources\version.hpp">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="resources\icon.h">
+    <ClInclude Include="resources\icon.hpp">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\globals.h">
+    <ClInclude Include="src\globals.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\error_msg_box.h">
+    <ClInclude Include="src\error_msg_box.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\misc.h">
+    <ClInclude Include="src\misc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\main.h">
+    <ClInclude Include="src\main.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\wnd_proc_mouse_click_or_move.h">
+    <ClInclude Include="src\wnd_proc_mouse_click_or_move.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\debug_print_defines.h">
+    <ClInclude Include="src\debug_print_defines.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\error_funcs_defines.h">
+    <ClInclude Include="src\error_funcs_defines.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\structs_defines.h">
+    <ClInclude Include="src\structs_defines.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\wnd_proc_mouse_wheel.h">
+    <ClInclude Include="src\wnd_proc_mouse_wheel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

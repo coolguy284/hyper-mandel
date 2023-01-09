@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-#include "calculate.h"
+#include "calculate.hpp"
 
 namespace mandel {
 	namespace render {

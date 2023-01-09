@@ -1,4 +1,4 @@
-#include "main.h"
+#include "main.hpp"
 
 // declare the extern globals
 

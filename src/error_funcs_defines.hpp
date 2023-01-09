@@ -1,6 +1,6 @@
 #pragma once
 
-#include "error_msg_box.h"
+#include "error_msg_box.hpp"
 
 #define errorMsgBox_const(funcName, location) {\
 	WCHAR _funcName[] = funcName;\
