@@ -104,7 +104,7 @@ int WINAPI WinMain(
 	// create ui
 	
 #define _PLACEELEM(UIVar, coordRef) {\
-	std::wstring coordRefString = float_to_string(coordRef);\
+	std::wstring coordRefString = real_number_to_string(coordRef);\
 	\
 	UIVar.hWnd = CreateWindowEx(\
 		WS_EX_CLIENTEDGE,\

@@ -11,7 +11,8 @@
 template <typename T>
 T mod_pos(T num, T divisor);
 
-std::wstring float_to_string(float val);
+template <typename T>
+std::wstring real_number_to_string(T val);
 
 std::wstring get_string_from_editctrl(HWND hWnd);
 

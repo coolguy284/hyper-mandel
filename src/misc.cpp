@@ -1,15 +1,5 @@
 #include "misc.hpp"
 
-std::wstring float_to_string(float val) {
-	std::wostringstream strVal;
-	
-	strVal << std::setprecision(std::numeric_limits<float>::max_digits10);
-	
-	strVal << val;
-	
-	return strVal.str();
-}
-
 std::wstring get_string_from_editctrl(HWND hWnd) {
 	int editContentsLength = GetWindowTextLength(hWnd) + 1;
 	
