@@ -213,16 +213,18 @@ LRESULT CALLBACK WndProc(
 			short zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 			WORD keyState = GET_KEYSTATE_WPARAM(wParam);
 			if (keyState & MK_SHIFT) {
-				// coarse rotation
+				// rotation
 				// it's not a horizontal scroll but the code called is the same
-				WndProc_mouse_wheel_horizontal<mandel_var_t>(zDelta, true);
-			} else if (keyState & MK_CONTROL) {
-				// fine rotation
-				// it's not a horizontal scroll but the code called is the same
-				WndProc_mouse_wheel_horizontal<mandel_var_t>(zDelta, false);
+				if (keyState & MK_CONTROL)
+					WndProc_mouse_wheel_horizontal<mandel_var_t>(zDelta, false); // fine rotation
+				else
+					WndProc_mouse_wheel_horizontal<mandel_var_t>(zDelta, true); // coarse rotation
 			} else {
 				// regular zooming in and out
-				WndProc_mouse_wheel<mandel_var_t>(zDelta);
+				if (keyState & MK_CONTROL)
+					WndProc_mouse_wheel<mandel_var_t>(zDelta, false); // fine zoom
+				else
+					WndProc_mouse_wheel<mandel_var_t>(zDelta, true); // coarse zoom
 			}
 		}
 		break;
@@ -231,13 +233,19 @@ LRESULT CALLBACK WndProc(
 	case WM_MOUSEHWHEEL:
 		if (inputs.processed.draggingFractal || inputs.raw.mousePos.x < renderSize.width) {
 			short wDelta = GET_WHEEL_DELTA_WPARAM(wParam);
-			bool ctrlHeld = GET_KEYSTATE_WPARAM(wParam) & MK_CONTROL;
-			if (ctrlHeld) {
-				// fine scrolling
-				WndProc_mouse_wheel_horizontal<mandel_var_t>(wDelta, false);
+			WORD keyState = GET_KEYSTATE_WPARAM(wParam);
+			if (keyState & MK_SHIFT) {
+				// zooming in and out
+				if (keyState & MK_CONTROL)
+					WndProc_mouse_wheel<mandel_var_t>(wDelta, false); // fine rotation
+				else
+					WndProc_mouse_wheel<mandel_var_t>(wDelta, true); // coarse rotation
 			} else {
-				// coarse scrolling
-				WndProc_mouse_wheel_horizontal<mandel_var_t>(wDelta, true);
+				// rotation
+				if (keyState & MK_CONTROL)
+					WndProc_mouse_wheel_horizontal<mandel_var_t>(wDelta, false); // fine zoom
+				else
+					WndProc_mouse_wheel_horizontal<mandel_var_t>(wDelta, true); // coarse zoom
 			}
 		}
 		break;

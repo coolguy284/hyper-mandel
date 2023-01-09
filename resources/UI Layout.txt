@@ -1,4 +1,5 @@
 Int and Float use spinbox
+- for done
 
 Set Params
 	Set: <select>
@@ -14,11 +15,11 @@ Set Params
 		Zx: <float=0>
 		Zy: <float=0>
 Location Params
-	Cx: <float=0>; spinbox speed based on zoom
-	Cy: <float=0>; spinbox speed based on zoom
-	Zoom: <float=0.25>; spinbox scaling logarythmic
+-	Cx: <float=0>; spinbox speed based on zoom
+-	Cy: <float=0>; spinbox speed based on zoom
+-	Zoom: <float=0.25>; spinbox scaling logarythmic
 	Log Zoom: <checkbox=false>
-	Rotation: <float=0>
+-	Rotation: <float=0>
 	Rotation Unit: <select>
 		Options:
 			"Degrees" (default)

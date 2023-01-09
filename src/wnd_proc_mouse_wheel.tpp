@@ -1,11 +1,15 @@
 #include "wnd_proc_mouse_wheel.hpp"
 
 template <typename T>
-void WndProc_mouse_wheel(short zDelta) {
+void WndProc_mouse_wheel(short zDelta, bool coarseAdjustment) {
 	if (zDelta != 0) {
 		// math with current x and y coordinates so that zoom is relative to the cross's position
 		
-		T zoomFactor = pow(SCROLL_ZOOM_MULT, zDelta);
+		T zoomFactor = 0.0f;
+		if (coarseAdjustment)
+			zoomFactor = pow(SCROLL_COARSE_ZOOM_MULT, zDelta);
+		else
+			zoomFactor = pow(SCROLL_FINE_ZOOM_MULT, zDelta);
 		
 		T cxCursor = mandelArgs.start_cx + \
 			inputs.raw.mousePos.x * mandelArgs.x_step_cx + \
@@ -49,7 +53,6 @@ void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseAdjustment) {
 		// math with current x and y coordinates so that rotate is relative to the cross's position
 		
 		T rotAmt = 0.0L;
-		
 		if (coarseAdjustment)
 			rotAmt = wDelta * HSCROLL_COARSE_ROTATION_MULT;
 		else

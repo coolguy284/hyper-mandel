@@ -1,8 +1,7 @@
 try and get tgmath.h working
 move ui actions into namespace, give more generic names than the actual wndproc call they have
 make rotate scroll amount not change if unit is changed
-ctrl for fine; shift for rotation; therefore ctrl mousewheel is fine zoom; shift is rotate; ctrl+shift is fine rotate
-movement with arrow keys or wasd
+movement with arrow keys or wasd; r to reset x, y, zoom, rot, etc.; ui button to reset x, y, zoom, rot, etc.
 f2 to take screenshot, f3 to take screenshot with coordinate info and other info at bottom
 add inertia to dragging and maybe scrolling
 add checkbox for capturing volume inputs
@@ -36,6 +35,7 @@ add ui option for toggling using maximum reasonable precision (perfectly seriali
 smart-pointer-like object for deleteobject and for setting selectobject back to default
 split calc.tpp to parts, basic & advanced and multipixel
 basic_singlepixel rename to nocomplex_singlepixel; add basic_singlepixel that uses std::complex and optimized_singlepixel that uses as much optimizations to main loop without using things like edge tracing
+add ui option to enable or disable hscroll for rotation
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top

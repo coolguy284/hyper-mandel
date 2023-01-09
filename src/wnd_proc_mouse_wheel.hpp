@@ -7,7 +7,7 @@
 #include "wnd_proc_paint_mandel.hpp"
 
 template <typename T>
-void WndProc_mouse_wheel(short zDelta);
+void WndProc_mouse_wheel(short zDelta, bool coarseAdjustment);
 
 template <typename T>
 void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseAdjustment);
