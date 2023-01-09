@@ -33,6 +33,12 @@
     <None Include="LICENSE">
       <Filter>Non-Code Files</Filter>
     </None>
+    <None Include="src\mandel\calculate.tpp">
+      <Filter>Header Files\mandel</Filter>
+    </None>
+    <None Include="src\misc.tpp">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt">

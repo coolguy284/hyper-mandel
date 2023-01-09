@@ -7,8 +7,8 @@ HINSTANCE mainHInstance;
 HWND mainHWnd;
 WIDHEIGHT windowSize = { 0 };
 WIDHEIGHT renderSize = { 0 };
-mandel::calc::Coords<float> mandelCoords;
-mandel::calc::Basic_MultiPixel_Args<float> mandelArgs = { 0 };
+mandel::calc::Coords<MANDEL_VAR_T> mandelCoords;
+mandel::calc::Basic_MultiPixel_Args<MANDEL_VAR_T> mandelArgs = { 0 };
 Inputs_T inputs;
 LPWSTR currentDeliberateCursor = IDC_ARROW;
 

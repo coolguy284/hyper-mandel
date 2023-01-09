@@ -30,6 +30,8 @@
     <None Include=".gitignore" />
     <None Include="LICENSE" />
     <None Include="README.md" />
+    <None Include="src\mandel\calculate.tpp" />
+    <None Include="src\misc.tpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="resources\UI Layout.txt" />

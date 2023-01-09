@@ -62,7 +62,10 @@ namespace mandel {
 			unsigned int y_count;
 		};
 		
-		Basic_MultiPixel_Args<float> convert_coord_to_multipixel(const Coords<float> coords);
+		// converts x, y, zoom values into input for multipixel
+
+		template <typename T>
+		Basic_MultiPixel_Args<T> convert_coord_to_multipixel(const Coords<T> coords);
 		
 		// returns the iteration count of a single C value in the mandelbrot set
 		
@@ -81,3 +84,5 @@ namespace mandel {
 		);
 	}
 }
+
+#include "calculate.tpp"
