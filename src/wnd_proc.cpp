@@ -126,45 +126,45 @@ LRESULT CALLBACK WndProc(
 	case WM_LBUTTONDOWN:
 		inputs.raw.mouseButtons.left = true;
 		inputs.processed.mouseButtons.any = true;
-		WndProc_mouse_click_or_move();
+		WndProc_mouse_click_or_move<mandel_var_t>();
 		RESET_FOCUS_TO_MAIN();
 		break;
 	case WM_LBUTTONUP:
 		inputs.raw.mouseButtons.left = false;
 		_RECALC_MOUSEBUTTONS_ANY;
-		WndProc_mouse_click_or_move();
+		WndProc_mouse_click_or_move<mandel_var_t>();
 		break;
 	case WM_MBUTTONDOWN:
 		inputs.raw.mouseButtons.middle = true;
 		inputs.processed.mouseButtons.any = true;
-		WndProc_mouse_click_or_move();
+		WndProc_mouse_click_or_move<mandel_var_t>();
 		RESET_FOCUS_TO_MAIN();
 		break;
 	case WM_MBUTTONUP:
 		inputs.raw.mouseButtons.middle = false;
 		_RECALC_MOUSEBUTTONS_ANY;
-		WndProc_mouse_click_or_move();
+		WndProc_mouse_click_or_move<mandel_var_t>();
 		break;
 	case WM_RBUTTONDOWN:
 		inputs.raw.mouseButtons.right = true;
 		inputs.processed.mouseButtons.any = true;
-		WndProc_mouse_click_or_move();
+		WndProc_mouse_click_or_move<mandel_var_t>();
 		RESET_FOCUS_TO_MAIN();
 		break;
 	case WM_RBUTTONUP:
 		inputs.raw.mouseButtons.right = false;
 		_RECALC_MOUSEBUTTONS_ANY;
-		WndProc_mouse_click_or_move();
+		WndProc_mouse_click_or_move<mandel_var_t>();
 		break;
 	case WM_XBUTTONDOWN:
 		if (HIWORD(wParam) == XBUTTON1) {
 			inputs.raw.mouseButtons.mouse4 = true;
 			inputs.processed.mouseButtons.any = true;
-			WndProc_mouse_click_or_move();
+			WndProc_mouse_click_or_move<mandel_var_t>();
 		} else {
 			inputs.raw.mouseButtons.mouse5 = true;
 			inputs.processed.mouseButtons.any = true;
-			WndProc_mouse_click_or_move();
+			WndProc_mouse_click_or_move<mandel_var_t>();
 		}
 		RESET_FOCUS_TO_MAIN();
 		break;
@@ -172,11 +172,11 @@ LRESULT CALLBACK WndProc(
 		if (HIWORD(wParam) == XBUTTON1) {
 			inputs.raw.mouseButtons.mouse4 = false;
 			_RECALC_MOUSEBUTTONS_ANY;
-			WndProc_mouse_click_or_move();
+			WndProc_mouse_click_or_move<mandel_var_t>();
 		} else {
 			inputs.raw.mouseButtons.mouse5 = false;
 			_RECALC_MOUSEBUTTONS_ANY;
-			WndProc_mouse_click_or_move();
+			WndProc_mouse_click_or_move<mandel_var_t>();
 		}
 		break;
 	
@@ -186,13 +186,13 @@ LRESULT CALLBACK WndProc(
 	case WM_MOUSEMOVE:
 		inputs.raw.mousePos = MAKEPOINTS(lParam); // hopefully doesn't change mousePos to a new address somehow
 		
-		WndProc_mouse_click_or_move(); // this is necessary because MOUSEMOVE doesn't lead to SETCURSOR if mouse is being held and dragged (it is called otherwise)
+		WndProc_mouse_click_or_move<mandel_var_t>(); // this is necessary because MOUSEMOVE doesn't lead to SETCURSOR if mouse is being held and dragged (it is called otherwise)
 		break;
 	
 	case WM_SETCURSOR: // hoping that this will get called immediately after WM_MOUSEMOVE, every time (as it has done previously)
 		if ((HWND)wParam == hWnd) {
 			if (LOWORD(lParam) == HTCLIENT) {
-				WndProc_mouse_click_or_move();
+				WndProc_mouse_click_or_move<mandel_var_t>();
 				
 				// halt further processing
 				return TRUE;
@@ -215,14 +215,14 @@ LRESULT CALLBACK WndProc(
 			if (keyState & MK_SHIFT) {
 				// coarse rotation
 				// it's not a horizontal scroll but the code called is the same
-				WndProc_mouse_wheel_horizontal(zDelta, true);
+				WndProc_mouse_wheel_horizontal<mandel_var_t>(zDelta, true);
 			} else if (keyState & MK_CONTROL) {
 				// fine rotation
 				// it's not a horizontal scroll but the code called is the same
-				WndProc_mouse_wheel_horizontal(zDelta, false);
+				WndProc_mouse_wheel_horizontal<mandel_var_t>(zDelta, false);
 			} else {
 				// regular zooming in and out
-				WndProc_mouse_wheel(zDelta);
+				WndProc_mouse_wheel<mandel_var_t>(zDelta);
 			}
 		}
 		break;
@@ -234,10 +234,10 @@ LRESULT CALLBACK WndProc(
 			bool ctrlHeld = GET_KEYSTATE_WPARAM(wParam) & MK_CONTROL;
 			if (ctrlHeld) {
 				// fine scrolling
-				WndProc_mouse_wheel_horizontal(wDelta, false);
+				WndProc_mouse_wheel_horizontal<mandel_var_t>(wDelta, false);
 			} else {
 				// coarse scrolling
-				WndProc_mouse_wheel_horizontal(wDelta, true);
+				WndProc_mouse_wheel_horizontal<mandel_var_t>(wDelta, true);
 			}
 		}
 		break;
@@ -261,54 +261,4 @@ LRESULT CALLBACK WndProc(
 	}
 	
 	return 0; // processed the message
-}
-
-LRESULT CALLBACK EditProc(
-	_In_ HWND hWnd,
-	_In_ UINT message,
-	_In_ WPARAM wParam,
-	_In_ LPARAM lParam,
-	UINT_PTR uIdSubclass,
-	DWORD_PTR drRefData
-) {
-	switch (message) {
-	case WM_CHAR: {
-		// recalculate mandelbrot set if enter key pressed
-		if (wParam == VK_RETURN) {
-			// get contents in edit
-			std::wstring strValToSet = get_string_from_editctrl(hWnd);
-			
-			try {
-				// get mandel_var_t version of string contents in edit
-				mandel_var_t valToSet = std::stof(strValToSet);
-				
-				// set value referenced by drRefData (points to a mandel_var_t in mandelCoords)
-				*(mandel_var_t*)drRefData = valToSet;
-				
-				// rerun paint_mandel
-				WndProc_paint_mandel();
-			} catch (const std::invalid_argument e) {
-				MessageBox(NULL, L"Value is not a valid number.", L"HyperMandel Error", MB_OK);
-			} catch (const std::out_of_range e) {
-				MessageBox(NULL, L"Value is not in range of datatype.", L"HyperMandel Error", MB_OK);
-			}
-		} else {
-			// handoff to default action
-			return DefSubclassProc(hWnd, message, wParam, lParam);
-		}
-		break;
-	}
-	
-	/*case WM_NCDESTROY:
-		// deliberately not removing subclass as windows example doesn't do it
-		// https://learn.microsoft.com/en-us/windows/win32/controls/subclassing-overview
-		//RemoveWindowSubclass(hWnd, EditProc, uIdSubclass);
-		// deliberately not clearing drRefData as it points to struct in global memory
-		break;*/
-	
-	default:
-		return DefSubclassProc(hWnd, message, wParam, lParam);
-	}
-	
-	return 0;
 }

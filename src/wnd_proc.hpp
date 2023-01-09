@@ -23,6 +23,7 @@ LRESULT CALLBACK WndProc(
 	_In_ LPARAM lParam
 );
 
+template <typename T>
 LRESULT CALLBACK EditProc(
 	_In_ HWND hWnd,
 	_In_ UINT message,
@@ -31,3 +32,5 @@ LRESULT CALLBACK EditProc(
 	UINT_PTR uIdSubclass,
 	DWORD_PTR drRefData
 );
+
+#include "wnd_proc.tpp"

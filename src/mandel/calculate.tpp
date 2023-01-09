@@ -89,7 +89,7 @@ namespace mandel {
 			if (CARDIOID_SKIP) {
 				T qt1 = cx - (T)0.25L;
 				T q = qt1 * qt1 + cy * cy;
-				if (q * (q + (cx - 0.25L)) < (T)0.25L * cy * cy) {
+				if (q * (q + (cx - (T)0.25L)) < (T)0.25L * cy * cy) {
 					// in cardioid
 					return MAX_ITERS;
 				}

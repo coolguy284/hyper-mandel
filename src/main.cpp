@@ -121,7 +121,7 @@ int WINAPI WinMain(
 	\
 	ERROR_CHECK_ZERO_EXTRA(\
 		/* third param is uIDSubclass and according to windows example can be set to 0 (so basically null) */\
-		SetWindowSubclass(UIVar.hWnd, EditProc, NULL, (DWORD_PTR)&coordRef),\
+		SetWindowSubclass(UIVar.hWnd, EditProc<mandel_var_t>, NULL, (DWORD_PTR)&coordRef),\
 		L"SetWindowSubclass", L"WinMain/" L###UIVar,\
 		return 1);\
 }

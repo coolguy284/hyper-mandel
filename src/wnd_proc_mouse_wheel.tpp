@@ -1,30 +1,31 @@
 #include "wnd_proc_mouse_wheel.hpp"
 
+template <typename T>
 void WndProc_mouse_wheel(short zDelta) {
 	if (zDelta != 0) {
 		// math with current x and y coordinates so that zoom is relative to the cross's position
 		
-		mandel_var_t zoomFactor = pow(SCROLL_ZOOM_MULT, zDelta);
+		T zoomFactor = pow(SCROLL_ZOOM_MULT, zDelta);
 		
-		mandel_var_t cxCursor = mandelArgs.start_cx + \
+		T cxCursor = mandelArgs.start_cx + \
 			inputs.raw.mousePos.x * mandelArgs.x_step_cx + \
 			inputs.raw.mousePos.y * mandelArgs.y_step_cx;
-		mandel_var_t cyCursor = mandelArgs.start_cy + \
+		T cyCursor = mandelArgs.start_cy + \
 			inputs.raw.mousePos.x * mandelArgs.x_step_cy + \
 			inputs.raw.mousePos.y * mandelArgs.y_step_cy;
 		
-		mandel_var_t cxDiff = cxCursor - mandelCoords.cx;
-		mandel_var_t cyDiff = cyCursor - mandelCoords.cy;
+		T cxDiff = cxCursor - mandelCoords.cx;
+		T cyDiff = cyCursor - mandelCoords.cy;
 		
-		mandel_var_t cxZoomDiff = cxDiff - cxDiff / zoomFactor;
-		mandel_var_t cyZoomDiff = cyDiff - cyDiff / zoomFactor;
+		T cxZoomDiff = cxDiff - cxDiff / zoomFactor;
+		T cyZoomDiff = cyDiff - cyDiff / zoomFactor;
 		
 		// apply calculated zoom and set textboxes
 		
 		mandelCoords.zoom *= zoomFactor;
 		
-		mandel_var_t newCx = mandelCoords.cx + cxZoomDiff;
-		mandel_var_t newCy = mandelCoords.cy + cyZoomDiff;
+		T newCx = mandelCoords.cx + cxZoomDiff;
+		T newCy = mandelCoords.cy + cyZoomDiff;
 		
 		SET_TEXTBOX_TEXT(UIElems.Location.Zoom, mandelCoords.zoom);
 		
@@ -42,37 +43,38 @@ void WndProc_mouse_wheel(short zDelta) {
 	}
 }
 
+template <typename T>
 void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseScrolling) {
 	if (wDelta != 0) {
 		// math with current x and y coordinates so that rotate is relative to the cross's position
 		
-		mandel_var_t rotAmt = 0.0L;
+		T rotAmt = 0.0L;
 		
 		if (coarseScrolling)
 			rotAmt = wDelta * HSCROLL_COARSE_ROTATION_MULT;
 		else
 			rotAmt = wDelta * HSCROLL_FINE_ROTATION_MULT;
 		
-		mandel_var_t rotAmtRad = rotAmt / (mandel_var_t)180.0L * std::numbers::pi_v<mandel_var_t>;
+		T rotAmtRad = rotAmt / (T)180.0L * std::numbers::pi_v<T>;
 		
-		mandel_var_t newRotation = mod_pos(mandelCoords.rotation + rotAmt, (mandel_var_t)360.0);
+		T newRotation = mod_pos(mandelCoords.rotation + rotAmt, (T)360.0);
 		
-		mandel_var_t cxCursor = mandelArgs.start_cx + \
+		T cxCursor = mandelArgs.start_cx + \
 			inputs.raw.mousePos.x * mandelArgs.x_step_cx + \
 			inputs.raw.mousePos.y * mandelArgs.y_step_cx;
-		mandel_var_t cyCursor = mandelArgs.start_cy + \
+		T cyCursor = mandelArgs.start_cy + \
 			inputs.raw.mousePos.x * mandelArgs.x_step_cy + \
 			inputs.raw.mousePos.y * mandelArgs.y_step_cy;
 		
 		// diffs flipped compared to the zoom version
-		mandel_var_t cxDiff = mandelCoords.cx - cxCursor;
-		mandel_var_t cyDiff = mandelCoords.cy - cyCursor;
+		T cxDiff = mandelCoords.cx - cxCursor;
+		T cyDiff = mandelCoords.cy - cyCursor;
 		
-		mandel_var_t rotCxDiff = cos(rotAmtRad) * cxDiff - sin(rotAmtRad) * cyDiff;
-		mandel_var_t rotCyDiff = cos(rotAmtRad) * cyDiff + sin(rotAmtRad) * cxDiff;
+		T rotCxDiff = cos(rotAmtRad) * cxDiff - sin(rotAmtRad) * cyDiff;
+		T rotCyDiff = cos(rotAmtRad) * cyDiff + sin(rotAmtRad) * cxDiff;
 		
-		mandel_var_t newCx = rotCxDiff - cxDiff + mandelCoords.cx;
-		mandel_var_t newCy = rotCyDiff - cyDiff + mandelCoords.cy;
+		T newCx = rotCxDiff - cxDiff + mandelCoords.cx;
+		T newCy = rotCyDiff - cyDiff + mandelCoords.cy;
 		
 		// apply calculated rotation and set textboxes
 		

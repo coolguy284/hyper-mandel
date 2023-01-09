@@ -1,5 +1,6 @@
 #include "wnd_proc_mouse_click_or_move.hpp"
 
+template <typename T>
 void WndProc_mouse_click_or_move() {
 	// calculate delta
 	inputs.processed.mouseDelta = {
@@ -36,11 +37,11 @@ void WndProc_mouse_click_or_move() {
 	
 	// perform mandel dragging
 	if (inputs.processed.draggingFractal) {
-		mandel_var_t newCx = mandelCoords.cx - \
+		T newCx = mandelCoords.cx - \
 			(inputs.processed.mouseDelta.x * mandelArgs.x_step_cx +
 			inputs.processed.mouseDelta.y * mandelArgs.y_step_cx);
 		
-		mandel_var_t newCy = mandelCoords.cy - \
+		T newCy = mandelCoords.cy - \
 			(inputs.processed.mouseDelta.x * mandelArgs.x_step_cy +
 			inputs.processed.mouseDelta.y * mandelArgs.y_step_cy);
 		

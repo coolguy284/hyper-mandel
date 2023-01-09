@@ -39,6 +39,15 @@
     <None Include="src\misc.tpp">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="src\wnd_proc_mouse_click_or_move.tpp">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\wnd_proc_mouse_wheel.tpp">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\wnd_proc.tpp">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt">
@@ -123,12 +132,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\misc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\wnd_proc_mouse_click_or_move.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\wnd_proc_mouse_wheel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
