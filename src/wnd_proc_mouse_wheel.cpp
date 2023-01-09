@@ -46,14 +46,14 @@ void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseScrolling) {
 	if (wDelta != 0) {
 		// math with current x and y coordinates so that rotate is relative to the cross's position
 		
-		mandel_var_t rotAmt = 0.0f;
+		mandel_var_t rotAmt = 0.0L;
 		
 		if (coarseScrolling)
 			rotAmt = wDelta * HSCROLL_COARSE_ROTATION_MULT;
 		else
 			rotAmt = wDelta * HSCROLL_FINE_ROTATION_MULT;
 		
-		mandel_var_t rotAmtRad = rotAmt / 180.0f * std::numbers::pi_v<mandel_var_t>;
+		mandel_var_t rotAmtRad = rotAmt / (mandel_var_t)180.0L * std::numbers::pi_v<mandel_var_t>;
 		
 		mandel_var_t newRotation = mod_pos(mandelCoords.rotation + rotAmt, (mandel_var_t)360.0);
 		
