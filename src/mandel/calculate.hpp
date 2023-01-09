@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>
+#include <cmath> // cannot use tgmath.h as it is pseudodeprecated and causes an error
 #include <numbers>
 
 #include <Windows.h>

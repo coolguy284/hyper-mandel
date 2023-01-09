@@ -4,7 +4,7 @@ void WndProc_mouse_wheel(short zDelta) {
 	if (zDelta != 0) {
 		// math with current x and y coordinates so that zoom is relative to the cross's position
 		
-		mandel_var_t zoomFactor = powf(SCROLL_ZOOM_MULT, zDelta);
+		mandel_var_t zoomFactor = pow(SCROLL_ZOOM_MULT, zDelta);
 		
 		mandel_var_t cxCursor = mandelArgs.start_cx + \
 			inputs.raw.mousePos.x * mandelArgs.x_step_cx + \
@@ -68,8 +68,8 @@ void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseScrolling) {
 		mandel_var_t cxDiff = mandelCoords.cx - cxCursor;
 		mandel_var_t cyDiff = mandelCoords.cy - cyCursor;
 		
-		mandel_var_t rotCxDiff = cosf(rotAmtRad) * cxDiff - sinf(rotAmtRad) * cyDiff;
-		mandel_var_t rotCyDiff = cosf(rotAmtRad) * cyDiff + sinf(rotAmtRad) * cxDiff;
+		mandel_var_t rotCxDiff = cos(rotAmtRad) * cxDiff - sin(rotAmtRad) * cyDiff;
+		mandel_var_t rotCyDiff = cos(rotAmtRad) * cyDiff + sin(rotAmtRad) * cxDiff;
 		
 		mandel_var_t newCx = rotCxDiff - cxDiff + mandelCoords.cx;
 		mandel_var_t newCy = rotCyDiff - cyDiff + mandelCoords.cy;

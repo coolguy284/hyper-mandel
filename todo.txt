@@ -1,3 +1,5 @@
+try and get tgmath.h working
+replace float type with long double
 rename coarseScrolling to coarseAdjustment
 move ui actions into namespace, give more generic names than the actual wndproc call they have
 make rotate scroll amount not change if unit is changed

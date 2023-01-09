@@ -63,12 +63,12 @@ namespace mandel {
 				break;
 			}
 			
-			mpArgs.start_cx = (cosf(rotationRads) * nonRotated_start_cx_delta - sinf(rotationRads) * nonRotated_start_cy_delta) + coords.cx;
-			mpArgs.start_cy = (cosf(rotationRads) * nonRotated_start_cy_delta + sinf(rotationRads) * nonRotated_start_cx_delta) + coords.cy;
-			mpArgs.x_step_cx = cosf(rotationRads) * nonRotated_x_step_cx;
-			mpArgs.x_step_cy = -sinf(rotationRads) * nonRotated_y_step_cy;
-			mpArgs.y_step_cx = sinf(rotationRads) * nonRotated_x_step_cx;
-			mpArgs.y_step_cy = cosf(rotationRads) * nonRotated_y_step_cy;
+			mpArgs.start_cx = (cos(rotationRads) * nonRotated_start_cx_delta - sin(rotationRads) * nonRotated_start_cy_delta) + coords.cx;
+			mpArgs.start_cy = (cos(rotationRads) * nonRotated_start_cy_delta + sin(rotationRads) * nonRotated_start_cx_delta) + coords.cy;
+			mpArgs.x_step_cx = cos(rotationRads) * nonRotated_x_step_cx;
+			mpArgs.x_step_cy = -sin(rotationRads) * nonRotated_y_step_cy;
+			mpArgs.y_step_cx = sin(rotationRads) * nonRotated_x_step_cx;
+			mpArgs.y_step_cy = cos(rotationRads) * nonRotated_y_step_cy;
 			
 			// add in width and height
 			
