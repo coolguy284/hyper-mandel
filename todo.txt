@@ -1,5 +1,6 @@
+rename coarseScrolling to coarseAdjustment
+move ui actions into namespace, give more generic names than the actual wndproc call they have
 make rotate scroll amount not change if unit is changed
-make rotate centered around cursor
 ctrl for fine; shift for rotation; therefore ctrl mousewheel is fine zoom; shift is rotate; ctrl+shift is fine rotate
 movement with arrow keys or wasd
 f2 to take screenshot, f3 to take screenshot with coordinate info and other info at bottom
@@ -30,6 +31,7 @@ fix white screen mandel on different device
 edge tracing
 perturbation theory
 fix blurry appearance with display scaling
+add ui options for zoom relative to center, rotate relative to center
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top

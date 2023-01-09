@@ -1,6 +1,6 @@
 #pragma once
 
-#define VERSION L"v1.0.0"
+#define VERSION L"v1.0.1"
 
 constexpr int WINDOW_INITIAL_RENDER_HEIGHT = 480;
 constexpr int WINDOW_INITIAL_RENDER_WIDTH = (int)(WINDOW_INITIAL_RENDER_HEIGHT * (16.0f / 9.0f)); // perfect 16:9 conversion, currently 853
