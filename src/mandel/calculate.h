@@ -13,15 +13,16 @@ namespace mandel {
 	namespace calc {
 		// converts cx, cy, zoom, and other values into input for multipixel
 		
+		template<typename T>
 		struct Coords {
 			// mathematical params
 			
-			float cx = 0.0f;
-			float cy = 0.0f;
+			T cx = 0.0;
+			T cy = 0.0;
 			
-			float zoom = 0.25f; // 1 / zoom is approximate diameter of render
+			T zoom = 0.25; // 1 / zoom is approximate diameter of render
 			
-			float rotation = 0.0f;
+			T rotation = 0.0;
 			enum class ROTATION_UNIT {
 				RADIANS,
 				DEGREES,
@@ -34,8 +35,8 @@ namespace mandel {
 			unsigned int height = 0; // initalized with a safe default but in reality should always be set
 			
 			// relative location inside pixel to use, for x, 0.0 is left edge, 1.0 is right edge
-			float subpixel_rel_x = 0.5f;
-			float subpixel_rel_y = 0.5f;
+			T subpixel_rel_x = 0.5;
+			T subpixel_rel_y = 0.5;
 			
 			// enum for how to handle aspect ratios that aren't a square
 			enum class ZOOM_MODE {
@@ -46,21 +47,22 @@ namespace mandel {
 			} zoom_mode = ZOOM_MODE::GROW;
 		};
 		
+		template<typename T>
 		struct Basic_MultiPixel_Args {
-			float start_cx;
-			float start_cy;
+			T start_cx;
+			T start_cy;
 			
 			// x and y screen coordinates each can step in both cx and cy directions (this allows rotation or any other linear transformation to the mandelbrot set, such as a skew)
-			float x_step_cx;
-			float x_step_cy;
-			float y_step_cx;
-			float y_step_cy;
+			T x_step_cx;
+			T x_step_cy;
+			T y_step_cx;
+			T y_step_cy;
 			
 			unsigned int x_count;
 			unsigned int y_count;
 		};
 		
-		Basic_MultiPixel_Args convert_coord_to_multipixel(const Coords coords);
+		Basic_MultiPixel_Args<float> convert_coord_to_multipixel(const Coords<float> coords);
 		
 		// returns the iteration count of a single C value in the mandelbrot set
 		
@@ -74,7 +76,7 @@ namespace mandel {
 		// array order is x + y * width
 		
 		void basic_multipixel(
-			const Basic_MultiPixel_Args args,
+			const Basic_MultiPixel_Args<float> args,
 			_Out_writes_all_(args.x_count * args.y_count) int* iterCountArr
 		);
 	}

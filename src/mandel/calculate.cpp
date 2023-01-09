@@ -4,8 +4,8 @@ namespace mandel {
 	namespace calc {
 		// converts x, y, zoom values into input for multipixel
 		
-		Basic_MultiPixel_Args convert_coord_to_multipixel(const Coords coords) {
-			Basic_MultiPixel_Args mpArgs = { 0 };
+		Basic_MultiPixel_Args<float> convert_coord_to_multipixel(const Coords<float> coords) {
+			Basic_MultiPixel_Args<float> mpArgs = { 0 };
 			
 			// calculate non rotated view
 			
@@ -13,17 +13,17 @@ namespace mandel {
 			float nonRotated_y_step_cy = 0.0f;
 			
 			switch (coords.zoom_mode) {
-			case Coords::ZOOM_MODE::Y_STABLE:
+			case Coords<float>::ZOOM_MODE::Y_STABLE:
 				nonRotated_y_step_cy = -1.0f / coords.zoom / coords.height;
 				nonRotated_x_step_cx = -nonRotated_y_step_cy;
 				break;
 			
-			case Coords::ZOOM_MODE::X_STABLE:
+			case Coords<float>::ZOOM_MODE::X_STABLE:
 				nonRotated_x_step_cx = 1.0f / coords.zoom / coords.width;
 				nonRotated_y_step_cy = -nonRotated_x_step_cx;
 				break;
 			
-			case Coords::ZOOM_MODE::GROW: {
+			case Coords<float>::ZOOM_MODE::GROW: {
 				int minDimension = min(coords.width, coords.height);
 				
 				nonRotated_x_step_cx = 1.0f / coords.zoom / minDimension;
@@ -31,7 +31,7 @@ namespace mandel {
 				break;
 			}
 			
-			case Coords::ZOOM_MODE::SHRINK: {
+			case Coords<float>::ZOOM_MODE::SHRINK: {
 				int maxDimension = max(coords.width, coords.height);
 				
 				nonRotated_x_step_cx = 1.0f / coords.zoom / maxDimension;
@@ -47,15 +47,15 @@ namespace mandel {
 			
 			float rotationRads = 0.0f;
 			switch (coords.rotation_unit) {
-			case Coords::ROTATION_UNIT::RADIANS:
+			case Coords<float>::ROTATION_UNIT::RADIANS:
 				rotationRads = coords.rotation;
 				break;
 			
-			case Coords::ROTATION_UNIT::DEGREES:
+			case Coords<float>::ROTATION_UNIT::DEGREES:
 				rotationRads = coords.rotation / 180.0f * std::numbers::pi_v<float>;
 				break;
 			
-			case Coords::ROTATION_UNIT::GRADIANS:
+			case Coords<float>::ROTATION_UNIT::GRADIANS:
 				rotationRads = coords.rotation / 200.0f * std::numbers::pi_v<float>;
 				break;
 			}
@@ -124,7 +124,7 @@ namespace mandel {
 		// array order is x + y * width
 		
 		void basic_multipixel(
-			const Basic_MultiPixel_Args args,
+			const Basic_MultiPixel_Args<float> args,
 			_Out_writes_all_(args.x_count * args.y_count) int* iterCountArr
 		) {
 			size_t index = 0;
