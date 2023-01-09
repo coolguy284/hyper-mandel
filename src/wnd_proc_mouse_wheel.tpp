@@ -44,13 +44,13 @@ void WndProc_mouse_wheel(short zDelta) {
 }
 
 template <typename T>
-void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseScrolling) {
+void WndProc_mouse_wheel_horizontal(short wDelta, bool coarseAdjustment) {
 	if (wDelta != 0) {
 		// math with current x and y coordinates so that rotate is relative to the cross's position
 		
 		T rotAmt = 0.0L;
 		
-		if (coarseScrolling)
+		if (coarseAdjustment)
 			rotAmt = wDelta * HSCROLL_COARSE_ROTATION_MULT;
 		else
 			rotAmt = wDelta * HSCROLL_FINE_ROTATION_MULT;

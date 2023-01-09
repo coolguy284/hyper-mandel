@@ -1,5 +1,4 @@
 try and get tgmath.h working
-rename coarseScrolling to coarseAdjustment
 move ui actions into namespace, give more generic names than the actual wndproc call they have
 make rotate scroll amount not change if unit is changed
 ctrl for fine; shift for rotation; therefore ctrl mousewheel is fine zoom; shift is rotate; ctrl+shift is fine rotate
