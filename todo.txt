@@ -11,7 +11,6 @@ add ctrl+a support for textbox
 fix form elements flicker when resize
 add remaining controls to ui
 make ui panel resizable and collapsable
-convert mandel calculation functions to templates
 snap x values to nearest pixel when panning to be able to pixel perfectly fill in panned area only instead of whole bitmap
 enable horizontal scroll in textboxes
 	later make textboxes word wrap but not multiline (probably by making them multiline and trapping enter key (which is already done), and pasting with keyboard and right click (sanitize after paste))

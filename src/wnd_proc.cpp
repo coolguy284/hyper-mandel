@@ -279,11 +279,11 @@ LRESULT CALLBACK EditProc(
 			std::wstring strValToSet = get_string_from_editctrl(hWnd);
 			
 			try {
-				// get float version of string contents in edit
-				float valToSet = std::stof(strValToSet);
+				// get mandel_var_t version of string contents in edit
+				mandel_var_t valToSet = std::stof(strValToSet);
 				
-				// set value referenced by drRefData (points to a float in mandelCoords)
-				*(float*)drRefData = valToSet;
+				// set value referenced by drRefData (points to a mandel_var_t in mandelCoords)
+				*(mandel_var_t*)drRefData = valToSet;
 				
 				// rerun paint_mandel
 				WndProc_paint_mandel();

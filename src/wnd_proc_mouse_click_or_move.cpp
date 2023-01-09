@@ -36,11 +36,11 @@ void WndProc_mouse_click_or_move() {
 	
 	// perform mandel dragging
 	if (inputs.processed.draggingFractal) {
-		float newCx = mandelCoords.cx - \
+		mandel_var_t newCx = mandelCoords.cx - \
 			(inputs.processed.mouseDelta.x * mandelArgs.x_step_cx +
 			inputs.processed.mouseDelta.y * mandelArgs.y_step_cx);
 		
-		float newCy = mandelCoords.cy - \
+		mandel_var_t newCy = mandelCoords.cy - \
 			(inputs.processed.mouseDelta.x * mandelArgs.x_step_cy +
 			inputs.processed.mouseDelta.y * mandelArgs.y_step_cy);
 		
