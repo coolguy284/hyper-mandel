@@ -7,7 +7,7 @@ constexpr int WINDOW_INITIAL_RENDER_WIDTH = (int)(WINDOW_INITIAL_RENDER_HEIGHT *
 constexpr int UI_WIDTH = 200;
 
 // type used for all fractal calculations
-using mandel_var_t = float;
+using mandel_var_t = long double;
 
 // a normal unit of scroll is this to the 120th power.
 constexpr mandel_var_t SCROLL_ZOOM_MULT = (mandel_var_t)1.0033845907368393L; // pow(1.5L, 1.0L / 120.0L) is not constexpr so it's evaluated value is here instead
