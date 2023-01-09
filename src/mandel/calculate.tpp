@@ -77,5 +77,51 @@ namespace mandel {
 
 			return mpArgs;
 		}
+
+		// returns the iteration count of a single C value in the mandelbrot set
+
+		template <typename T>
+		int basic_singlepixel(
+			const T cx,
+			const T cy
+		) {
+			// https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
+			if (CARDIOID_SKIP) {
+				T qt1 = cx - 0.25f;
+				T q = qt1 * qt1 + cy * cy;
+				if (q * (q + (cx - 0.25f)) < 0.25f * cy * cy) {
+					// in cardioid
+					return MAX_ITERS;
+				}
+			}
+
+			if (PER2_BULB_SKIP) {
+				T t1 = cx + 1.0f;
+				if (t1 * t1 + cy * cy < (1.0f / 16.0f)) {
+					// in period-2 bulb
+					return MAX_ITERS;
+				}
+			}
+
+			T zx = 0.0;
+			T zy = 0.0;
+
+			int iterCount = 0;
+
+			while (zx * zx + zy * zy < 4.0f && iterCount < MAX_ITERS) {
+				// z = z^2 + c
+				// (a + bi)^2 = (a*a + 2*a*b*i + b*b*-1) = (a*a - b*b) + (2*a*b)*i
+
+				T z2x = zx * zx - zy * zy;
+				T z2y = 2 * zx * zy;
+
+				zx = z2x + cx;
+				zy = z2y + cy;
+
+				iterCount++;
+			}
+
+			return iterCount;
+		}
 	}
 }

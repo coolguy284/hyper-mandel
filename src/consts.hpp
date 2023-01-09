@@ -6,7 +6,7 @@ constexpr int WINDOW_INITIAL_RENDER_HEIGHT = 480;
 constexpr int WINDOW_INITIAL_RENDER_WIDTH = (int)(WINDOW_INITIAL_RENDER_HEIGHT * (16.0f / 9.0f)); // perfect 16:9 conversion, currently 853
 constexpr int UI_WIDTH = 200;
 
-// type being used in all fractal calculations
+// type used for all fractal calculations
 using mandel_var_t = float;
 
 // a normal unit of scroll is this to the 120th power.

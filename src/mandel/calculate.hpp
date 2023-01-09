@@ -13,7 +13,7 @@ namespace mandel {
 	namespace calc {
 		// converts cx, cy, zoom, and other values into input for multipixel
 		
-		template<typename T>
+		template <typename T>
 		struct Coords {
 			// mathematical params
 			
@@ -47,7 +47,7 @@ namespace mandel {
 			} zoom_mode = ZOOM_MODE::GROW;
 		};
 		
-		template<typename T>
+		template <typename T>
 		struct Basic_MultiPixel_Args {
 			T start_cx;
 			T start_cy;
@@ -70,9 +70,10 @@ namespace mandel {
 		// returns the iteration count of a single C value in the mandelbrot set
 		
 		// https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
+		template <typename T>
 		int basic_singlepixel(
-			const float cx,
-			const float cy
+			const T cx,
+			const T cy
 		);
 		
 		// fills iterCountArr with a 2d array of mandelbrot set values, following start, step, and count parameters
