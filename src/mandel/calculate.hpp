@@ -79,8 +79,9 @@ namespace mandel {
 		// fills iterCountArr with a 2d array of mandelbrot set values, following start, step, and count parameters
 		// array order is x + y * width
 		
+		template <typename T>
 		void basic_multipixel(
-			const Basic_MultiPixel_Args<float> args,
+			const Basic_MultiPixel_Args<T> args,
 			_Out_writes_all_(args.x_count * args.y_count) int* iterCountArr
 		);
 	}

@@ -34,6 +34,9 @@ perturbation theory
 fix blurry appearance with display scaling
 add ui options for zoom relative to center, rotate relative to center
 add ui option for toggling using maximum reasonable precision (perfectly serializable precision) for datatype instead of default precision
+smart-pointer-like object for deleteobject and for setting selectobject back to default
+split calc.tpp to parts, basic & advanced and multipixel
+basic_singlepixel rename to nocomplex_singlepixel; add basic_singlepixel that uses std::complex and optimized_singlepixel that uses as much optimizations to main loop without using things like edge tracing
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
@@ -44,6 +47,7 @@ add option to calculate func for escape radius
 check for updates button, checks using GitHub releases, opens popup saying there is a new release available (and a second button if a new prerelease is available); buttons to install update, visit releases page, or just to close prompt
 	current program version (32 or 64 bit, debug / release / release-noicon) should be stored as variable somewhere, and update checker will download that specific version
 	if choose to install update: will download new exe in same folder with a temporary name (if fails then popup saying update could not be downloaded, check permissions for folder, with the given error message); create bat file that sleeps for 0.5 seconds and tries to delete old exe and rename new exe to old exe's name, if fails, wait 1 sec try again, if fails, wait 2, 4, 8, 15, 30, 60 seconds, if still fail then make visualbasicscript to popup with error message saying updated exe could not be installed (check permissions in folder) (this should basically never happen because file wouldn't have been able to be downloaded in first place); then program saves state to disk (when that gets implemented), runs the batch file and immediately exits
+	instead of batch file, could just call mandel with special command line arg
 render to file brings up dialog box which saves arguments for the next time it is run, for the remainder of the session and also saves it to the ini file
 mandel dragging mode centered cursor:
 	make cursor disappear when dragging, and is autocentered in the background, enabling mandelbrot to be dragged infinitely

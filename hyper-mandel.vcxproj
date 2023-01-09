@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\mandel\calculate.cpp" />
     <ClCompile Include="src\mandel\render.cpp" />
     <ClCompile Include="src\error_msg_box.cpp" />
     <ClCompile Include="src\misc.cpp" />
