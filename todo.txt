@@ -21,6 +21,7 @@ ui elem dirty bit
 	each ui element sets its own dirty bool in the struct if it is modified
 	pressing enter or changing a select or checkbox will transfer over all the elements with a dirty bool and unset them
 	edits to fractal view will overwrite textboxes regardless of dirty bool, and unset dirty bool; translation will reset x or y textbox or both; scroll will reset zoom textbox or also x or y or both; rotation will reset rotation textbox; etc.
+	if textbox differs from stringified float, reset it to stringified float (i.e. reset "2.000" to "2"), and try and keep cursor in same approximate place relative to parts of number like decimal point or "e" (just see what happens for now)
 set proper font
 if mouseDelta is so small it gets lost in floating point precision loss (basically coordinates don't change), then special mouseDeltaAccumulated variable is increased (or decreased if mouse is moved back; or reset to zero if zoom or if mousedrag is stopped), storing the accumulated mouseDelta which is added to next mouseMove
 somehow make child windows render first, instead of waiting on main window render to finish (this is so textboxes will show updated coordinates live instead of getting stuck and not showing coordinates until all motion stops)
@@ -32,6 +33,7 @@ edge tracing
 perturbation theory
 fix blurry appearance with display scaling
 add ui options for zoom relative to center, rotate relative to center
+add ui option for toggling using maximum reasonable precision (perfectly serializable precision) for datatype instead of default precision
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top

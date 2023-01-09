@@ -3,6 +3,8 @@
 std::wstring float_to_string(float val) {
 	std::wostringstream strVal;
 	
+	strVal << std::setprecision(std::numeric_limits<float>::max_digits10);
+	
 	strVal << val;
 	
 	return strVal.str();
