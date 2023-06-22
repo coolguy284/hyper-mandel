@@ -18,6 +18,8 @@ Location Params
 -	Cx: <float=0>; spinbox speed based on zoom
 -	Cy: <float=0>; spinbox speed based on zoom
 -	Zoom: <float=0.25>; spinbox scaling logarythmic
+	Use Scale: <checkbox=false> (questionmark icon hover: Use scale instead of zoom (it is simply the reciprocal of zoom))
+	Reset Coordinates: <button> (might move this down)
 	Log Zoom: <checkbox=false>
 -	Rotation: <float=0>
 	Rotation Unit: <select>
@@ -45,7 +47,9 @@ Location Params
 Render Params
 	Render Mode External: <select>
 		Options:
-			"Iteration Count" (default)
+			"None"
+			"Circular Bailout" (default)
+			"Derivative Bailout"
 			"Exterior Distance Estimate"
 	For "Iteration Count":
 		Max Iteration Count: <int=10000>; range: x >= 0
@@ -53,7 +57,8 @@ Render Params
 		Normalized: <checkbox=false>
 	Render Mode Internal: <select>
 		Options:
-			"Loop Iteration Count" (default)
+			"None" (default)
+			"Loop Iteration Count"
 			"Interior Distance Estimate"
 	For "Loop Iteration Count":
 		Max Loop Iteration Count: <int=10000>; range: x >= 0
@@ -92,10 +97,11 @@ UI Params
 			"Normal Mode" (default)
 			"Centered Cursor"
 	Live Update: <checkbox> (questionmark icon hover: Updates fractal for each character of input)
-	Capture Volume Inputs: <checkbox> (questionmark icon hover: Converts volume up to rotate clockwise and down to counterclockwise, for keyboards with a volume knob)
-	Reverse Volume Inputs: <checkbox> (greyed out unless capture volume inputs checked, but still editable despite greyed out)
-	Reset Focus On Main Window Click: <checkbox>
-	Configure Hiding Components: <checkbox>
+	Capture Volume Inputs: <checkbox=false> (questionmark icon hover: Converts volume up to rotate clockwise and down to counterclockwise, for keyboards with a volume knob)
+	Reverse Volume Inputs: <checkbox=false> (greyed out unless capture volume inputs checked, but still editable despite greyed out)
+	Reset Focus On Main Window Click: <checkbox=true>
+	Configure Hiding Components: <checkbox=false>
 Misc:
 	Version: <info>
 	Check for Updates: <button>
+	Reset All Settings: <button> (brings up confirmation prompt)

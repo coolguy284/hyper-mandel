@@ -1,3 +1,5 @@
+change zoom to scale (reciprocal unit)
+fix noicon build erroring then working inexplicably
 try and get tgmath.h working
 move ui actions into namespace, give more generic names than the actual wndproc call they have
 make rotate scroll amount not change if unit is changed
@@ -27,7 +29,6 @@ add help page, accessible when pressing f1 or in other places
 flipx should automatically put a minus sign in scalex and vice versa
 	only store scalex in ini because flipx can be inferred from it
 fix white screen mandel on different device
-edge tracing
 perturbation theory
 fix blurry appearance with display scaling
 add ui options for zoom relative to center, rotate relative to center
@@ -36,6 +37,7 @@ smart-pointer-like object for deleteobject and for setting selectobject back to 
 split calc.tpp to parts, basic & advanced and multipixel
 basic_singlepixel rename to nocomplex_singlepixel; add basic_singlepixel that uses std::complex and optimized_singlepixel that uses as much optimizations to main loop without using things like edge tracing
 add ui option to enable or disable hscroll for rotation
+basic multipixel args center align starting cx and cy and handle things appropriately; actually make it an enum to choose whether to center align or left corner align, maybe other options too
 
 store hbitmap as global and only update when window resize (allocd on heap live, because it might not be needed, if render mode is not bitmap based)
 fix jitter when resizing from left and from top
