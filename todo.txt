@@ -29,6 +29,7 @@ add help page, accessible when pressing f1 or in other places
 flipx should automatically put a minus sign in scalex and vice versa
 	only store scalex in ini because flipx can be inferred from it
 fix white screen mandel on different device
+edge tracing
 perturbation theory
 fix blurry appearance with display scaling
 add ui options for zoom relative to center, rotate relative to center
