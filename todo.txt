@@ -1,3 +1,4 @@
+change return types of various things into typedefs (at least do return value of single pixel calculation)
 change zoom to scale (reciprocal unit)
 fix noicon build erroring then working inexplicably
 try and get tgmath.h working
