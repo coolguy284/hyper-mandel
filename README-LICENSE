@@ -1,0 +1,4 @@
+Can choose to follow either MIT or Unlicense; MIT made available in case
+Unlicense does not legally apply in your jurisdiction.
+
+The .gitignore file is from elsewhere and is licensed CC0 for the parts directly copied from the source (lines 1-399). The parts written by coolguy284 (me), lines 400-403, follow MIT+unlicense like the rest of this repository.
